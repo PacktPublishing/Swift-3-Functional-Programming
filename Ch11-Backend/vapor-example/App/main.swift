@@ -1,4 +1,6 @@
 import Vapor
+import VaporMustache
+
 
 let app = Application()
 
@@ -19,24 +21,24 @@ app.get("/") { request in
 /**
 	Return JSON requests easy by wrapping
 	any JSON data type (String, Int, Dict, etc)
-	in Json() and returning it.
+	in JSON() and returning it.
 
-	Types can be made convertible to Json by 
-	conforming to JsonRepresentable. The User
+	Types can be made convertible to JSON by
+	conforming to JSONRepresentable. The User
 	model included in this example demonstrates this.
 
-	By conforming to JsonRepresentable, you can pass
+	By conforming to JSONRepresentable, you can pass
 	the data structure into any JSON data as if it
 	were a native JSON data type.
 */
 app.get("json") { request in
-    return Json([
+    return JSON([
         "number": 123,
         "string": "test",
-        "array": Json([
+        "array": JSON([
             0, 1, 2, 3
         ]),
-        "dict": Json([
+        "dict": JSON([
             "name": "Vapor",
             "lang": "Swift"
         ])
@@ -54,59 +56,59 @@ app.post("postTodo") { request in
         completed = request.headers.headers["completed"]?.values,
         synced = request.headers.headers["synced"]?.values
         else {
-            return Json(["message": "Please include mandatory parameters"])
+            return JSON(["message": "Please include mandatory parameters"])
     }
     
     let todoItem = Todo(id: Int(id[0])!, name: name[0], description: description[0], notes: notes[0], completed: completed[0].toBool()!, synced: synced[0].toBool()!)
     let todos = TodoStore.sharedInstance
     todos.addOrUpdateItem(item: todoItem)
     
-    let json:[JsonRepresentable] = todos.listItems().map { $0 }
-    return Json(json)
+    let json:[JSONRepresentable] = todos.listItems().map { $0 }
+    return JSON(json)
 }
 
 /// List todo items
 app.get("todos") { request in
     
     let todos = TodoStore.sharedInstance
-    let json:[JsonRepresentable] = todos.listItems().map { $0 }
-    return Json(json)
+    let json:[JSONRepresentable] = todos.listItems().map { $0 }
+    return JSON(json)
 }
 
 /// Get a specific todo item
 app.get("todo") { request in
     
     guard let id = request.headers.headers["id"]?.values else {
-        return Json(["message": "Please provide the id of todo item"])
+        return JSON(["message": "Please provide the id of todo item"])
     }
     
     let todos = TodoStore.sharedInstance.listItems()
-    var json = [JsonRepresentable]()
+    var json = [JSONRepresentable]()
     
     let item = todos.filter { $0.id == Int(id[0])! }
     if item.count > 0 {
         json.append(item[0])
     }
     
-    return Json(json)
+    return JSON(json)
 }
 
 /// Delete a specific todo item
 app.delete("deleteTodo") { request in
     guard let id = request.headers.headers["id"]?.values else {
-        return Json(["message": "Please provide the id of todo item"])
+        return JSON(["message": "Please provide the id of todo item"])
     }
     let todos = TodoStore.sharedInstance
     todos.delete(id: Int(id[0])!)
     
-    return Json(["message": "Item is deleted"])
+    return JSON(["message": "Item is deleted"])
 }
 
 /// Delete all items
 app.delete("deleteAll") { request in
     TodoStore.sharedInstance.deleteAll()
     
-    return Json(["message": "All items are deleted"])
+    return JSON(["message": "All items are deleted"])
 }
 
 /// Update a specific todo item
@@ -118,13 +120,13 @@ app.post("updateTodo") { request in
         completed = request.headers.headers["completed"]?.values,
         synced = request.headers.headers["synced"]?.values
         else {
-            return Json(["message": "Please include mandatory parameters"])
+            return JSON(["message": "Please include mandatory parameters"])
     }
     
     let todoItem = Todo(id: Int(id[0])!, name: name[0], description: description[0], notes: notes[0], completed: completed[0].toBool()!, synced: synced[0].toBool()!)
     let todos = TodoStore.sharedInstance
     todos.update(item: todoItem)
-    return Json(["message": "Item is updated"])
+    return JSON(["message": "Item is updated"])
 }
 
 
@@ -135,7 +137,7 @@ app.post("updateTodo") { request in
 	Visit "data/<some-string>" to view the output.
 */
 app.any("data/:id") { request in
-	return Json([
+	return JSON([
 		"request.path": request.uri.path ?? "",
 		"request.data": "\(request.data)",
 		"request.parameters": "\(request.parameters)",
@@ -200,11 +202,11 @@ class Employee {
 
 /**
     Allows any instance of employee
-    to be returned as Json
+    to be returned as JSON
 */
-extension Employee: JsonRepresentable {
-    func makeJson() -> Json {
-        return Json([
+extension Employee: JSONRepresentable {
+    func makeJson() -> JSON {
+        return JSON([
             "email": email.value,
             "name": name.value
         ])
@@ -230,7 +232,7 @@ app.get("plaintext") { request in
 	enabled–the data will persist with each request.
 */
 app.get("session") { request in
-	let json = Json([
+	let json = JSON([
 		"session.data": "\(request.session)",
 		"request.cookies": "\(request.cookies)",
 		"instructions": "Refresh to see cookie and session get set."
@@ -244,18 +246,46 @@ app.get("session") { request in
 }
 
 /**
-	Middleware is a great place to filter 
-	and modifying incoming requests and outgoing responses. 
+ Add Localization to your app by creating
+ a `Localization` folder in the root of your
+ project.
+ /Localization
+ |- en.json
+ |- es.json
+ |_ default.json
+ The first parameter to `app.localization` is
+ the language code.
+ */
+app.get("localization", String.self) { request, lang in
+    return JSON([
+        "title": app.localization[lang, "welcome", "title"],
+        "body": app.localization[lang, "welcome", "body"]
+        ])
+}
 
-	Check out the middleware in App/Middelware.
+/**
+ Middleware is a great place to filter
+ and modifying incoming requests and outgoing responses.
+ Check out the middleware in App/Middelware.
+ You can also add middleware to a single route by
+ calling the routes inside of `app.middleware(MiddelwareType) {
+ app.get() { ... }
+ }`
+ */
+app.globalMiddleware.append(SampleMiddleware())
 
-	You can also add middleware to a single route by
-	calling the routes inside of `app.middleware(MiddelwareType) { 
-		app.get() { ... }
-	}`
-*/
-app.middleware.append(SampleMiddleware())
+/**
+ Appending a provider allows it to boot
+ and initialize itself as a dependency.
+ Includes are relative to the Views (`Resources/Views`)
+ directory by default.
+ */
+app.providers.append(VaporMustache.Provider(withIncludes: [
+    "header": "Includes/header.mustache"
+    ]))
+
+let port = app.config["app", "port"].int ?? 80
 
 // Print what link to visit for default port
-print("Visit http://localhost:8080")
-app.start(port: 8080)
+print("Visit http://localhost:\(port)")
+app.start()

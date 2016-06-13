@@ -20,13 +20,13 @@ final class Todo {
 
 /**
 	This allows instances of Todo to be
-	passed into Json arrays and dictionaries
+	passed into JSON arrays and dictionaries
 	as if it were a native JSON type.
  */
-extension Todo: JsonRepresentable {
-    func makeJson() -> Json {
+extension Todo: JSONRepresentable {
+    func makeJson() -> JSON {
         
-        return Json([
+        return JSON([
             "id":id,
             "name": "\(name)",
             "description": "\(description)",
