@@ -1,0 +1,6 @@
+framework module Delta {
+  umbrella header "Delta-umbrella.h"
+
+  export *
+  module * { export * }
+}

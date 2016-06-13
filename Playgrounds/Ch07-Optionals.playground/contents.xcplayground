@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
+    <pages>
+        <page name='TableOfContents'/>
+        <page name='Definition'/>
+        <page name='Unwrapping'/>
+        <page name='Guard'/>
+        <page name='ImplicitlyUnwrappedOptionals'/>
+        <page name='ErrorHandlingToAvoidOptionals'/>
+        <page name='OptionalChaining'/>
+        <page name='OptionalMapping'/>
+    </pages>
+</playground>

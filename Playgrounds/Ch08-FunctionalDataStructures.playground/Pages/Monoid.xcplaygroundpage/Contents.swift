@@ -1,0 +1,77 @@
+//: [Previous](@previous)
+
+import Foundation
+
+// Semigroup from previous section
+
+infix operator <> { associativity left precedence 150 }
+
+func <> <S: Semigroup> (x: S, y: S) -> S {
+    return x.operation(y)
+}
+
+protocol Semigroup {
+    func operation(element: Self) -> Self
+}
+
+extension Int: Semigroup {
+    func operation(element: Int) -> Int {
+        return self + element
+    }
+}
+
+extension String : Semigroup {
+    func operation(element: String) -> String {
+        return self + element
+    }
+}
+
+extension Array : Semigroup {
+    func operation(element: Array) -> Array {
+        return self + element
+    }
+}
+
+// Monoid
+
+protocol Monoid: Semigroup {
+    static func identity() -> Self
+}
+
+extension Int: Monoid {
+    static func identity() -> Int {
+        return 0
+    }
+}
+
+extension String: Monoid {
+    static func identity() -> String {
+        return ""
+    }
+}
+
+extension Array: Monoid {
+    static func identity() -> Array {
+        return []
+    }
+}
+
+// To test
+
+let numberA: Int = 3
+let numberB: Int = 5
+let numberC: Int = 7
+
+numberA <> Int.identity() // 3
+"A" <> String.identity() // A
+
+func mconcat <M: Monoid> (elements: [M]) -> M {
+    return elements.reduce(M.identity(), combine: <>)
+}
+
+print(mconcat([1, 2, 3])) // 6
+print(mconcat(["A", "B", "C"])) // ABC
+print(mconcat([[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
+
+
+//: [Next](@next)

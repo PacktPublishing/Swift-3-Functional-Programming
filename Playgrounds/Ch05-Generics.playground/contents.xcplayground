@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
+    <pages>
+        <page name='TableOfContents'/>
+        <page name='Definition'/>
+        <page name='TypeConstraints'/>
+        <page name='GenericDataStructures'/>
+        <page name='AssociatedTypeProtocols'/>
+        <page name='ExtendingGenericTypes'/>
+        <page name='SubclassingGenericClasses'/>
+    </pages>
+</playground>

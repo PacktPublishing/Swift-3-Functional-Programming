@@ -1,0 +1,43 @@
+PODS:
+  - Alamofire (3.3.1)
+  - Argo (3.0.1)
+  - Curry (2.2.0)
+  - Delta (1.0.0)
+  - ReactiveCocoa (4.1.0):
+    - ReactiveCocoa/UI (= 4.1.0)
+    - Result (~> 2.0)
+  - ReactiveCocoa/Core (4.1.0):
+    - ReactiveCocoa/no-arc
+    - Result (~> 2.0)
+  - ReactiveCocoa/no-arc (4.1.0):
+    - Result (~> 2.0)
+  - ReactiveCocoa/UI (4.1.0):
+    - ReactiveCocoa/Core
+    - Result (~> 2.0)
+  - Result (2.0.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - Argo
+  - Curry
+  - Delta (from `https://github.com/thoughtbot/Delta.git`)
+  - ReactiveCocoa
+
+EXTERNAL SOURCES:
+  Delta:
+    :git: https://github.com/thoughtbot/Delta.git
+
+CHECKOUT OPTIONS:
+  Delta:
+    :commit: 5c2e5f11bc46158dd6e1dc0e4dba54e7e67d8149
+    :git: https://github.com/thoughtbot/Delta.git
+
+SPEC CHECKSUMS:
+  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Argo: 22c5d62b7967020a641468c91dc9488bea9523b8
+  Curry: c22d80fff7f5a4b1bbd531455c3e2dbb099658a3
+  Delta: 35694e6e06a7e5d9dd8a25f3b0768ed66c0579c5
+  ReactiveCocoa: d70004d7a366a7b8e87e60ce2347182c77701949
+  Result: 9e75e1111c774c6ac594e14907b15057053a7959
+
+COCOAPODS: 0.39.0
