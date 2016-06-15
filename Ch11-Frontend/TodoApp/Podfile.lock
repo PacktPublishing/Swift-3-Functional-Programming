@@ -1,7 +1,7 @@
 PODS:
-  - Alamofire (3.3.1)
+  - Alamofire (3.4.1)
   - Argo (3.0.1)
-  - Curry (2.2.0)
+  - Curry (2.3.0)
   - Delta (1.0.0)
   - ReactiveCocoa (4.1.0):
     - ReactiveCocoa/UI (= 4.1.0)
@@ -33,11 +33,13 @@ CHECKOUT OPTIONS:
     :git: https://github.com/thoughtbot/Delta.git
 
 SPEC CHECKSUMS:
-  Alamofire: 369bc67b6f5ac33ded3648d7bd21c5bfb91c2ecc
+  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Argo: 22c5d62b7967020a641468c91dc9488bea9523b8
-  Curry: c22d80fff7f5a4b1bbd531455c3e2dbb099658a3
+  Curry: d5c6c5f0583736bc286f7f9b572eb1d59dadaffb
   Delta: 35694e6e06a7e5d9dd8a25f3b0768ed66c0579c5
   ReactiveCocoa: d70004d7a366a7b8e87e60ce2347182c77701949
   Result: 9e75e1111c774c6ac594e14907b15057053a7959
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 64fc2f36033454727a7392cc2d2d006a6040a1a7
+
+COCOAPODS: 1.0.0
