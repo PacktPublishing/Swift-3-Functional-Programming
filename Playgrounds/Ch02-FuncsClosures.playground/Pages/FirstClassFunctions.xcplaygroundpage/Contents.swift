@@ -8,10 +8,9 @@ func sayHello(name: String) {
     print("Hello, \(name)")
 }
 
-sayHello("Your name") // or
-sayHello(name)
+sayHello(name: "Your name") // or
+sayHello(name: name)
 
 var sayHelloFunc = sayHello
-
 
 //: [Next](@next)

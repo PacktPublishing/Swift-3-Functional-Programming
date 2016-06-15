@@ -4,18 +4,19 @@ import Foundation
 
 // let closureName: (Int) -> (Int) = {/* */ } Example:
 let closureName: (Int) -> (Int) = { _ in 10 }
+
 // var closureName: (Int) -> (Int)?
 
 typealias closureType = (Int, Int) -> (Int)
 
 // Closures as arguments in function calls
 
-func aFunc(closure: Int -> Int) -> Int  {
+func aFunc(closure: (Int) -> Int) -> Int  {
     // Statements, for example:
     return closure(5)
 }
 
-let result = aFunc({ number in
+let result = aFunc(closure: { number in
     // Statements, for example:
     return number * 3
 })
@@ -25,21 +26,21 @@ print(result)
 
 // Closures as function parameters
 
-let anArray = [1, 2, 5, 3, 6, 4]
+var anArray = [1, 2, 5, 3, 6, 4]
 
-anArray.sort({ (param1: Int, param2: Int) -> Bool in
+anArray.sort(isOrderedBefore: { (param1: Int, param2: Int) -> Bool in
     return param1 < param2
 })
 
 // Simpler syntax with implied parameter types
 
-anArray.sort({ (param1, param2) -> Bool in
+anArray.sort(isOrderedBefore: { (param1, param2) -> Bool in
     return param1 < param2
 })
 
-// Simpler syntax with implied return type
+//// Simpler syntax with implied return type
 
-anArray.sort({ (param1, param2) in
+anArray.sort(isOrderedBefore: { (param1, param2) in
     return param1 < param2
 })
 

@@ -17,9 +17,9 @@ func memoizedPower2(n: Int) -> Int {
     memo[n] = y
     return y
 }
-print(memoizedPower2(2))
-print(memoizedPower2(3))
-print(memoizedPower2(4))
+print(memoizedPower2(n: 2))
+print(memoizedPower2(n: 3))
+print(memoizedPower2(n: 4))
 print(memo) // result: [2: 4, 3: 8, 4: 16]
 
 // Advanced memoization

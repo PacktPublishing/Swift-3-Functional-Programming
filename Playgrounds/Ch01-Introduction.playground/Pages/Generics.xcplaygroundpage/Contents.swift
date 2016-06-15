@@ -4,13 +4,13 @@ import Foundation
 
 // Generics
 
-func swapTwoIntegers(inout a: Int, inout b: Int) {
+func swapTwoIntegers( a: inout Int, b: inout Int) {
     let tempA = a
     a = b
     b = tempA
 }
 
-func swapTwoValues<T>(inout a: T, inout b: T) {
+func swapTwoValues<T>( a: inout T, b: inout T) {
     let tempA = a
     a = b
     b = tempA

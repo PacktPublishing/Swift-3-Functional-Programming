@@ -7,24 +7,24 @@ import Foundation
 struct BlackjackCard {
     // nested Suit enumeration
     enum Suit: Character {
-        case Spades = "♠",
-        Hearts = "♡",
-        Diamonds = "♢",
-        Clubs = "♣"
+        case spades = "♠",
+        hearts = "♡",
+        diamonds = "♢",
+        clubs = "♣"
     }
     // nested Rank enumeration
     enum Rank: Int {
-        case Two = 2, Three, Four, Five, Six, Seven, Eight, Nine, Ten
-        case Jack, Queen, King, Ace
+        case two = 2, three, four, five, six, seven, eight, nine, ten
+        case jack, queen, king, ace
         // nested struct
         struct Values {
             let first: Int, second: Int?
         }
         var values: Values {
             switch self {
-            case .Ace:
+            case .ace:
                 return Values(first: 1, second: 11)
-            case .Jack, .Queen, .King:
+            case .jack, .queen, .king:
                 return Values(first: 10, second: nil)
             default:
                 return Values(first: self.rawValue, second: nil)

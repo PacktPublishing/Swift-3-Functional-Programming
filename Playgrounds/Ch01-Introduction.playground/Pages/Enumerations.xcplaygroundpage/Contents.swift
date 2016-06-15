@@ -5,39 +5,39 @@ import Foundation
 // Enumerations
 
 enum MLSTeam {
-    case Montreal
-    case Toronto
-    case NewYork
-    case Columbus
-    case LA
-    case Seattle
+    case montreal
+    case toronto
+    case newYork
+    case columbus
+    case losAngeles
+    case seattle
 }
-let theTeam = MLSTeam.Montreal
+let theTeam = MLSTeam.montreal
 
 // Pattern matching
 
 switch theTeam {
-case .Montreal:
+case .montreal:
     print("Montreal Impact")
-case .Toronto:
+case .toronto:
     print("Toronto FC")
-case .NewYork:
+case .newYork:
     print("Newyork Redbulls")
-case .Columbus:
+case .columbus:
     print("Columbus Crew")
-case .LA:
+case .losAngeles:
     print("LA Galaxy")
-case .Seattle:
+case .seattle:
     print("Seattle Sounders")
 }
 
 // Algebraic data types
 
-enum NHLTeam { case Canadiens, Senators, Rangers, Penguins, BlackHawks, Capitals}
+enum NHLTeam { case canadiens, senators, rangers, penguins, blackHawks, capitals}
 
 enum Team {
-    case Hockey(NHLTeam)
-    case Soccer(MLSTeam)
+    case hockey(NHLTeam)
+    case soccer(MLSTeam)
 }
 
 struct HockeyAndSoccerTeams {

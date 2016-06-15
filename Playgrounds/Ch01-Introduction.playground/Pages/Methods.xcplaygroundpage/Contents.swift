@@ -9,6 +9,7 @@ class AClass {
         // type method body
     }
 }
+
 // We can call this method as follows:
 AClass.someTypeMethod()
 

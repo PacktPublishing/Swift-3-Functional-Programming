@@ -6,19 +6,20 @@ func extractFullUserName(firstName: String, lastName: String) -> String {
     return "\(firstName) \(lastName)"
 }
 
-func curriedExtractFullUserName(firstName: String)(lastName: String) -> String {
-    return "\(firstName) \(lastName)"
-}
-
-let fnIncludingFirstName = curriedExtractFullUserName("John")
-let extractedFullName = fnIncludingFirstName(lastName: "Doe")
+// Pre Swift 3.0
+//func curriedExtractFullUserName(firstName: String)(lastName: String) -> String {
+//    return "\(firstName) \(lastName)"
+//}
+//
+//let fnIncludingFirstName = curriedExtractFullUserName("John")
+//let extractedFullName = fnIncludingFirstName(lastName: "Doe")
 
 // Swift 3.0 syntax
 
 // Before:
-func curried(x: Int)(y: String) -> Float {
-    return Float(x) + Float(y)!
-}
+//func curried(x: Int)(y: String) -> Float {
+//    return Float(x) + Float(y)!
+//}
 
 // After:
 func curried(x: Int) -> (String) -> Float {
@@ -34,5 +35,8 @@ func explicityRetunClosure(firstName: String) -> (String) -> String {
         return "\(firstName) \(lastName)"
     }
 }
+
+let fnIncludingFirstName = explicityRetunClosure(firstName: "John")
+let extractedFullName = fnIncludingFirstName("Doe")
 
 //: [Next](@next)

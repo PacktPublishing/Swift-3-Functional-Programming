@@ -37,9 +37,8 @@ func calcualte(a: Int, b: Int, funcA: AddSubtractOperator, funcB: SquareTripleOp
     return funcA(funcB(a), funcB(b))
 }
 
-print("The result of adding two squared values is: \(calcualte(2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
+print("The result of adding two squared values is: \(calcualte(a: 2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
 
-print("The result of subtracting two tripled value is: \(calcualte(3, b: 2, funcA:  subtractTwoValues, funcB: triple))") // prints “The result of adding two tripled value is: 19”
-
+print("The result of subtracting two tripled value is: \(calcualte(a: 3, b: 2, funcA:  subtractTwoValues, funcB: triple))") // prints “The result of adding two tripled value is: 19”
 
 //: [Next](@next)

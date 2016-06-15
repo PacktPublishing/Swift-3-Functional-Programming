@@ -40,8 +40,8 @@ repeat {
 
 // stride
 
-let fourToTwo = Array(4.stride(to: 1, by: -1)) // [4, 3, 2]
-let fourToOne = Array(4.stride(through:1, by: -1)) // [4, 3, 2, 1]
+let fourToTwo = Array(stride(from: 4, to: 1, by: -1)) // [4, 3, 2]
+let fourToOne = Array(stride(from:4, through: 1, by: -1)) // [4, 3, 2, 1]
 
 // if
 
@@ -74,23 +74,4 @@ func greet(person: [String: String]) {
     }
     print("Hello Ms \(name)!")
 }
-
-// AnyGenerator
-
-n = 0
-
-var evenNumbers = AnyGenerator { n++ * 2 }
-
-print(evenNumbers.next()) // prints 0
-print(evenNumbers.next()) // prints 2
-print(evenNumbers.next()) // prints 4
-
-var five = 5
-
-let generatedNumbers = AnyGenerator { five < 10 ? five++ : nil }
-
-print(generatedNumbers.next()) // prints 5
-print(generatedNumbers.next()) // prints 6
-let a = Array(generatedNumbers) // [7, 8, 9]
-
 //: [Next](@next)

@@ -9,6 +9,7 @@ class ShoppingItem {
     var quantity = 1
     var purchased = false
 }
+
 var item = ShoppingItem()
 
 //: [Next](@next)

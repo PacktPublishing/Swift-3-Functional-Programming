@@ -50,7 +50,7 @@ print(object1.age)
 let object3 = User(name: "John Doe", age: 3)
 //object3.age = 5
 
-object3.incrementUserAge(5)
+object3.incrementUserAge(n: 5)
 print(object3.age)
 print(object1.age)
 
@@ -98,7 +98,7 @@ enum UserType: UserProtocol {
 }
 
 let adminUser: UserType = UserType.Admin
-adminUser.greet("Cindy")
+adminUser.greet(name: "Cindy")
 
 
 protocol MobileAppUserProtocol: UserProtocol {
@@ -127,7 +127,7 @@ enum MobileAppUserType: MobileAppUserProtocol {
 }
 
 let mobileUser: MobileAppUserType = MobileAppUserType.Admin
-mobileUser.logout("cindy")
+mobileUser.logout(userName: "cindy")
 
 mobileUser.listSelectedModules()
 

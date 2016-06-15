@@ -11,7 +11,7 @@ class SomeClass {
 let someClassInstance = SomeClass()
 let paramName = "parameter name"
 let secondParamName = "second Parameter"
-someClassInstance.funcName(paramName, secondParam: secondParamName)
+someClassInstance.funcName(firstParam: paramName, secondParam: secondParamName)
 
 class StaticClass {
     class func funcName(firstParam: String, secondParam: String) {
@@ -19,28 +19,30 @@ class StaticClass {
     }
 }
 
-StaticClass.funcName(paramName, secondParam: secondParamName)
+StaticClass.funcName(firstParam: paramName, secondParam: secondParamName)
 
 // Parameters with default values
 
 func functionName(parameter: Int = 3) {
     print("\(parameter) is provided.")
 }
-functionName(5) // prints “5 is provided.”
+functionName(parameter: 5) // prints “5 is provided.”
 functionName() // prints “3 is provided”
 
 // Parameters as Tuples - deprecated
 
 let numbers = [3, 5, 9, 10]
 func convert(numbers: [Int], multiplier: Int) -> [String] {
-    let convertedValues = numbers.enumerate().map { (index, element) in
+    let convertedValues = numbers.enumerated().map { (index, element) in
         return "\(index): \(element * multiplier)"
     }
     return convertedValues
 }
 
-let parameters = (numbers, multiplier: 3)
-convert(parameters)
+// Pre Swift 3.0
+
+//let parameters = (numbers, multiplier: 3)
+//convert(parameters)
 
 
 // Variadic functions
@@ -51,9 +53,7 @@ func greet(names: String...) {
     }
 }
 // To call this function
-greet("Steve", "Craig") // prints twice
-greet("Steve", "Craig", "Johny") // prints three times
-
-
+greet(names: "Steve", "Craig") // prints twice
+greet(names: "Steve", "Craig", "Johny") // prints three times
 
 //: [Next](@next)

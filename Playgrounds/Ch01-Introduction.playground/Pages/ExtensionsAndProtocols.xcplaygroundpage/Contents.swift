@@ -59,4 +59,3 @@ extension ExampleProtocol {
     }
 }
 
-//: [Next](@next)
