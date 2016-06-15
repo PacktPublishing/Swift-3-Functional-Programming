@@ -1,6 +1,9 @@
 # Swift 3 Functional Programming
 This is the code repository for [Swift 3 Functional Programming](https://www.packtpub.com/application-development/swift-3-functional-programming?utm_source=github&utm_medium=repository&utm_campaign=9781785883880), published by Packt. It contains all the supporting project files necessary to work through the book from start to finish.
 
+## Instructions
+To follow along with the examples in this book, you'll need to have an Apple computer with macOS 10.10 or higher installed. You'll also need to install Xcode version 8 beta 1 with Swift 3.0 Preview 1.
+
 ## Related books
 - [Reactive Programming with Swift](https://www.packtpub.com/application-development/reactive-programming-swift?utm_source=github&utm_medium=repository&utm_campaign=9781785884269)
 - [Swift 2 Cookbook](https://www.packtpub.com/application-development/swift-2-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781785889219)
