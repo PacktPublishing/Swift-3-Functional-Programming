@@ -1,7 +1,7 @@
 PODS:
   - Alamofire (3.4.1)
   - Argo (3.0.1)
-  - Curry (2.3.0)
+  - Curry (2.3.1)
   - Delta (1.0.0)
   - ReactiveCocoa (4.1.0):
     - ReactiveCocoa/UI (= 4.1.0)
@@ -35,7 +35,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Argo: 22c5d62b7967020a641468c91dc9488bea9523b8
-  Curry: d5c6c5f0583736bc286f7f9b572eb1d59dadaffb
+  Curry: c8f65c8ade091aad5cb86f7b51dd408d698810ca
   Delta: 35694e6e06a7e5d9dd8a25f3b0768ed66c0579c5
   ReactiveCocoa: d70004d7a366a7b8e87e60ce2347182c77701949
   Result: 9e75e1111c774c6ac594e14907b15057053a7959
