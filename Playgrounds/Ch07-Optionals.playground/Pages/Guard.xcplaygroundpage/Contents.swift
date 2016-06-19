@@ -9,6 +9,8 @@ func greet(person: [String: String]) {
     print("Hello Ms \(name)!")
 }
 
+greet(person: ["name": "Neco"]) // prints "Hello Ms Neco!"
+
 func extractValue(dict: [String: Int]) {
     guard let
         firstValue = dict["One"],

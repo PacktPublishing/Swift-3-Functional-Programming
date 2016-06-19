@@ -9,6 +9,7 @@ extension Double {
     var mm: Double { return self / 1_000.0 }
     var ft: Double { return self / 3.2884 }
 }
+
 let threeInch = 76.2.mm
 let fiveFeet = 5.ft
 
@@ -23,6 +24,7 @@ protocol ExampleProtocol {
 class SimpleClass: ExampleProtocol {
     var simpleDescription: String = "A very simple class example"
     var anotherProperty: Int = 79799
+    
     func adjust() {
         simpleDescription += " Now 100% adjusted..."
     }
@@ -34,7 +36,8 @@ let aDescription = aSimpleClass.simpleDescription
 
 struct SimpleStructure: ExampleProtocol {
     var simpleDescription: String = "A simple struct"
-    mutating func adjust() { // Mutating to mark a method that modifies the structure - For classes we do not need to use mutating keyword
+    // Mutating to mark a method that modifies the structure - For classes we do not need to use mutating keyword
+    mutating func adjust() {
         simpleDescription += " (adjusted)"
     }
 }
@@ -54,6 +57,7 @@ extension ExampleProtocol {
             self.simpleDescription = newValue
         }
     }
+    
     mutating func adjust() {
         self.simpleDescription = "adjusted simple description"
     }

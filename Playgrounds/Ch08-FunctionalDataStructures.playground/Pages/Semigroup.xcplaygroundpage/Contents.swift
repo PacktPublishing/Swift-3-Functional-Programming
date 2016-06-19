@@ -1,14 +1,15 @@
+
 //: [Previous](@previous)
 
 import Foundation
 
 /*
 protocol Semigroup {
-    func operation(element: Self) -> Self
+    func operation(_ element: Self) -> Self
 }
 
 extension Int: Semigroup {
-    func operation(element: Int) -> Int {
+    func operation(_ element: Int) -> Int {
         return self + element
     }
 }
@@ -21,6 +22,7 @@ number.operation(3)
 let numberA: Int = 3
 let numberB: Int = 5
 let numberC: Int = 7
+
 if numberA.operation(numberB.operation(numberC)) == (numberA.operation(numberB)).operation(numberC) {
     print("Operation is associative")
 }
@@ -36,22 +38,30 @@ if numberA <> (numberB <> numberC) == (numberA <> numberB) <> numberC {
 }
 
 extension Array: Semigroup {
-    func operation(element: Array) -> Array {
+    func operation(_ element: Array) -> Array {
         return self + element
     }
 }
 
-print([1, 2, 3, 4] <> [5, 6, 7]) // "[1, 2, 3, 4, 5, 6, 7]"
+print([1, 2, 3, 4] <> [5, 6, 7]) // prints "[1, 2, 3, 4, 5, 6, 7]"
+
+extension String: Semigroup {
+    func operation(_ element: String) -> String {
+        return "\(self)\(element)"
+    }
+}
 
 func sconcat <S: Semigroup> (initial: S, elements: [S]) -> S {
     return elements.reduce(initial, combine: <>)
 }
 
-print(sconcat(0, elements:[1, 2, 3])) // 6
-//print(sconcat("", elements: ["A", "B", "C"])) // ABC
-print(sconcat([], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
+print(sconcat(initial: 0, elements:[1, 2, 3])) // 6
+print(sconcat(initial: "", elements: ["A", "B", "C"])) // ABC
+print(sconcat(initial: [], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
 
 */
+
+
 
 
 infix operator <> { associativity left precedence 150 }
@@ -61,23 +71,23 @@ func <> <S: Semigroup> (x: S, y: S) -> S {
 }
 
 protocol Semigroup {
-    func operation(element: Self) -> Self
+    func operation(_ element: Self) -> Self
 }
 
 extension Int: Semigroup {
-    func operation(element: Int) -> Int {
+    func operation(_ element: Int) -> Int {
         return self + element
     }
 }
 
 extension String : Semigroup {
-    func operation(element: String) -> String {
+    func operation(_ element: String) -> String {
         return self + element
     }
 }
 
 extension Array : Semigroup {
-    func operation(element: Array) -> Array {
+    func operation(_ element: Array) -> Array {
         return self + element
     }
 }
@@ -86,8 +96,8 @@ func sconcat <S: Semigroup> (initial: S, elements: [S]) -> S {
     return elements.reduce(initial, combine: <>)
 }
 
-print(sconcat(0, elements:[1, 2, 3])) // 6
-print(sconcat("", elements: ["A", "B", "C"])) // ABC
-print(sconcat([], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
+print(sconcat(initial: 0, elements:[1, 2, 3])) // 6
+print(sconcat(initial: "", elements: ["A", "B", "C"])) // ABC
+print(sconcat(initial: [], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
 
 //: [Next](@next)

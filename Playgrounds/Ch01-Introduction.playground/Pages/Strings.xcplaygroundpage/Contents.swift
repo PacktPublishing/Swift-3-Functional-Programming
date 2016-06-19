@@ -7,7 +7,6 @@ import Foundation
 let aVegetable = "Arugula"
 
 // Initializing an Empty String
-
 var anEmptyString = ""
 var anotherEmptyString = String()
 

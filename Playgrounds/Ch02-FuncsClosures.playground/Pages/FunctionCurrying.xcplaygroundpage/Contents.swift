@@ -21,7 +21,7 @@ func extractFullUserName(firstName: String, lastName: String) -> String {
 //    return Float(x) + Float(y)!
 //}
 
-// After:
+// Swift 3.0 syntax:
 func curried(x: Int) -> (String) -> Float {
     return {(y: String) -> Float in
         return Float(x) + Float(y)!

@@ -2,10 +2,10 @@
 
 import Foundation
 
-func mapOptionals<T, V>(transform: T -> V, input: T?) -> V? {
+func mapOptionals<T, V>(transform: (T) -> V, input: T?) -> V? {
     switch input {
-    case .Some(let value): return transform(value)
-    case .None: return .None
+        case .some(let value): return transform(value)
+        case .none: return .none
     }
 }
 
@@ -20,16 +20,16 @@ func extractUserName(name: String) -> String {
 var nonOptionalUserName: String {
     let user = User()
     user.name = "John Doe"
-    let someUserName = mapOptionals(extractUserName, input: user.name)
+    let someUserName = mapOptionals(transform: extractUserName, input: user.name)
     return someUserName ?? ""
 }
 
 infix operator <^> { associativity left }
 
-func <^><T, V>(transform: T -> V, input: T?) -> V? {
+func <^><T, V>(transform: (T) -> V, input: T?) -> V? {
     switch input {
-    case .Some(let value): return transform(value)
-    case .None: return .None
+    case .some(let value): return transform(value)
+    case .none: return .none
     }
 }
 
@@ -42,18 +42,19 @@ var nonOptionalUserName2: String {
 
 // Mutliple optional value mapping
 
-func apply<T, V>(transform: (T -> V)?, input: T?) -> V? {
+func apply<T, V>(transform: ((T) -> V)?, input: T?) -> V? {
     switch transform {
-    case .Some(let fx): return fx <^> input
-    case .None: return .None
+    case .some(let fx): return fx <^> input
+    case .none: return .none
     }
 }
 
 infix operator <*> { associativity left }
-func <*><T, V>(transform: (T -> V)?, input: T?) -> V? {
+
+func <*><T, V>(transform: ((T) -> V)?, input: T?) -> V? {
     switch transform {
-    case .Some(let fx): return fx <^> input
-    case .None: return .None
+    case .some(let fx): return fx <^> input
+    case .none: return .none
     }
 }
 /*
@@ -87,7 +88,3 @@ let result = optionalString.map { "\($0) is mapped" }
 let optionalArray: [String?] = ["First", "Second", nil, "Fourth"]
 let nonOptionalArray = optionalArray.flatMap { $0 }
 print(nonOptionalArray)
-
-
-
-//: [Next](@next)

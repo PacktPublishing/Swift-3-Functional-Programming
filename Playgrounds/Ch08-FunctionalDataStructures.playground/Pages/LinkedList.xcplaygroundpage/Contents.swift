@@ -6,82 +6,82 @@ import Foundation
 infix operator <| { associativity right precedence 100 }
 
 func <| <T>(lhs: T, rhs: LinkedList<T>) -> LinkedList<T> {
-    return .Node(data: lhs, next: rhs)
+    return .node(data: lhs, next: rhs)
 }
 
 /// LinkedList
 
 enum LinkedList<Element: Equatable> {
-    case End
-    indirect case Node(data: Element, next: LinkedList<Element>)
+    case end
+    indirect case node(data: Element, next: LinkedList<Element>)
     
     var size: Int {
         switch self {
-        case .Node(_, let next):
+        case .node(_, let next):
             return 1 + next.size
-        case .End:
+        case .end:
             return 0
         }
     }
     
     var elements: [Element] {
         switch self {
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return [data] + next.elements
-        case .End:
+        case .end:
             return []
         }
     }
     
     var isEmpty: Bool {
         switch self {
-        case .Node(_ , _):
+        case .node(_ , _):
             return false
-        case .End:
+        case .end:
             return true
         }
     }
     
     static func empty() -> LinkedList {
-        return .End
+        return .end
     }
     
-    func cons(element: Element) -> LinkedList {
-        return .Node(data: element, next: self)
+    func cons(_ element: Element) -> LinkedList {
+        return .node(data: element, next: self)
     }
     
-    func map<T>(transform: Element -> T) -> LinkedList<T> {
+    func map<T>(_ transform: (Element) -> T) -> LinkedList<T> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return transform(data) <| next.map(transform)
         }
     }
     
-    func filter(predicate: (Element -> Bool)) -> LinkedList<Element> {
+    func filter(_ predicate: ((Element) -> Bool)) -> LinkedList<Element> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return predicate(data) ? data <| next.filter(predicate) : next.filter(predicate)
         }
     }
     
-    func reduce<Value>(initial: Value, combine: (Value, Element) -> Value) -> Value {
+    func reduce<Value>(_ initial: Value, combine: (Value, Element) -> Value) -> Value {
         switch self {
-        case .End:
+        case .end:
             return initial
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return next.reduce(combine(initial, data), combine: combine)
         }
     }
     
-    static func contains(key: Element, list: LinkedList<Element>) -> Bool {
+    static func contains(_ key: Element, list: LinkedList<Element>) -> Bool {
         switch list {
-        case .End:
+        case .end:
             return false
-        case .Node(let data, let next):
+        case .node(let data, let next):
             if key == data {
                 return true
             } else {
@@ -91,7 +91,7 @@ enum LinkedList<Element: Equatable> {
     }
 }
 
-let functionalLinkedList = LinkedList<Int>.End.cons(1).cons(2).cons(3)
+let functionalLinkedList = LinkedList<Int>.end.cons(1).cons(2).cons(3)
 print(functionalLinkedList)
 
 // map
@@ -99,7 +99,7 @@ print(functionalLinkedList)
 let mappedFunctionalLL = functionalLinkedList.map { $0 * 2 }
 print(mappedFunctionalLL)
 
-let functionalLLWithCons = 3 <| 2 <| 1 <| .End
+let functionalLLWithCons = 3 <| 2 <| 1 <| .end
 
 // reduce
 
@@ -113,11 +113,11 @@ print(filteredFunctionalLL)
 
 let secondLL = functionalLinkedList.cons(4)
 let thirdLL = functionalLinkedList.cons(5)
-let fourthLL = LinkedList<Int>.Node(data: 1, next: secondLL)
+let fourthLL = LinkedList<Int>.node(data: 1, next: secondLL)
 print(functionalLinkedList.size)
 print(functionalLinkedList.elements)
 
-let emptyLL = LinkedList<Int>.End
+let emptyLL = LinkedList<Int>.end
 print(emptyLL.isEmpty)
 
 print(functionalLinkedList.isEmpty)

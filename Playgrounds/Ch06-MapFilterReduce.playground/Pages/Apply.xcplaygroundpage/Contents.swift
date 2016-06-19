@@ -12,6 +12,6 @@ func incrementValues(a: [Int]) -> [Int] {
     return a.map { $0 + 1 }
 }
 
-let applied = apply(incrementValues, args: numbers)
+let applied = apply(fn: incrementValues, args: numbers)
 
 //: [Next](@next)

@@ -12,23 +12,24 @@ enum MLSTeam {
     case losAngeles
     case seattle
 }
+
 let theTeam = MLSTeam.montreal
 
 // Pattern matching
 
 switch theTeam {
-case .montreal:
-    print("Montreal Impact")
-case .toronto:
-    print("Toronto FC")
-case .newYork:
-    print("Newyork Redbulls")
-case .columbus:
-    print("Columbus Crew")
-case .losAngeles:
-    print("LA Galaxy")
-case .seattle:
-    print("Seattle Sounders")
+    case .montreal:
+        print("Montreal Impact")
+    case .toronto:
+        print("Toronto FC")
+    case .newYork:
+        print("Newyork Redbulls")
+    case .columbus:
+        print("Columbus Crew")
+    case .losAngeles:
+        print("LA Galaxy")
+    case .seattle:
+        print("Seattle Sounders")
 }
 
 // Algebraic data types
@@ -48,7 +49,7 @@ struct HockeyAndSoccerTeams {
 /* product type
  
  enum HockeyAndSoccerTeams {
- case Value(hockey: NHLTeam, soccer: MLSTeam)
+     case Value(hockey: NHLTeam, soccer: MLSTeam)
  }
  
  */

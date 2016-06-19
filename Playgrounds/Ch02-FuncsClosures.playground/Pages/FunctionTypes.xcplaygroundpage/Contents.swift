@@ -32,6 +32,7 @@ let result2 = simpleMathOperator(3.5, 5.5) // result is 9
 func calculateResult(mathOperator: SimpleOperator, a: Double, b: Double) -> Double {
     return mathOperator(a, b)
 }
+
 print("The result is \(calculateResult(mathOperator: simpleMathOperator, a: 3.5, b: 5.5))") // prints “The result is 9.0”
 
 // Return type of a function

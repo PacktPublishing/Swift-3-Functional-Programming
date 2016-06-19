@@ -4,14 +4,14 @@ import Foundation
 
 // What are Generics and what kind of problems they solve?
 
-/*
-func swapTwoValues(inout a: Int, inout b: Int) {
+
+func swapTwoValues( a: inout Int, b: inout Int) {
     let tempA = a
     a = b
     b = tempA
 }
 
-func swapTwoValues(inout a: String, inout b: String) {
+func swapTwoValues( a: inout String, b: inout String) {
     let tempA = a
     a = b
     b = tempA
@@ -23,12 +23,12 @@ func swapTwoValues(a: Any, b: Any) -> (a: Any, b: Any) {
     let newB = temp
     return (newA, newB)
 }
-*/
+
 
 var name = "John Doe"
 var phoneNumber = 5141111111
 
-// let (a, b) = swapTwoValues(name, b: phoneNumber)
+let (a, b) = swapTwoValues(a: name, b: phoneNumber)
 
 func swapTwoValues<T>(a: T, b: T) -> (a: T, b: T) {
     let temp = a
@@ -37,7 +37,7 @@ func swapTwoValues<T>(a: T, b: T) -> (a: T, b: T) {
     return (newA, newB)
 }
 
-// let (a, b) = swapTwoValues(name, b: phoneNumber) // Compile error - Cannot invke 'swapTwoValues' with an argument list of type 'String, b: Int)'
+//let (a, b) = swapTwoValues(a: name, b: phoneNumber) // Compile error - Cannot invke 'swapTwoValues' with an argument list of type 'String, b: Int)'
 
 func addTwoValues(a: Int, b: Int) -> Int {
     return a + b
@@ -63,23 +63,24 @@ func calcualte(a: Int,
     return funcA(funcB(a), funcB(b))
 }
 
-print("The result of adding two squared values is: \(calcualte(2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
+print("The result of adding two squared values is: \(calcualte(a: 2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
 */
 
 func calcualte<T>(a: T,
-               b: T,
-               funcA: (T, T) -> T,
-               funcB: (T) -> T) -> T {
+                  b: T,
+              funcA: (T, T) -> T,
+              funcB: (T) -> T) -> T {
     
     return funcA(funcB(a), funcB(b))
 }
 
-/* Swift 3.0
+
+// Swift 3.0
 typealias StringDictionary<T> = Dictionary<String, T>
-typealias DictionaryOfStrings<T : Hashable> = Dictionary<T, String>
+typealias DictionaryOfStrings<T: Hashable> = Dictionary<T, String>
 typealias IntFunction<T> = (T) -> Int
 typealias Vec3<T> = (T, T, T)
-typealias BackwardTriple<T1,T2,T3> = (T3, T2, T1)
-*/
+typealias BackwardTriple<T1, T2, T3> = (T3, T2, T1)
+
 
 //: [Next](@next)

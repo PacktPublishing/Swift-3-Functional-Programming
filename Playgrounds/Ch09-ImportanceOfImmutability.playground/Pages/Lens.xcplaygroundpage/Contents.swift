@@ -56,18 +56,27 @@ struct Lens<Whole, Part> {
     let set: (Part, Whole) -> Whole
 }
 
-let prodProducerLens: Lens<FunctionalProduct, Producer> = Lens(get: { $0.producer}, set: { FunctionalProduct(name: $1.name, price: $1.price, quantity: $1.quantity, producer: $0)})
+let prodProducerLens: Lens<FunctionalProduct, Producer> = Lens(get: { $0.producer},
+                                                               set: { FunctionalProduct(name: $1.name,
+                                                                                       price: $1.price,
+                                                                                    quantity: $1.quantity,
+                                                                                    producer: $0)})
 
-let mexicanBananas3 = prodProducerLens.set(Producer(name: "QAZ", address: "Yucatan, Mexico"), mexicanBananas2)
+let mexicanBananas3 = prodProducerLens.set(Producer(name: "QAZ",
+                                                 address: "Yucatan, Mexico"),
+                                           mexicanBananas2)
 
 print(mexicanBananas3)
 
-let chineeseProducer = Producer(name: "KGJ", address: "Beijing, China")
+let chineeseProducer = Producer(name: "KGJ",
+                             address: "Beijing, China")
 
 
 //let producerNameLens: Lens<FunctionalProduct, String> = Lens(get: { $0.producer }, set: { FunctionalProduct(name: $1.name, price: $1.price, quantity: <#T##Int#>, producer: <#T##Producer#>)
 
-let producerAddressLens: Lens<Producer, String> = Lens(get: { $0.address }, set: { Producer(name: $1.name, address: $0)})
+let producerAddressLens: Lens<Producer, String> = Lens(get: { $0.address },
+                                                       set: { Producer(name: $1.name,
+                                                                    address: $0)})
 
 let chineeseProducer2 = producerAddressLens.set("Shanghai, China", chineeseProducer)
 
@@ -90,7 +99,6 @@ func >>><A,B,C>(l: Lens<A,B>, r: Lens<B,C>) -> Lens<A,C> {
 
 let prodProducerAddress = prodProducerLens >>> producerAddressLens
 let mexicanBananaProducerAddress = prodProducerAddress.get(mexicanBananas3)
-
 let newProducer = prodProducerAddress.set("Acupulco, Mexico", mexicanBananas3)
 print(newProducer)
 

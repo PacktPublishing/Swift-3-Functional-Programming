@@ -4,7 +4,7 @@ import Foundation
 
 /*
 func factorial(n: Int) -> Int {
-    return n * factorial(n - 1)
+    return n * factorial(n: n - 1)
 }
 */
 

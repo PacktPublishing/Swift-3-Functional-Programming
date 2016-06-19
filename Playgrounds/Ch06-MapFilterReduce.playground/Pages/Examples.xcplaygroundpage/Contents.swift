@@ -10,16 +10,17 @@ func reduce<Element, Value>(elements: [Element], initial: Value, combine: (Value
     return result
 }
 
+
 // Sum of an array
 
 let listOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-let sumOfNumbers = reduce(listOfNumbers, initial: 0, combine: +)
+let sumOfNumbers = reduce(elements: listOfNumbers, initial: 0, combine: +)
 
 print(sumOfNumbers)
 
 // Product of an array
 
-let productOfNumbers = reduce(listOfNumbers, initial: 1, combine: *)
+let productOfNumbers = reduce(elements: listOfNumbers, initial: 1, combine: *)
 
 print(productOfNumbers)
 
@@ -44,21 +45,35 @@ arrayWithDuplicates.reduce([]) { (a: [Int], b: Int) -> [Int] in
 
 // Partitioning an array
 
-typealias Accumlator = (leftPartition: [Double], rightPartition: [Double])
+typealias Accumlator = (lPartition: [Int], rPartition: [Int])
 
-func partition(list: [Double], criteria: (Double) -> Bool) -> Accumlator {
-    return list.reduce((leftPartition: [Double](), rightPartition: [Double]())) { (accumlator: Accumlator, pivot: Double) -> Accumlator in
+func partition(list: [Int], criteria: (Int) -> Bool) -> Accumlator {
+    return list.reduce((lPartition: [Int](), rPartition: [Int]())) {
+        (accumlator: Accumlator, pivot: Int) -> Accumlator in
         if criteria(pivot) {
-            return (leftPartition: accumlator.leftPartition + [pivot], rightPartition: accumlator.rightPartition)
+            return (lPartition: accumlator.lPartition + [pivot], rPartition: accumlator.rPartition)
         } else {
-            return (rightPartition: accumlator.rightPartition + [pivot], leftPartition: accumlator.leftPartition)
+            return (rPartition: accumlator.rPartition + [pivot], lPartition: accumlator.lPartition)
         }
     }
 }
 
-let numbersToPartition = [3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
-partition(numbersToPartition) { $0 % 2 == 0 }
+let numbersToPartition = [3, 4, 5, 6, 7, 8, 9]
+print(partition(list: numbersToPartition) { $0 % 2 == 0 })
 
+// Generic version:
 
+func genericPartition<T>(list: [T], criteria: (T) -> Bool) -> (lPartition: [T], rPartition: [T]) {
+    return list.reduce((lPartition: [T](), rPartition: [T]())) {
+        (accumlator: (lPartition: [T], rPartition: [T]), pivot: T) -> (lPartition: [T], rPartition: [T]) in
+        if criteria(pivot) {
+            return (lPartition: accumlator.lPartition + [pivot], rPartition: accumlator.rPartition)
+        } else {
+            return (rPartition: accumlator.rPartition + [pivot], lPartition: accumlator.lPartition)
+        }
+    }
+}
 
-//: [Next](@next)
+let doublesToPartition = [3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
+print(genericPartition(list: doublesToPartition) { $0.truncatingRemainder(dividingBy: 2.0) == 0 })
+

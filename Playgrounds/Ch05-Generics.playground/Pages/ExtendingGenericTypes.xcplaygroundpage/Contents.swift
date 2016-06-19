@@ -12,7 +12,7 @@ struct Queue<Element> {
         guard !elements.isEmpty else {
             return nil
         }
-        return elements.removeAtIndex(0)
+        return elements.remove(at: 0)
     }
 }
 

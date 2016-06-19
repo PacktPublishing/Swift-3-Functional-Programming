@@ -11,7 +11,7 @@ func join<Element: Equatable>(elements: [Element], separator: String) -> String 
 }
 
 let items = ["First", "Second", "Third"]
-let commaSeparatedItems = join(items, separator: ", ")
+let commaSeparatedItems = join(elements: items, separator: ", ")
 
 
 //: [Next](@next)

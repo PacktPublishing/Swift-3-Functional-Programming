@@ -13,7 +13,11 @@ class Product {
     var quantity: Int = 0
     var producer: Producer
     
-    init(name: String, price: Double, quantity: Int, producer: Producer) {
+    init(name: String,
+        price: Double,
+     quantity: Int,
+     producer: Producer) {
+        
         self.name = name
         self.price = price
         self.quantity = quantity
@@ -21,10 +25,23 @@ class Product {
     }
 }
 
-let producer = Producer(name: "ABC", address: "Toronto, Ontario, Canada")
-var bananas = Product(name: "Banana", price: 0.79, quantity: 2, producer: producer)
-var oranges = Product(name: "Orange", price: 2.99, quantity: 1, producer: producer)
-var apples = Product(name: "Apple", price: 3.99, quantity: 3, producer: producer)
+let producer = Producer(name: "ABC",
+                     address: "Toronto, Ontario, Canada")
+
+var bananas = Product(name: "Banana",
+                     price: 0.79,
+                  quantity: 2,
+                  producer: producer)
+
+var oranges = Product(name: "Orange",
+                     price: 2.99,
+                  quantity: 1,
+                  producer: producer)
+
+var apples = Product(name: "Apple",
+                    price: 3.99,
+                 quantity: 3,
+                 producer: producer)
 
 var products = [bananas, oranges, apples]
 
@@ -32,7 +49,8 @@ class ProductTracker {
     private var products: [Product] = []
     private var lastModified: NSDate?
     
-    func addNewProduct(item: Product) -> (date: NSDate, productCount: Int) {
+    func addNewProduct(item: Product) -> (date: NSDate,
+                                  productCount: Int) {
         products.append(item)
         lastModified = NSDate()
         return (date: lastModified!, productCount: products.count)
@@ -53,23 +71,31 @@ let numbers: [Int] = [1, 2, 3, 4, 5]
 let sumOfEvens = numbers.reduce(0){$0 + (($1 % 2 == 0) ? $1 : 0) }
 
 
-print(numbers) // > [1, 2, 3, 4, 5]
-print(sumOfEvens) // > 6
+print(numbers) // [1, 2, 3, 4, 5]
+print(sumOfEvens) // 6
 
 // Avoiding temporal coupling
 
 func sendRequest() {
-    let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
-    let session = NSURLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
-    /* First request block starts: */
-    var URL = NSURL(string: "https://httpbin.org/get")
-    var request = NSMutableURLRequest(URL: URL!)
-    request.HTTPMethod = "GET"
+    let sessionConfig = URLSessionConfiguration.default()
+    let session = URLSession(configuration: sessionConfig,
+                                  delegate: nil,
+                             delegateQueue: nil)
     
-    let task = session.dataTaskWithRequest(request, completionHandler: {
-        (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+    var url: NSURL?
+    var request: URLRequest
+    
+    /* First request block starts: */
+    url = URL(string: "https://httpbin.org/get")
+    request = URLRequest(url: url! as URL)
+    request.httpMethod = "GET"
+    
+    let task = session.dataTask(with: request,
+                   completionHandler: {
+                    
+        (data: Data?, response: URLResponse?, error: NSError?) -> Void in
         if (error == nil) {
-            let statusCode = (response as! NSHTTPURLResponse).statusCode
+            let statusCode = (response as! HTTPURLResponse).statusCode
             print("URL Session Task Succeeded: HTTP \(statusCode)")
         } else {
             print("URL Session Task Failed: %@", error!.localizedDescription);
@@ -79,13 +105,15 @@ func sendRequest() {
     /* First request block ends */
     
     /* Second request block starts */
-    URL = NSURL(string: "http://requestb.in/1g4pzn21") // replace with a new requestb.in
-    request = NSMutableURLRequest(URL: URL!)
+    url = URL(string: "http://requestb.in/1g4pzn21") // replace with a new requestb.in
+    request = URLRequest(url: url! as URL)
     
-    let secondTask = session.dataTaskWithRequest(request, completionHandler: {
-        (data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+    let secondTask = session.dataTask(with: request,
+                         completionHandler: {
+                            
+        (data: Data?, response: URLResponse?, error: NSError?) -> Void in
         if (error == nil) {
-            let statusCode = (response as! NSHTTPURLResponse).statusCode
+            let statusCode = (response as! HTTPURLResponse).statusCode
             print("URL Session Task Succeeded: HTTP \(statusCode)")
         } else {
             print("URL Session Task Failed: %@", error!.localizedDescription);
@@ -93,5 +121,6 @@ func sendRequest() {
     })
     secondTask.resume()
 }
+
 
 //: [Next](@next)

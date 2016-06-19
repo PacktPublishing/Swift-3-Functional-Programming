@@ -8,91 +8,91 @@ import Foundation
 /// Operator
 infix operator <|| { associativity right precedence 100 }
 
-func <|| <T>(lhs: T, @autoclosure(escaping) rhs: () -> LazyList<T>) -> LazyList<T> {
-    return .Node(data: lhs, next: rhs)
+func <|| <T>(lhs: T, rhs: @autoclosure(escaping) () -> LazyList<T>) -> LazyList<T> {
+    return .node(data: lhs, next: rhs)
 }
 
 /// Lazy List
 enum LazyList<Element: Equatable> {
-    case End
-    case Node(data: Element, next: () -> LazyList<Element>)
+    case end
+    case node(data: Element, next: () -> LazyList<Element>)
     
     var size: Int {
         switch self {
-        case .Node(_, let next):
+        case .node(_, let next):
             return 1 + next().size
-        case .End:
+        case .end:
             return 0
         }
     }
     
     var elements: [Element] {
         switch self {
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return [data] + next().elements
-        case .End:
+        case .end:
             return []
         }
     }
     
     var isEmpty: Bool {
         switch self {
-        case .Node(_ , _):
+        case .node(_ , _):
             return false
-        case .End:
+        case .end:
             return true
         }
     }
     
     static func empty() -> LazyList {
-        return .End
+        return .end
     }
     
-    func cons(element: Element) -> LazyList {
-        return .Node(data: element, next: { self })
+    func cons(_ element: Element) -> LazyList {
+        return .node(data: element, next: { self })
     }
     
     func removeLast() -> (element: Element, linkedList: LazyList)? {
         switch self {
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return (data, next())
-        case .End:
+        case .end:
             return nil
         }
     }
     
-    func map<T>(transform: Element -> T) -> LazyList<T> {
+    func map<T>(_ transform: (Element) -> T) -> LazyList<T> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return transform(data) <|| next().map(transform)
         }
     }
     
-    func filter(predicate: (Element -> Bool)) -> LazyList<Element> {
+    func filter(_ predicate: ((Element) -> Bool)) -> LazyList<Element> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return predicate(data) ? data <|| next().filter(predicate) : next().filter(predicate)
         }
     }
     
-    func reduce<Value>(initial: Value, combine: (Value, Element) -> Value) -> Value {
+    func reduce<Value>(_ initial: Value, combine: (Value, Element) -> Value) -> Value {
         switch self {
-        case .End:
+        case .end:
             return initial
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return next().reduce(combine(initial, data), combine: combine)
         }
     }
     
-    static func contains(key: Element, list: LazyList<Element>) -> Bool {
+    static func contains(_ key: Element, list: LazyList<Element>) -> Bool {
         switch list {
-        case .End:
+        case .end:
             return false
-        case .Node(let data, let next):
+        case .node(let data, let next):
             if key == data {
                 return true
             } else {
@@ -102,7 +102,7 @@ enum LazyList<Element: Equatable> {
     }
 }
 
-let ourLazyList = 3 <|| 2 <|| 1 <||  LazyList.End // Node(3, (Function))
+let ourLazyList = 3 <|| 2 <|| 1 <||  LazyList.end // node(3, (Function))
 print(ourLazyList.size) // prints 3
 
 //let mappedLazyList = ourLazyList.map { $0 }

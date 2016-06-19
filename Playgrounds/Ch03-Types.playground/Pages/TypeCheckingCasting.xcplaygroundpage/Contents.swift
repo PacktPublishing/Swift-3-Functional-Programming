@@ -3,6 +3,7 @@
 import Foundation
 
 let aConstant = "String"
+
 if aConstant is String {
     print("aConstant is a String")
 } else {
@@ -17,5 +18,3 @@ if anyString is String {
     print("anyString is not a String")
 }
 
-
-//: [Next](@next)

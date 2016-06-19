@@ -15,7 +15,7 @@ let users = [
     User(name: "Neco",  age: 29)
 ]
 
-let totalAge = users.map { return $0.age }.reduce(0) { return $0 + $1 }
-
+let totalAge = users.map { $0.age }.reduce(0) { $0 + $1 }
+totalAge
 
 //: [Next](@next)

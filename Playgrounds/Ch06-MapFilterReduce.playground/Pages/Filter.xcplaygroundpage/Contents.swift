@@ -15,7 +15,7 @@ func filter<Element>(elements: [Element], predicate: (Element -> Bool)) -> [Elem
     return result
 }
 
-let filteredArray = filter(numbers) { $0 % 2 == 0 }
+let filteredArray = filter(elements: numbers) { $0 % 2 == 0 }
 filteredArray
 
 //: [Next](@next)

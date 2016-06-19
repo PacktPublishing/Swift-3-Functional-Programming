@@ -2,26 +2,56 @@
 //: ### Modern syntax
 
 /* ObjC
- //  VerboseClass.h
+
+ // VerboseClass.h
  @interface VerboseClass: NSObject
- @property (nonatomic, strong) NSMutableArray *ourArray;
- - (void)aMethod:(NSMutableArray *)anArray;
+ @property (nonatomic, strong) NSArray *ourArray;
+ - (void)aMethod:(NSArray *)anArray;
  @end
  
- //  VerboseClass.m
+ //  TestVerboseClass.m
  #import "VerboseClass.h"
  
- @implementation VerboseClass
- - (void)aMethod:(NSMutableArray *)anArray {
- self.ourArray = [[NSMutableArray alloc] initWithArray:@[@"One", @"Two", @"Three"]];
+ @interface TestVerboseClass : NSObject
+ 
+ @end
+ 
+ @implementation TestVerboseClass
+ 
+ - (void)aMethod {
+ VerboseClass *ourOBJClass = [[VerboseClass alloc] init];
+ [ourOBJClass aMethod: @[@"One", @"Two", @"Three"]];
+ }
+ 
+ @end
+ 
+ //  TestVerboseClass.m
+ #import "VerboseClass.h"
+ 
+ @interface TestVerboseClass : NSObject
+ 
+ @end
+ 
+ @implementation TestVerboseClass
+ 
+ - (void)aMethod {
+ VerboseClass *ourOBJCClass = [[VerboseClass alloc] init];
+ [ourOBJCClass aMethod: @[@"One", @"Two", @"Three"]];
+ NSLog(@"%@", ourOBJCClass.ourArray);
  }
  */
 
-class aSwiftClass {
-    var ourArray:[String] = []
+
+
+class ASwiftClass {
+    var ourArray: [String] = []
+
     func aMethod(anArray: [String]) {
-        self.ourArray  = ["one", "Two", "Three"]
+        self.ourArray  = anArray
     }
 }
 
+let aSwiftClassInstance = ASwiftClass()
+aSwiftClassInstance.aMethod(anArray: ["one", "Two", "Three"])
+print(aSwiftClassInstance.ourArray)
 //: [Next](@next)

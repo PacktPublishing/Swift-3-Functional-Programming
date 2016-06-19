@@ -12,6 +12,7 @@ var cheeseWinePairs = [
     "Camembert":"Champagne",
     "Gruyere":"Sauvignon Blanc"
 ]
+
 cheeseWinePairs ["Cheddar"] = "Cabarnet Sauvignon"
 // To create an empty array or dictionary
 let emptyArray = [String]()

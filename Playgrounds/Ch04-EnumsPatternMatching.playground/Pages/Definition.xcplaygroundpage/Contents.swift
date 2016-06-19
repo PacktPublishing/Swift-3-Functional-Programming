@@ -3,41 +3,43 @@
 import Foundation
 
 enum MLSTeam {
-    case Montreal
-    case Toronto
-    case NewYork
-    case Columbus
-    case LA
-    case Seatle
+    case montreal
+    case toronto
+    case newYork
+    case columbus
+    case losAngeles
+    case seattle
 }
 
-// let theTeam = MLSTeam.Montreal
+//let theTeam = MLSTeam.montreal
 
 /*
-enum MLSTeam {
-    case Montreal, Toronto, NewYork, Columbus, LA, Seatle
-}
-*/
  
-var theTeam = MLSTeam.Montreal
+ enum MLSTeam {
+ case montreal, toronto, newYork, columbus, losAngeles, Seattle
+ }
+*/
 
-theTeam = .NewYork
+var theTeam = MLSTeam.montreal
+
+
+theTeam = .newYork
 
 // Associated values
 
 enum Length {
-    case US(Double)
-    case Metric(Double)
+    case us(Double)
+    case metric(Double)
 }
 
-let lengthMetric = Length.Metric(1.6)
+let lengthMetric = Length.metric(1.6)
 
 // Raw values
 
 enum HttpError: Int {
-    case BadRequest = 400
-    case Unauthorized = 401
-    case Forbidden = 403
+    case badRequest = 400
+    case unauthorized = 401
+    case forbidden = 403
 }
 
 let possibleError = HttpError(rawValue: 400)

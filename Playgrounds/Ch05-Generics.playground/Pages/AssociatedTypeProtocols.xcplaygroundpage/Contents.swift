@@ -14,4 +14,8 @@ struct IntContainer: Container {
     }
 }
 
+var container = IntContainer()
+container.append(item: 1)
+print(container)
+
 //: [Next](@next)

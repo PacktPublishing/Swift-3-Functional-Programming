@@ -4,25 +4,34 @@ import Foundation
 
 /// Tree
 
+//enum Tree<Element: Comparable> {
+//    case empty
+//    case leaf(Element)
+//    indirect case node(lhs: Tree, rhs: Tree)
+//}
+//
+//let functionalTree = Tree.node(lhs: Tree.leaf("First"), rhs: Tree.node(lhs:
+//    Tree.leaf("Second"), rhs: Tree.leaf("Third")))
+
 enum Tree<Element: Comparable> {
-    case Leaf(Element)
-    indirect case Node(lhs: Tree, rhs: Tree)
+    case leaf(Element)
+    indirect case node(lhs: Tree, rhs: Tree)
     
-    static func contains(key: Element, tree: Tree<Element>) -> Bool {
+    static func contains(_ key: Element, tree: Tree<Element>) -> Bool {
         switch tree {
-        case .Leaf(let element):
+        case .leaf(let element):
             return key == element
-        case .Node(let lhs, let rhs):
+        case node(let lhs, let rhs):
             return contains(key, tree:lhs) || contains(key, tree:rhs)
         }
     }
 }
 
-let functionalTree = Tree.Node(lhs: Tree.Leaf("First"), rhs: Tree.Node(lhs: Tree.Leaf("Second"), rhs: Tree.Leaf("Third")))
+let functionalTree = Tree.node(lhs: Tree.leaf("First"), rhs: Tree.node(lhs: Tree.leaf("Second"), rhs: Tree.leaf("Third")))
 print(functionalTree)
 
-let secondFT = Tree.Node(lhs: functionalTree, rhs: Tree.Node(lhs: Tree.Leaf("Fourth"), rhs: Tree.Leaf("Fifth")))
-let thirdFT = Tree.Node(lhs: Tree.Node(lhs: Tree.Leaf("Fourth"), rhs: Tree.Leaf("Fifth")), rhs: functionalTree)
+let secondFT = Tree.node(lhs: functionalTree, rhs: Tree.node(lhs: Tree.leaf("Fourth"), rhs: Tree.leaf("Fifth")))
+let thirdFT = Tree.node(lhs: Tree.node(lhs: Tree.leaf("Fourth"), rhs: Tree.leaf("Fifth")), rhs: functionalTree)
 
 print(secondFT)
 print(thirdFT)
@@ -30,68 +39,57 @@ print(thirdFT)
 let isFound = Tree.contains("First", tree: functionalTree) // will return true
 print(isFound)
 
-/// Operator
-
-infix operator <^> { associativity left }
-
-func <^><T, V>(transform: T -> V, input: T?) -> V? {
-    switch input {
-    case .Some(let value): return transform(value)
-    case .None: return .None
-    }
-}
-
 
 /// BST
 
 enum BinarySearchTree<Element: Comparable> {
-    case Leaf
-    indirect case Node(lhs: BinarySearchTree, element: Element, rhs: BinarySearchTree)
+    case leaf
+    indirect case node(lhs: BinarySearchTree, element: Element, rhs: BinarySearchTree)
     
     var size: Int {
         switch self {
-        case .Leaf:
+        case .leaf:
             return 0
-        case .Node(let lhs, _, let rhs):
+        case .node(let lhs, _, let rhs):
             return 1 + lhs.size + rhs.size
         }
     }
     
     var elements: [Element] {
         switch self {
-        case .Leaf:
+        case .leaf:
             return []
-        case .Node(let lhs, let element, let rhs):
+        case .node(let lhs, let element, let rhs):
             return lhs.elements + [element] + rhs.elements
         }
     }
     
     var isEmpty: Bool {
         switch self {
-        case .Leaf:
+        case .leaf:
             return true
-        case .Node(_, _, _):
+        case .node(_, _, _):
             return false
         }
     }
     
     init() {
-        self = .Leaf
+        self = .leaf
     }
     
     static func empty() -> BinarySearchTree {
-        return .Leaf
+        return .leaf
     }
     
     init(element: Element) {
-        self = .Node(lhs: .Leaf, element: element, rhs: .Leaf)
+        self = .node(lhs: .leaf, element: element, rhs: .leaf)
     }
     
-    static func contains(item: Element, tree: BinarySearchTree<Element>) -> Bool {
+    static func contains(_ item: Element, tree: BinarySearchTree<Element>) -> Bool {
         switch tree {
-        case .Leaf:
+        case .leaf:
             return false
-        case .Node(let lhs, let element, let rhs):
+        case .node(let lhs, let element, let rhs):
             if item < element {
                 return contains(item, tree: lhs)
             } else if item > element {
@@ -102,8 +100,9 @@ enum BinarySearchTree<Element: Comparable> {
     }
 }
 
-let functionalBST = BinarySearchTree.Node(lhs: BinarySearchTree.Leaf, element: 5, rhs: BinarySearchTree.Node(lhs: BinarySearchTree.Leaf, element: 9, rhs: BinarySearchTree.Leaf))
+//let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
 
+let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 1, BinarySearchTree.leaf), element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
 
 let iFound = BinarySearchTree.contains(9, tree: functionalBST) // will return true
 print(isFound)
@@ -115,12 +114,11 @@ let emptyBST = BinarySearchTree<Int>.empty()
 print(emptyBST.isEmpty)
 
 
-let secondFunctionalBST = BinarySearchTree.Node(lhs: functionalBST, element: 5, rhs: BinarySearchTree.Node(lhs: BinarySearchTree.Leaf, element: 9, rhs: BinarySearchTree.Leaf))
+let secondFunctionalBST = BinarySearchTree.node(lhs: functionalBST, element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
 
 
 print(secondFunctionalBST.size) // prints "4"
 
 print(secondFunctionalBST.elements)
-
 
 //: [Next](@next)

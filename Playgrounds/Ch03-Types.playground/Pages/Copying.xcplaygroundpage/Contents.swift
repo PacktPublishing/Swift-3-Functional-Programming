@@ -16,8 +16,9 @@ let users = [alain, julie, steve]
 
 let copyOfUsers = users
 users[0].name = "Jean-Marc"
-print(users[0].name)
-print(copyOfUsers[0].name)
+
+print(users[0].name) // prints "Jean-Marc"
+print(copyOfUsers[0].name) // prints "Jean-Marc"
 
 
 //: [Next](@next)

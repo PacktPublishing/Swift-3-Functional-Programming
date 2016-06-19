@@ -3,12 +3,12 @@
 import Foundation
 
 enum GenericTree <T> {
-    case Empty
-    case Leaf(T)
-    indirect case Node(GenericTree, GenericTree)
+    case empty
+    case leaf(T)
+    indirect case node(GenericTree, GenericTree)
 }
 
-let ourGenericTree = GenericTree.Node(GenericTree.Leaf("First"), GenericTree.Node(GenericTree.Leaf("Second"), GenericTree.Leaf("Third")))
+let ourGenericTree = GenericTree.node(GenericTree.leaf("First"), GenericTree.node(GenericTree.leaf("Second"), GenericTree.leaf("Third")))
 print(ourGenericTree)
 
 struct Queue<Element> {
@@ -21,7 +21,7 @@ struct Queue<Element> {
         guard !elements.isEmpty else {
             return nil
         }
-        return elements.removeAtIndex(0)
+        return elements.remove(at: 0)
     }
 }
 

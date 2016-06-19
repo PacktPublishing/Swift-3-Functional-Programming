@@ -11,23 +11,23 @@ func <> <S: Semigroup> (x: S, y: S) -> S {
 }
 
 protocol Semigroup {
-    func operation(element: Self) -> Self
+    func operation(_ element: Self) -> Self
 }
 
 extension Int: Semigroup {
-    func operation(element: Int) -> Int {
+    func operation(_ element: Int) -> Int {
         return self + element
     }
 }
 
 extension String : Semigroup {
-    func operation(element: String) -> String {
+    func operation(_ element: String) -> String {
         return self + element
     }
 }
 
 extension Array : Semigroup {
-    func operation(element: Array) -> Array {
+    func operation(_ element: Array) -> Array {
         return self + element
     }
 }
@@ -65,13 +65,12 @@ let numberC: Int = 7
 numberA <> Int.identity() // 3
 "A" <> String.identity() // A
 
-func mconcat <M: Monoid> (elements: [M]) -> M {
+func mconcat <M: Monoid> (_ elements: [M]) -> M {
     return elements.reduce(M.identity(), combine: <>)
 }
 
 print(mconcat([1, 2, 3])) // 6
 print(mconcat(["A", "B", "C"])) // ABC
 print(mconcat([[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
-
 
 //: [Next](@next)

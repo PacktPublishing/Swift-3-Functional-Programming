@@ -8,16 +8,15 @@ class Movie {
     var director: String
     var name: String
     init(name: String, director: String) {
-        
         self.director = director
-        
         self.name = name
     }
 }
 
 let objects: [AnyObject] = [
     Movie(name: "The Shawshank Redemption", director: "Frank Darabont"),
-    Movie(name: "The Godfather", director: "Francis Ford Coppola")]
+    Movie(name: "The Godfather", director: "Francis Ford Coppola")
+]
 
 for object in objects {
     let movie = object as! Movie

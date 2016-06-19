@@ -8,6 +8,7 @@ import Foundation
 // func map<U>(transform: (T) -> U) -> [U]
 let numbers = [10, 30, 91, 50, 100, 39, 74]
 var formattedNumbers: [String] = []
+
 for number in numbers {
     let formattedNumber = "\(number)$"
     formattedNumbers.append(formattedNumber)

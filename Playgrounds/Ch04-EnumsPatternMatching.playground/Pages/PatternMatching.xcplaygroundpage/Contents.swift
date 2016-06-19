@@ -2,47 +2,57 @@
 
 import Foundation
 
-enum Dimension {
-    case US(Double, Double)
-    case Metric(Double, Double)
-}
+
 
 enum MLSTeam {
-    case Montreal
-    case Toronto
-    case NewYork
-    case Columbus
-    case LA
-    case Seattle
+    case montreal
+    case toronto
+    case newYork
+    case columbus
+    case losAngeles
+    case seattle
 }
 
-let theTeam = MLSTeam.Montreal
+let theTeam = MLSTeam.montreal
 
 switch theTeam {
-case .Montreal:
+case .montreal:
     print("Montreal Impact")
-case .Toronto:
+case .toronto:
     print("Toronto FC")
-case .NewYork:
+case .newYork:
     print("Newyork Redbulls")
-case .Columbus:
+case .columbus:
     print("Columbus Crew")
-case .LA:
+case .losAngeles:
     print("LA Galaxy")
-case .Seattle:
+case .seattle:
     print("Seattle Sounders")
 }
 
+enum Dimension {
+    case us(Double, Double)
+    case metric(Double, Double)
+}
+
+//func convertDimension(dimension: Dimension) -> Dimension {
+//    switch dimension {
+//    case let .us(length, width):
+//        return .metric(length * 0.304, width * 0.304)
+//    case let .metric(length, width):
+//        return .us(length * 3.280, width * 3.280)
+//    }
+//}
+
 func convertDimension(dimension: Dimension) -> Dimension {
     switch dimension {
-    case let .US(length, width):
-        return .Metric(length * 0.304, width * 0.304)
-    case let .Metric(length, width):
-        return .US(length * 3.280, width * 3.280)
+    case let .us(length, width):
+        return .metric(length * 0.304, width * 0.304)
+    default:
+        return .us(0.0, 0.0)
     }
 }
 
-let convertedDimension = convertDimension(Dimension.Metric(5.0, 4.0))
-
+let convertedDimension = convertDimension(dimension: Dimension.metric(5.0, 4.0))
 
 //: [Next](@next)

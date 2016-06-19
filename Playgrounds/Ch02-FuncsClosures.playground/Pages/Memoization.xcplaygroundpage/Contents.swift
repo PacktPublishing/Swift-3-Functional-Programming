@@ -36,10 +36,16 @@ func memoize<T: Hashable, U>(fn: ((T) -> U, T) -> U) -> (T) -> U {
     return result
 }
 
-let factorial = memoize { factorial, x in x == 0 ? 1 : x * factorial(x - 1) }
+let factorial = memoize { factorial, x in
+    x == 0 ? 1 : x * factorial(x - 1)
+}
+
 print(factorial(5))
 
-let powerOf2 = memoize { pow2, x in x == 0 ? 1 : 2 * pow2(x - 1) }
+let powerOf2 = memoize { pow2, x in
+    x == 0 ? 1 : 2 * pow2(x - 1)
+}
+
 print(powerOf2(5))
 
 //: [Next](@next)

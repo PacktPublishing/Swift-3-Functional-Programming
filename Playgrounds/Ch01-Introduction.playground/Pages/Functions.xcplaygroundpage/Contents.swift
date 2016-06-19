@@ -7,6 +7,7 @@ import Foundation
 func greet(name: String, day: String) -> String {
     return "Hello \(name), today is \(day)"
 }
+
 greet(name: "Ted", day:"Saturday")
 
 // Variable number of arguments in functions - Variadic Parameters
@@ -19,6 +20,7 @@ func sumOf(numbers:Int...) -> (Int, Int) {
     }
     return (sum, counter)
 }
+
 sumOf()
 sumOf(numbers: 7, 9, 45)
 
@@ -40,6 +42,7 @@ func returnTwenty() -> Int {
     add()
     return y
 }
+
 returnTwenty()
 
 // Return another function as its value
@@ -49,6 +52,7 @@ func makeIncrementer() -> (Int -> Int) {
     }
     return addOne
 }
+
 var increment = makeIncrementer()
 increment(7)
 

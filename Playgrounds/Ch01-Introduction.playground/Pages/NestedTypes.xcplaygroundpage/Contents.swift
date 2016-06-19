@@ -12,14 +12,17 @@ struct BlackjackCard {
         diamonds = "♢",
         clubs = "♣"
     }
+    
     // nested Rank enumeration
     enum Rank: Int {
         case two = 2, three, four, five, six, seven, eight, nine, ten
         case jack, queen, king, ace
+        
         // nested struct
         struct Values {
             let first: Int, second: Int?
         }
+        
         var values: Values {
             switch self {
             case .ace:
@@ -31,7 +34,9 @@ struct BlackjackCard {
             }
         }
     }
+    
     let rank: Rank, suit: Suit
+    
     var description: String {
         var output = "suit is \(suit.rawValue),"
         output += " value is \(rank.values.first)"

@@ -16,7 +16,9 @@ func formatWithCurrency(content: [String]) -> [String] {
 
 let formattedElements = formatWithCurrency(content: elements)
 
-let composedFunction = { data in formatWithCurrency(content: extractElements(data)) }
+let composedFunction = { data in
+    formatWithCurrency(content: extractElements(data))
+}
 
 composedFunction(content)
 

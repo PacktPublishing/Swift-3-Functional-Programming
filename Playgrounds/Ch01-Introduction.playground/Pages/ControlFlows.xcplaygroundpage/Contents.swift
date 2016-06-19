@@ -6,6 +6,7 @@ import Foundation
 
 let scores = [65, 75, 92, 87, 68]
 var teamScore = 0
+
 for score in scores {
     if score > 70 {
         teamScore = teamScore + 3
@@ -33,6 +34,7 @@ var n = 2
 while n < 100 {
     n = n * 2
 }
+
 var m = 2
 repeat {
     m = m * 2

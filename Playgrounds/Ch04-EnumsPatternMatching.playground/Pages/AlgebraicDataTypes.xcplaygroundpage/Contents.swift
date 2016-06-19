@@ -3,28 +3,28 @@
 import Foundation
 
 enum Dimension {
-    case US(Double, Double)
-    case Metric(Double, Double)
+    case us(Double, Double)
+    case metric(Double, Double)
 }
 
-let sizeMetric = Dimension.Metric(5.0, 4.0)
+let sizeMetric = Dimension.metric(5.0, 4.0)
 
 enum NHLTeam {
-    case Canadiens
-    case Senators
-    case Rangers
-    case Penguins
-    case BlackHawks
-    case Capitals
+    case canadiens
+    case senators
+    case rangers
+    case penguins
+    case blackHawks
+    case capitals
 }
 
 enum MLSTeam {
-    case Montreal
-    case Toronto
-    case NewYork
-    case Columbus
-    case LA
-    case Seatle
+    case montreal
+    case toronto
+    case newYork
+    case columbus
+    case losAngeles
+    case seattle
 }
 
 enum Team {
@@ -46,19 +46,19 @@ enum HockeyAndSoccerTeams {
 // Recursion Types
 
 enum Tree {
-    case Empty
-    case Leaf(Int)
-    indirect case Node(Tree, Tree)
+    case empty
+    case leaf(Int)
+    indirect case node(Tree, Tree)
 }
 
-let ourTree = Tree.Node(Tree.Leaf(1), Tree.Node(Tree.Leaf(2), Tree.Leaf(3)))
+let ourTree = Tree.node(Tree.leaf(1), Tree.node(Tree.leaf(2), Tree.leaf(3)))
 print(ourTree)
 
-func searchInTree(search: Int, tree: Tree) -> Bool {
+func searchInTree(_ search: Int, tree: Tree) -> Bool {
     switch tree {
-    case .Leaf(let x):
+    case .leaf(let x):
         return x == search
-    case .Node(let l as Tree, let r as Tree):
+    case .node(let l as Tree, let r as Tree):
         return searchInTree(search, tree:l) || searchInTree(search, tree:r)
     default:
         return false

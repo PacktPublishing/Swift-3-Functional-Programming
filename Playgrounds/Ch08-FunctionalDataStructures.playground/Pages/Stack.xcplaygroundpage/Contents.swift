@@ -8,91 +8,91 @@ import Foundation
 infix operator <<| { associativity right precedence 100 }
 
 func <<| <T>(lhs: T, rhs: Stack<T>) -> Stack<T> {
-    return .Node(data: lhs, next: rhs)
+    return .node(data: lhs, next: rhs)
 }
 
 /// Stack
 
 enum Stack<Element: Equatable> {
-    case End
-    indirect case Node(data: Element, next: Stack<Element>)
+    case end
+    indirect case node(data: Element, next: Stack<Element>)
     
     var size: Int {
         switch self {
-        case .Node(_, let next):
+        case .node(_, let next):
             return 1 + next.size
-        case .End:
+        case .end:
             return 0
         }
     }
     
     var elements: [Element] {
         switch self {
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return [data] + next.elements
-        case .End:
+        case .end:
             return []
         }
     }
     
     var isEmpty: Bool {
         switch self {
-        case .Node(_ , _):
+        case .node(_ , _):
             return false
-        case .End:
+        case .end:
             return true
         }
     }
     
     static func empty() -> Stack {
-        return .End
+        return .end
     }
     
-    func cons(element: Element) -> Stack {
-        return .Node(data: element, next: self)
+    func cons(_ element: Element) -> Stack {
+        return .node(data: element, next: self)
     }
     
     func pop() -> (element: Element, linkedList: Stack)? {
         switch self {
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return (data, next)
-        case .End:
+        case .end:
             return nil
         }
     }
     
-    func map<T>(transform: Element -> T) -> Stack<T> {
+    func map<T>(_ transform: (Element) -> T) -> Stack<T> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return transform(data) <<| next.map(transform)
         }
     }
     
-    func filter(predicate: (Element -> Bool)) -> Stack<Element> {
+    func filter(_ predicate: ((Element) -> Bool)) -> Stack<Element> {
         switch self {
-        case .End:
-            return .End
-        case .Node(let data, let next):
+        case .end:
+            return .end
+        case .node(let data, let next):
             return predicate(data) ? data <<| next.filter(predicate) : next.filter(predicate)
         }
     }
     
-    func reduce<Value>(initial: Value, combine: (Value, Element) -> Value) -> Value {
+    func reduce<Value>(_ initial: Value, combine: (Value, Element) -> Value) -> Value {
         switch self {
-        case .End:
+        case .end:
             return initial
-        case .Node(let data, let next):
+        case .node(let data, let next):
             return next.reduce(combine(initial, data), combine: combine)
         }
     }
     
-    static func contains(key: Element, list: Stack<Element>) -> Bool {
+    static func contains(_ key: Element, list: Stack<Element>) -> Bool {
         switch list {
-        case .End:
+        case .end:
             return false
-        case .Node(let data, let next):
+        case .node(let data, let next):
             if key == data {
                 return true
             } else {
@@ -102,7 +102,7 @@ enum Stack<Element: Equatable> {
     }
 }
 
-let stack = Stack<Int>.End.cons(1).cons(2).cons(3)
+let stack = Stack<Int>.end.cons(1).cons(2).cons(3)
 
 if let (elment, stack) = stack.pop() {
     print(elment)
