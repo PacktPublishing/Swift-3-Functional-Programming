@@ -10,29 +10,29 @@ import Foundation
 import Alamofire
 
 enum Urls {
-    case PostTodo
-    case GetTodos
-    case GetTodo
-    case DeleteTodo
-    case DeleteAll
-    case Update
+    case postTodo
+    case getTodos
+    case getTodo
+    case deleteTodo
+    case deleteAll
+    case update
 }
 
 extension Urls {
     func httpMethodUrl() -> (Alamofire.Method, String) {
         let baseUrl = "http://localhost:8080/"
         switch self {
-        case .PostTodo:
+        case .postTodo:
             return (.POST, "\(baseUrl)postTodo")
-        case .GetTodos:
+        case .getTodos:
             return (.GET, "\(baseUrl)todos")
-        case .GetTodo:
+        case .getTodo:
             return (.GET, "\(baseUrl)todo")
-        case .DeleteTodo:
+        case .deleteTodo:
             return (.DELETE, "\(baseUrl)deleteTodo")
-        case .DeleteAll:
+        case .deleteAll:
             return (.DELETE, "\(baseUrl)deleteAll")
-        case .Update:
+        case .update:
             return (.POST, "\(baseUrl)updateTodo")
         }
     }

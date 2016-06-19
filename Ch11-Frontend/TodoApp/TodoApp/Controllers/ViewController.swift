@@ -21,7 +21,8 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        listTodos() { (response, error) in
+        listTodos() {
+            (response, error) in
             if error == nil {
                 store.dispatch(LoadTodosAction(todos: response!))
             } else {
@@ -31,15 +32,18 @@ class ViewController: UITableViewController {
         
         filterSegmentedControl.addTarget(self, action: #selector(ViewController.filterValueChanged), forControlEvents: .ValueChanged)
         
-        store.activeFilter.producer.startWithNext { filter in
+        store.activeFilter.producer.startWithNext {
+            filter in
             self.filterSegmentedControl.selectedSegmentIndex = filter.rawValue
         }
         
-        store.activeTodos.startWithNext { todos in
+        store.activeTodos.startWithNext {
+            todos in
             self.viewModel = TodosViewModel(todos: todos)
         }
         
-        store.notSyncedWithBackend.startWithNext { todos in
+        store.notSyncedWithBackend.startWithNext {
+            todos in
             addOrUpdateTodo(todos) { (response, error) in
                 if error == nil {
                     print("Success")
@@ -54,22 +58,32 @@ class ViewController: UITableViewController {
 // MARK: Actions
 extension ViewController {
     @IBAction func addTapped(sender: UIBarButtonItem) {
-        let alertController = UIAlertController(title: "Create", message: "Create a new todo item", preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Create",
+                                              message: "Create a new todo item",
+                                       preferredStyle: .Alert)
         
-        alertController.addTextFieldWithConfigurationHandler() { textField in
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField in
             textField.placeholder = "Id"
         }
-        alertController.addTextFieldWithConfigurationHandler() { textField in
+        
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField in
             textField.placeholder = "Name"
         }
-        alertController.addTextFieldWithConfigurationHandler() { textField in
+        
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField in
             textField.placeholder = "Description"
         }
-        alertController.addTextFieldWithConfigurationHandler() { textField in
+        
+        alertController.addTextFieldWithConfigurationHandler() {
+            textField in
             textField.placeholder = "Notes"
         }
         
         alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { _ in })
+        
         alertController.addAction(UIAlertAction(title: "Create", style: .Default) { _ in
             guard let id = alertController.textFields?[0].text,
                 name = alertController.textFields?[1].text,
@@ -77,7 +91,10 @@ extension ViewController {
                 notes = alertController.textFields?[3].text
                 else { return }
             
-            store.dispatch(CreateTodoAction(id: Int(id)!, name: name, description: description, notes: notes))
+            store.dispatch(CreateTodoAction(id: Int(id)!,
+                                          name: name,
+                                   description: description,
+                                         notes: notes))
             })
         presentViewController(alertController, animated: false, completion: nil)
     }
@@ -134,7 +151,7 @@ extension ViewController {
     }
     
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // the cells you would like the actions to appear needs to be editable
+        // the cells you would like the actions to appear need to be editable
         return true
     }
 }

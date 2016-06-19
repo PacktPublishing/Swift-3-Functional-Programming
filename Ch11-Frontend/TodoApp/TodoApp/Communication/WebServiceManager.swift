@@ -8,8 +8,10 @@
 
 import Alamofire
 
-func sendRequest(url: Urls, request: RequestProtocol, completion:(responseData:AnyObject?, error: NSError?) -> Void) {
-    
+func sendRequest(url: Urls,
+             request: RequestProtocol,
+          completion: (responseData: AnyObject?,
+                              error: NSError?) -> Void) {
     // Add headers
     let headers = configureHeaders(request)
     // Get request method and full url
@@ -32,11 +34,13 @@ func sendRequest(url: Urls, request: RequestProtocol, completion:(responseData:A
 func configureHeaders(request: RequestProtocol) -> [String: String] {
     let listOfProperties = request.getPropertyNames()
     var configuredRequestHeaders = Dictionary<String, String>()
+    
     for property in listOfProperties {
         let (propertyValue, propertyName) = request[property]
         if propertyName != nil {
             configuredRequestHeaders[propertyName!] = propertyValue
         }
     }
+    
     return configuredRequestHeaders
 }

@@ -10,11 +10,11 @@ import Argo
 import Curry
 
 enum TodoFilter: Int {
-    case All
-    case Active
-    case Completed
-    case NotSyncedWithBackend
-    case Selected
+    case all
+    case active
+    case completed
+    case notSyncedWithBackend
+    case selected
 }
 
 struct Todo {

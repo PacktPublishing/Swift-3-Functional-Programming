@@ -10,9 +10,9 @@ import Delta
 
 struct LoadTodosAction: ActionType {
     let todos: [Todo]
+    
     func reduce(state: State) -> State {
         state.todos.value = state.todos.value + todos
-        
         return state
     }
 }

@@ -12,7 +12,7 @@ private let initialTodos: [Todo] = []
 
 struct State {
     let todos = MutableProperty(initialTodos)
-    let filter = MutableProperty(TodoFilter.All)
-    let notSynced = MutableProperty(TodoFilter.NotSyncedWithBackend)
-    let selectedTodoItem = MutableProperty(TodoFilter.Selected)
+    let filter = MutableProperty(TodoFilter.all)
+    let notSynced = MutableProperty(TodoFilter.notSyncedWithBackend)
+    let selectedTodoItem = MutableProperty(TodoFilter.selected)
 }

@@ -50,7 +50,7 @@ final class TodoStore {
 }
 
 /**
-	This allows instances of User to be
+	This allows instances of Todo to be
 	passed into JSON arrays and dictionaries
 	as if it were a native JSON type.
  */

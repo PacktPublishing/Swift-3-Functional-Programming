@@ -33,7 +33,6 @@ struct TodoRequest: RequestProtocol {
 }
 
 struct RequestModel: RequestProtocol {
-    
     subscript(key: String) -> (String?, String?) {
         get {
             switch key {

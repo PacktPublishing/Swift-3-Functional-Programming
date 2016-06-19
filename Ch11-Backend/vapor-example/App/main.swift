@@ -59,7 +59,13 @@ app.post("postTodo") { request in
             return JSON(["message": "Please include mandatory parameters"])
     }
     
-    let todoItem = Todo(id: Int(id[0])!, name: name[0], description: description[0], notes: notes[0], completed: completed[0].toBool()!, synced: synced[0].toBool()!)
+    let todoItem = Todo(id: Int(id[0])!,
+                      name: name[0],
+               description: description[0],
+                     notes: notes[0],
+                 completed: completed[0].toBool()!,
+                    synced: synced[0].toBool()!)
+    
     let todos = TodoStore.sharedInstance
     todos.addOrUpdateItem(item: todoItem)
     
@@ -98,6 +104,7 @@ app.delete("deleteTodo") { request in
     guard let id = request.headers.headers["id"]?.values else {
         return JSON(["message": "Please provide the id of todo item"])
     }
+    
     let todos = TodoStore.sharedInstance
     todos.delete(id: Int(id[0])!)
     
@@ -123,7 +130,13 @@ app.post("updateTodo") { request in
             return JSON(["message": "Please include mandatory parameters"])
     }
     
-    let todoItem = Todo(id: Int(id[0])!, name: name[0], description: description[0], notes: notes[0], completed: completed[0].toBool()!, synced: synced[0].toBool()!)
+    let todoItem = Todo(id: Int(id[0])!,
+                      name: name[0],
+               description: description[0],
+                     notes: notes[0],
+                 completed: completed[0].toBool()!,
+                    synced: synced[0].toBool()!)
+    
     let todos = TodoStore.sharedInstance
     todos.update(item: todoItem)
     return JSON(["message": "Item is updated"])

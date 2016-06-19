@@ -39,6 +39,7 @@ class DetailsViewController: UIViewController {
                 store.dispatch(UpdateTodoAction(todo: newTodo))
             }
         }
+        
         txtFieldDescription.rac_textSignal().subscribeNext {
             (next: AnyObject!) -> () in
             if let newDescription = next as? String {
@@ -46,6 +47,7 @@ class DetailsViewController: UIViewController {
                 store.dispatch(UpdateTodoAction(todo: newTodo))
             }
         }
+        
         txtFieldNotes.rac_textSignal().subscribeNext {
             (next: AnyObject!) -> () in
             if let newNotes = next as? String {
@@ -54,6 +56,7 @@ class DetailsViewController: UIViewController {
 
             }
         }
+        
         switchCompleted.rac_newOnChannel().subscribeNext {
             (next: AnyObject!) -> () in
             if let newCompleted = next as? Bool {
@@ -63,5 +66,4 @@ class DetailsViewController: UIViewController {
             }
         }
     }
-    
 }

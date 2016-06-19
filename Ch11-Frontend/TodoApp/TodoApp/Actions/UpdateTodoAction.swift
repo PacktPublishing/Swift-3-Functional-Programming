@@ -12,9 +12,17 @@ struct UpdateTodoAction: ActionType {
     let todo: Todo
     
     func reduce(state: State) -> State {
-        state.todos.value = state.todos.value.map { todo in
+        state.todos.value = state.todos.value.map {
+            todo in
             guard todo == self.todo else { return todo }
-            return Todo(id: todo.id, name: self.todo.name, description: self.todo.description, notes: self.todo.notes, completed: self.todo.completed, synced: !todo.synced, selected: todo.selected)
+            
+            return Todo(id: todo.id,
+                      name: self.todo.name,
+               description: self.todo.description,
+                     notes: self.todo.notes,
+                 completed: self.todo.completed,
+                    synced: !todo.synced,
+                  selected: todo.selected)
         }
         
         return state

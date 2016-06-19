@@ -7,7 +7,13 @@ struct CreateTodoAction: ActionType {
     let notes: String
 
     var todo: Todo {
-        return Todo(id: id, name: name, description: description, notes: notes, completed: false, synced: false, selected: false)
+        return Todo(id: id,
+                  name: name,
+           description: description,
+                 notes: notes,
+             completed: false,
+                synced: false,
+              selected: false)
     }
 
     func reduce(state: State) -> State {

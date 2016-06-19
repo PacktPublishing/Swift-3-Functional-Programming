@@ -28,25 +28,28 @@ extension Store {
 // MARK: SignalProducers
 extension Store {
     var activeTodos: SignalProducer<[Todo], NoError> {
-        return activeFilter.producer.flatMap(.Latest) { filter -> SignalProducer<[Todo], NoError> in
+        return activeFilter.producer.flatMap(.Latest) {
+            filter -> SignalProducer<[Todo], NoError> in
             switch filter {
-            case .All: return self.todos.producer
-            case .Active: return self.incompleteTodos
-            case .Completed: return self.completedTodos
-            case .NotSyncedWithBackend: return self.notSyncedWithBackend
-            case .Selected: return self.selectedTodo
+            case .all: return self.todos.producer
+            case .active: return self.incompleteTodos
+            case .completed: return self.completedTodos
+            case .notSyncedWithBackend: return self.notSyncedWithBackend
+            case .selected: return self.selectedTodo
             }
         }
     }
     
     var completedTodos: SignalProducer<[Todo], NoError> {
-        return todos.producer.map { todos in
+        return todos.producer.map {
+            todos in
             return todos.filter { $0.completed }
         }
     }
     
     var incompleteTodos: SignalProducer<[Todo], NoError> {
-        return todos.producer.map { todos in
+        return todos.producer.map {
+            todos in
             return todos.filter { !$0.completed }
         }
     }
@@ -64,14 +67,17 @@ extension Store {
     }
     
     var notSyncedWithBackend: SignalProducer<[Todo], NoError> {
-        return todos.producer.map { todos in
+        return todos.producer.map {
+            todos in
             return todos.filter { !$0.synced }
         }
     }
     
     var selectedTodo: SignalProducer<[Todo], NoError> {
-        return todos.producer.map { todos in
-            return todos.filter { todo in
+        return todos.producer.map {
+            todos in
+            return todos.filter {
+                todo in
                 if let selected = todo.selected {
                     return selected
                 } else {
@@ -82,9 +88,10 @@ extension Store {
     }
     
     func producerForTodo(todo: Todo) -> SignalProducer<Todo, NoError> {
-        return store.todos.producer.map { todos in
+        return store.todos.producer.map {
+            todos in
             return todos.filter { $0 == todo }.first
-            }.ignoreNil()
+        }.ignoreNil()
     }
 }
 

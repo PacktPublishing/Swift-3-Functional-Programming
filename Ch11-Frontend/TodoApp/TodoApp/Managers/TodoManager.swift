@@ -10,8 +10,15 @@ import Alamofire
 import Argo
 
 func addTodo(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
-    let newRequest = TodoRequest(id: 1, name: "Saturday Grocery", description: "Bananas, Pineapple, Beer, Orange juice, ...", notes: "Cehck expiry date of orange juice", completed: false, synced: true)
-    sendRequest(Urls.PostTodo, request: newRequest) { (response, error) in
+    let newRequest = TodoRequest(id: 1,
+                               name: "Saturday Grocery",
+                        description: "Bananas, Pineapple, Beer, Orange juice, ...",
+                              notes: "Cehck expiry date of orange juice",
+                          completed: false,
+                             synced: true)
+    
+    sendRequest(Urls.postTodo, request: newRequest) {
+        (response, error) in
         if error == nil {
             let todos: [Todo]? = decode(response!)
             completion(responseData: todos, error: nil)
@@ -24,7 +31,8 @@ func addTodo(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
 }
 
 func listTodos(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
-    sendRequest(Urls.GetTodos, request: RequestModel()) { (response, error) in
+    sendRequest(Urls.getTodos, request: RequestModel()) {
+        (response, error) in
         if error == nil {
             let todos: [Todo]? = decode(response!)
             completion(responseData: todos, error: nil)
@@ -38,8 +46,15 @@ func listTodos(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
 
 func addOrUpdateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSError?) -> Void) {
     if let todoItem = todo?.first {
-        let newRequest = TodoRequest(id: todoItem.id, name: todoItem.name, description: todoItem.description, notes: todoItem.notes!, completed: todoItem.completed, synced: true)
-        sendRequest(Urls.PostTodo, request: newRequest) { (response, error) in
+        let newRequest = TodoRequest(id: todoItem.id,
+                                   name: todoItem.name,
+                            description: todoItem.description,
+                                  notes: todoItem.notes!,
+                              completed: todoItem.completed,
+                                 synced: true)
+        
+        sendRequest(Urls.postTodo, request: newRequest) {
+            (response, error) in
             if error == nil {
                 let todos: [Todo]? = decode(response!)
                 let newTodo = todoSyncedLens.set(true, todoItem)
@@ -56,8 +71,15 @@ func addOrUpdateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSE
 
 func updateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSError?) -> Void) {
     if let todoItem = todo?.first {
-        let newRequest = TodoRequest(id: todoItem.id, name: todoItem.name, description: todoItem.description, notes: todoItem.notes!, completed: todoItem.completed, synced: true)
-        sendRequest(Urls.Update, request: newRequest) { (response, error) in
+        let newRequest = TodoRequest(id: todoItem.id,
+                                   name: todoItem.name,
+                            description: todoItem.description,
+                                  notes: todoItem.notes!,
+                              completed: todoItem.completed,
+                                 synced: true)
+        
+        sendRequest(Urls.update, request: newRequest) {
+            (response, error) in
             if error == nil {
                 let todos: [Todo]? = decode(response!)
                 let newTodo = todoSyncedLens.set(true, todoItem)
