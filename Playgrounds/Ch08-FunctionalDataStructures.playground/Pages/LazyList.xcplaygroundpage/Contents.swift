@@ -117,5 +117,3 @@ let (element, lazyList) = ourLazyList.removeLast()!
 print(element)
 print(lazyList)
 
-
-//: [Next](@next)

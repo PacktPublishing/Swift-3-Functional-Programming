@@ -9,7 +9,7 @@ optionalString = nil
 optionalString = "An optional String"
 print(optionalString!)
 
-let nilName:String? = nil
+let nilName: String? = nil
 if let familyName = nilName {
     let greetingfamilyName = "Hello, Mr. \(familyName)"
 } else {

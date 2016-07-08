@@ -48,4 +48,3 @@ let powerOf2 = memoize { pow2, x in
 
 print(powerOf2(5))
 
-//: [Next](@next)

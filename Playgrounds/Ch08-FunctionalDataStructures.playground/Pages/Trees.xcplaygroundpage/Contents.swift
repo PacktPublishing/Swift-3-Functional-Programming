@@ -102,7 +102,7 @@ enum BinarySearchTree<Element: Comparable> {
 
 //let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
 
-let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 1, BinarySearchTree.leaf), element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
+let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 1, rhs: BinarySearchTree.leaf), element: 5, rhs: BinarySearchTree.node(lhs: BinarySearchTree.leaf, element: 9, rhs: BinarySearchTree.leaf))
 
 let iFound = BinarySearchTree.contains(9, tree: functionalBST) // will return true
 print(isFound)

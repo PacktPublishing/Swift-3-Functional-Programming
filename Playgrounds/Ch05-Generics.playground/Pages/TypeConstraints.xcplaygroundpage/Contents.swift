@@ -23,10 +23,10 @@ extension UInt16 : NumericType { }
 extension UInt32 : NumericType { }
 extension UInt64 : NumericType { }
 
-func calcualte<T: NumericType>(a: T,
+func calculate<T: NumericType>(a: T,
                b: T,
-               funcA: (T, T) -> T,
-               funcB: (T) -> T) -> T {
+           funcA: (T, T) -> T,
+           funcB: (T) -> T) -> T {
     
     return funcA(funcB(a), funcB(b))
 }
@@ -39,7 +39,7 @@ func square(a: Int) -> Int {
     return a * a
 }
 
-print("The result of adding two squared values is: \(calcualte(a: 2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
+print("The result of adding two squared values is: \(calculate(a: 2, b: 2, funcA: addTwoValues, funcB: square))") // prints “The result of adding two squared value is: 8”
 
 func format(a: String) -> String {
     return "formatted \(a)"
@@ -49,7 +49,7 @@ func appendStrings(a: String, b: String) -> String {
     return a + b
 }
 
-//print("The result is: \(calcualte(a: "2", b: "2", funcA: appendStrings, funcB: format))") // Compile error - Cannot convert value of types '(String, b: String) -> String' to expected argument type'(_, _) -> _'
+//print("The result is: \(calculate(a: "2", b: "2", funcA: appendStrings, funcB: format))") // Compile error - Cannot convert value of types '(String, b: String) -> String' to expected argument type'(_, _) -> _'
 
 
 

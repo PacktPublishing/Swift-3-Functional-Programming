@@ -46,7 +46,7 @@ let age: Int? = 27
 let address: String? = "New York, New York, US"
 
 switch (name, age, address) {
-    case (let name, _?, _ as String):
+    case (let name, _?, _):
         print(name)
     default: ()
 }
@@ -128,6 +128,3 @@ switch position {
     default:
         print("The position is: (\(position.0), \(position.1)).")
 }
-
-
-//: [Next](@next)

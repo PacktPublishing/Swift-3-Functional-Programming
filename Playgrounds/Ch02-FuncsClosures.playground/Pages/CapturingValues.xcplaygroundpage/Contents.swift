@@ -8,7 +8,7 @@ func sendRequest(responseType: String.Type, completion: (responseData:String, er
     //}
 }
 
-sendRequest(String.self) {
+sendRequest(responseType: String.self) {
     (response: String?, error: NSError?) in
     if let result = response {
         print(result)

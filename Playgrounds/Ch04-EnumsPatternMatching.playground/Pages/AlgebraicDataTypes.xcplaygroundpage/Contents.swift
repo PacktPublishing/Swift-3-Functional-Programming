@@ -58,7 +58,7 @@ func searchInTree(_ search: Int, tree: Tree) -> Bool {
     switch tree {
     case .leaf(let x):
         return x == search
-    case .node(let l as Tree, let r as Tree):
+    case .node(let l, let r):
         return searchInTree(search, tree:l) || searchInTree(search, tree:r)
     default:
         return false

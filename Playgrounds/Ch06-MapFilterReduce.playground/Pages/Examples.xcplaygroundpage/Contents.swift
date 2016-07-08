@@ -2,7 +2,9 @@
 
 import Foundation
 
-func reduce<Element, Value>(elements: [Element], initial: Value, combine: (Value, Element) -> Value) -> Value {
+func reduce<Element, Value>(elements: [Element],
+                             initial: Value,
+                             combine: (Value, Element) -> Value) -> Value {
     var result = initial
     for element in elements {
         result = combine(result, element)
@@ -14,13 +16,17 @@ func reduce<Element, Value>(elements: [Element], initial: Value, combine: (Value
 // Sum of an array
 
 let listOfNumbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-let sumOfNumbers = reduce(elements: listOfNumbers, initial: 0, combine: +)
+let sumOfNumbers = reduce(elements: listOfNumbers,
+                           initial: 0,
+                           combine: +)
 
 print(sumOfNumbers)
 
 // Product of an array
 
-let productOfNumbers = reduce(elements: listOfNumbers, initial: 1, combine: *)
+let productOfNumbers = reduce(elements: listOfNumbers,
+                               initial: 1,
+                               combine: *)
 
 print(productOfNumbers)
 
@@ -47,7 +53,8 @@ arrayWithDuplicates.reduce([]) { (a: [Int], b: Int) -> [Int] in
 
 typealias Accumlator = (lPartition: [Int], rPartition: [Int])
 
-func partition(list: [Int], criteria: (Int) -> Bool) -> Accumlator {
+func partition(list: [Int],
+           criteria: (Int) -> Bool) -> Accumlator {
     return list.reduce((lPartition: [Int](), rPartition: [Int]())) {
         (accumlator: Accumlator, pivot: Int) -> Accumlator in
         if criteria(pivot) {
@@ -63,7 +70,8 @@ print(partition(list: numbersToPartition) { $0 % 2 == 0 })
 
 // Generic version:
 
-func genericPartition<T>(list: [T], criteria: (T) -> Bool) -> (lPartition: [T], rPartition: [T]) {
+func genericPartition<T>(list: [T],
+                     criteria: (T) -> Bool) -> (lPartition: [T], rPartition: [T]) {
     return list.reduce((lPartition: [T](), rPartition: [T]())) {
         (accumlator: (lPartition: [T], rPartition: [T]), pivot: T) -> (lPartition: [T], rPartition: [T]) in
         if criteria(pivot) {

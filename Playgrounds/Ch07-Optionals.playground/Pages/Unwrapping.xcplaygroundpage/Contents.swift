@@ -46,6 +46,4 @@ if let
     // Do something with three values
 }
 
-
-
 //: [Next](@next)

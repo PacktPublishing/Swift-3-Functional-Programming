@@ -2,11 +2,11 @@
 
 import Foundation
 
-//func checkForPath(path: String) -> String? {
-//    // check for the path
-//    return "path"
-//}
-//
+func checkForPath(path: String) -> String? {
+    // check for the path
+    return "path"
+}
+
 //func readFile(path: String) -> String? {
 //    if let restult = checkForPath(path: path) {
 //        return restult

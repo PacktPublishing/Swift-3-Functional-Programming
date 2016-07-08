@@ -2,7 +2,7 @@
 
 import Foundation
 
-func apply<T, V>(fn: [T] -> V, args: [T]) -> V {
+func apply<T, V>(fn: ([T]) -> V, args: [T]) -> V {
     return fn(args)
 }
 

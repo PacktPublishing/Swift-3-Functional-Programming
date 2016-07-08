@@ -46,7 +46,7 @@ func returnTwenty() -> Int {
 returnTwenty()
 
 // Return another function as its value
-func makeIncrementer() -> (Int -> Int) {
+func makeIncrementer() -> ((Int) -> Int) {
     func addOne(number: Int) -> Int {
         return 1 + number
     }

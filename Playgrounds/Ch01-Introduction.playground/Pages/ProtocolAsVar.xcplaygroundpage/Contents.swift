@@ -8,11 +8,11 @@ protocol HttpProtocol{
 
 struct WebServiceManager {
     var delegate:HttpProtocol?
-    let data: NSData
+    let data: Data
     func test() {
         do {
-            let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(self.data, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-            self.delegate?.didRecieveResults(jsonResult)
+            let jsonResult: NSDictionary = try JSONSerialization.jsonObject(with: self.data, options: JSONSerialization.ReadingOptions.mutableContainers) as! NSDictionary
+            self.delegate?.didRecieveResults(results: jsonResult)
         } catch let error as NSError {
             print("json error" + error.localizedDescription)
         }

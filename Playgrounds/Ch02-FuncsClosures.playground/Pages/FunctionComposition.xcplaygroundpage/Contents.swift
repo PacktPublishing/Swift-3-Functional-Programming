@@ -25,7 +25,7 @@ composedFunction(content)
 // Composed function with custom operators
 
 infix operator |> { associativity left }
-func |> <T, V>(f: T -> V, g: V -> V ) -> T -> V {
+func |> <T, V>(f: (T) -> V, g: (V) -> V ) -> (T) -> V {
     return { x in g(f(x)) }
 }
 

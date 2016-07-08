@@ -2,9 +2,9 @@
 
 import Foundation
 
-// Error Type
+// Error Protocol
 
-enum HttpError: ErrorType {
+enum HttpError: ErrorProtocol {
     case badRequest
     case unauthorized
     case forbidden

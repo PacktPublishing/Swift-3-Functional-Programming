@@ -77,7 +77,7 @@ print(sumOfEvens) // 6
 // Avoiding temporal coupling
 
 func sendRequest() {
-    let sessionConfig = URLSessionConfiguration.default()
+    let sessionConfig = URLSessionConfiguration.default
     let session = URLSession(configuration: sessionConfig,
                                   delegate: nil,
                              delegateQueue: nil)

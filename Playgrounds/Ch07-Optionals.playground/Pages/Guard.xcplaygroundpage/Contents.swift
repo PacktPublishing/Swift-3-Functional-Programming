@@ -22,5 +22,4 @@ func extractValue(dict: [String: Int]) {
     // Do something with three values
 }
 
-
 //: [Next](@next)

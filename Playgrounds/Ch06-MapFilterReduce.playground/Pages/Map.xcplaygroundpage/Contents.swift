@@ -32,7 +32,7 @@ func calcualte<T, U>(a: [T],
     return funcA(a)
 }
 
-func map<T, U>(a: [T], transform: [T] -> [U]) -> [U] {
+func map<T, U>(a: [T], transform: ([T]) -> [U]) -> [U] {
     return transform(a)
 }
 
