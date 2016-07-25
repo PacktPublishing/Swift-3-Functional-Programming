@@ -34,7 +34,7 @@ switch theTeam {
 
 // Algebraic data types
 
-enum NHLTeam { case canadiens, senators, rangers, penguins, blackHawks, capitals}
+enum NHLTeam { case canadiens, senators, rangers, penguins, blackHawks, capitals }
 
 enum Team {
     case hockey(NHLTeam)

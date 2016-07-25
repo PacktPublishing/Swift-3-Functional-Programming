@@ -52,7 +52,7 @@ let mexicanBananas2 = FunctionalProduct(name: bananas.name, price: bananas.price
 // Lens
 
 struct Lens<Whole, Part> {
-    let get: Whole -> Part
+    let get: (Whole) -> Part
     let set: (Part, Whole) -> Whole
 }
 

@@ -12,7 +12,7 @@ for number in numbers {
 
 let mappedNumbers = numbers.map { "\($0)$" }
 
-func calcualte<T>(a: T,
+func calculate<T>(a: T,
                   b: T,
               funcA: (T, T) -> T,
               funcB: (T) -> T) -> T {
@@ -20,13 +20,13 @@ func calcualte<T>(a: T,
     return funcA(funcB(a), funcB(b))
 }
 
-func calcualte<T, U>(a: T,
+func calculate<T, U>(a: T,
                  funcA: (T) -> U) -> U {
     
     return funcA(a)
 }
 
-func calcualte<T, U>(a: [T],
+func calculate<T, U>(a: [T],
                  funcA: ([T]) -> [U]) -> [U] {
     
     return funcA(a)
