@@ -93,7 +93,7 @@ func sendRequest() {
     let task = session.dataTask(with: request,
                    completionHandler: {
                     
-        (data: Data?, response: URLResponse?, error: NSError?) -> Void in
+        (data: Data?, response: URLResponse?, error: Error?) -> Void in
         if (error == nil) {
             let statusCode = (response as! HTTPURLResponse).statusCode
             print("URL Session Task Succeeded: HTTP \(statusCode)")
@@ -111,7 +111,7 @@ func sendRequest() {
     let secondTask = session.dataTask(with: request,
                          completionHandler: {
                             
-        (data: Data?, response: URLResponse?, error: NSError?) -> Void in
+        (data: Data?, response: URLResponse?, error: Error?) -> Void in
         if (error == nil) {
             let statusCode = (response as! HTTPURLResponse).statusCode
             print("URL Session Task Succeeded: HTTP \(statusCode)")

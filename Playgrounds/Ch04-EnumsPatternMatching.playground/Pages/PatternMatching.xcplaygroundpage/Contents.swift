@@ -54,5 +54,4 @@ func convertDimension(dimension: Dimension) -> Dimension {
 }
 
 let convertedDimension = convertDimension(dimension: Dimension.metric(5.0, 4.0))
-
 //: [Next](@next)

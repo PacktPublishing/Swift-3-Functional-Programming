@@ -66,7 +66,7 @@ numberA <> Int.identity() // 3
 "A" <> String.identity() // A
 
 func mconcat <M: Monoid> (_ elements: [M]) -> M {
-    return elements.reduce(M.identity(), combine: <>)
+    return elements.reduce(M.identity(), <>)
 }
 
 print(mconcat([1, 2, 3])) // 6

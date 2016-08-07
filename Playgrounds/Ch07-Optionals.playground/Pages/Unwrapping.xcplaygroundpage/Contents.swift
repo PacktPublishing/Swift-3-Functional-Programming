@@ -39,11 +39,10 @@ if let firstValue = dict["One"] {
 
 // Multiple optional binding
 
-if let
-    firstValue = dict["One"],
-    secondValue = dict["Two"],
-    thirdValue = dict["Three"] {
-    // Do something with three values
+if let firstValue = dict["One"],
+    let secondValue = dict["Two"],
+    let thirdValue = dict["Three"] {
+    print("\(firstValue) \(secondValue) \(thirdValue)")
 }
 
 //: [Next](@next)

@@ -93,7 +93,7 @@ extension Array : Semigroup {
 }
 
 func sconcat <S: Semigroup> (initial: S, elements: [S]) -> S {
-    return elements.reduce(initial, combine: <>)
+    return elements.reduce(initial, <>)
 }
 
 print(sconcat(initial: 0, elements:[1, 2, 3])) // 6

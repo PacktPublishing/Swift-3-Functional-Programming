@@ -20,7 +20,7 @@ func checkForPath(path: String) -> String? {
 //}
 
 
-enum Result: ErrorProtocol {
+enum Result: Error {
     case failure
     case success
 }

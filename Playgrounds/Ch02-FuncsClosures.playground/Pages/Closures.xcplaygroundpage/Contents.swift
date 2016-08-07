@@ -28,19 +28,19 @@ print(result)
 
 var anArray = [1, 2, 5, 3, 6, 4]
 
-anArray.sort(isOrderedBefore: { (param1: Int, param2: Int) -> Bool in
+anArray.sort(by: { (param1: Int, param2: Int) -> Bool in
     return param1 < param2
 })
 
 // Simpler syntax with implied parameter types
 
-anArray.sort(isOrderedBefore: { (param1, param2) -> Bool in
+anArray.sort(by: { (param1, param2) -> Bool in
     return param1 < param2
 })
 
 //// Simpler syntax with implied return type
 
-anArray.sort(isOrderedBefore: { (param1, param2) in
+anArray.sort(by: { (param1, param2) in
     return param1 < param2
 })
 

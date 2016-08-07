@@ -14,12 +14,13 @@ greet(person: ["name": "Neco"]) // prints "Hello Ms Neco!"
 func extractValue(dict: [String: Int]) {
     guard let
         firstValue = dict["One"],
-        secondValue = dict["Two"],
-        thirdValue = dict["Three"]
+        let secondValue = dict["Two"],
+        let thirdValue = dict["Three"]
         else {
             return
     }
-    // Do something with three values
+    print("\(firstValue) \(secondValue) \(thirdValue)")
+
 }
 
 //: [Next](@next)

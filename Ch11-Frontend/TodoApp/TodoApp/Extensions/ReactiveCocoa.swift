@@ -13,7 +13,7 @@ extension MutableProperty: Delta.ObservablePropertyType {
     public typealias ValueType = Value
 }
 
-struct RAC  {
+struct RAC {
     var target : NSObject!
     var keyPath : String!
     var nilValue : AnyObject!

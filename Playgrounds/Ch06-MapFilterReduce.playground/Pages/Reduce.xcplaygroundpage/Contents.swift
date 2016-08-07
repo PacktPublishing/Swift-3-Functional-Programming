@@ -6,7 +6,7 @@ let numbers = [10, 30, 91, 50, 100, 39, 74]
 let total = numbers.reduce(0) { $0 + $1 }
 total
 
-let total2 = numbers.reduce(0, combine: +)
+let total2 = numbers.reduce(0, +)
 total2
 
 func reduce<Element, Value>(elements: [Element],
