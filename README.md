@@ -2,13 +2,14 @@
 This is the code repository for [Swift 3 Functional Programming](https://www.packtpub.com/application-development/swift-3-functional-programming?utm_source=github&utm_medium=repository&utm_campaign=9781785883880), published by Packt. It contains all the supporting project files necessary to work through the book from start to finish.
 
 ## Instructions
-To follow along with the examples from chapters 1 to 10 in this book, you'll need to have an Apple computer with macOS installed. You'll also need to install Xcode version 8 beta 4 with Swift 3.0 Preview 4.
+To follow along with the examples from chapters 1 to 10 in this book, you'll need to have an Apple computer with macOS installed. You'll also need to install `Xcode version 8 beta 5` with `Swift 3.0 Preview 5`.
 
-Chapter 11 - Frontend App requires Xcode 7.3.1 as used dependencies are not updated to Swift 3.0 preview 4 specifications yet.
+Chapter 11 - Frontend App requires Xcode 7.3.1 as used dependencies are not updated to `Swift 3.0 preview 5` specifications yet.
 
 Chapter 11 - Backend App requires Vapor so for configurations please follow the steps shown in:
 [Vapor Installation Guide](https://vapor.readme.io) 
-#### Backend source code is compatible with Vapor 0.16 which utilizes `DEVELOPMENT-SNAPSHOT-2016-07-25-a` version of Swift.
+
+Backend source code is compatible with `Vapor 0.16` which utilizes `Swift DEVELOPMENT-SNAPSHOT-2016-07-25-a`.
 
 ## Related books
 - [Reactive Programming with Swift](https://www.packtpub.com/application-development/reactive-programming-swift?utm_source=github&utm_medium=repository&utm_campaign=9781785884269)
