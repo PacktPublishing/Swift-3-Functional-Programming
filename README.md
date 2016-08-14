@@ -8,7 +8,7 @@ Chapter 11 - Frontend App requires Xcode 7.3.1 as used dependencies are not upda
 
 Chapter 11 - Backend App requires Vapor so for configurations please follow the steps shown in:
 [Vapor Installation Guide](https://vapor.readme.io) 
-#### Warning: Backend source code needs to be updated to Swift 3.0 preview 4. This update depends on Vapor that needs to be updated to Swift 3.0 preview 4.
+#### Backend source code is compatible with Vapor 0.16 which utilizes `DEVELOPMENT-SNAPSHOT-2016-07-25-a` version of Swift.
 
 ## Related books
 - [Reactive Programming with Swift](https://www.packtpub.com/application-development/reactive-programming-swift?utm_source=github&utm_medium=repository&utm_campaign=9781785884269)
