@@ -7,7 +7,7 @@ To follow along with the examples from chapters 1 to 10 in this book, you'll nee
 Chapter 11 - Frontend App requires Xcode 7.3.1 as used dependencies are not updated to `Swift 3.0 preview 5` specifications yet.
 
 Chapter 11 - Backend App requires Vapor so for configurations please follow the steps shown in:
-[Vapor Installation Guide](https://vapor.readme.io) 
+[Swift 3 and Vapor toolbox Installation Guide](https://vapor.github.io/documentation/getting-started/install-swift-3.html) 
 
 Backend source code is compatible with `Vapor 0.16` which utilizes `Swift DEVELOPMENT-SNAPSHOT-2016-07-25-a`.
 
