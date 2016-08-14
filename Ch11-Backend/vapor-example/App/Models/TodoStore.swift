@@ -9,7 +9,7 @@ final class TodoStore {
     
     func addOrUpdateItem(item: Todo) {
         if self.find(id: item.id) != nil {
-            update(item: item)
+            _ = update(item: item)
         } else {
             self.list.append(item)
         }
@@ -55,8 +55,8 @@ final class TodoStore {
 	as if it were a native JSON type.
  */
 extension TodoStore: JSONRepresentable {
-    func makeJson() -> JSON {
-        return JSON([
+    func makeJSON() throws -> JSON {
+        return try JSON([
             "list": "\(list)"
             ])
     }

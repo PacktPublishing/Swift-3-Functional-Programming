@@ -24,9 +24,9 @@ final class Todo {
 	as if it were a native JSON type.
  */
 extension Todo: JSONRepresentable {
-    func makeJson() -> JSON {
+    func makeJSON() throws -> JSON {
         
-        return JSON([
+        return try JSON([
             "id":id,
             "name": "\(name)",
             "description": "\(description)",

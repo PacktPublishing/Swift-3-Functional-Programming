@@ -3,14 +3,15 @@ import PackageDescription
 let package = Package(
     name: "VaporApp",
     dependencies: [
-        .Package(url: "https://github.com/qutheory/vapor.git", majorVersion: 0, minor: 10),
-        .Package(url: "https://github.com/qutheory/vapor-mustache.git", majorVersion: 0, minor: 6)
+        .Package(url: "https://github.com/vapor/vapor.git", majorVersion: 0, minor: 16),
+        .Package(url: "https://github.com/vapor/vapor-mustache.git", majorVersion: 0, minor: 11)
     ],
     exclude: [
-        "Deploy",
+        "Config",
+        "Database",
+        "Localization",
         "Public",
         "Resources",
-		"Tests",
-		"Database"
+        "Tests",
     ]
 )

@@ -1,20 +1,22 @@
 import Vapor
+import HTTP
 
-class UserController: Controller {
+final class UserController: ResourceRepresentable {
     typealias Item = User
     
-    required init(application: Application) {
-        Log.info("User controller created")
+    let drop: Droplet
+    init(droplet: Droplet) {
+        drop = droplet
     }
     
-    func index(_ request: Request) throws -> ResponseRepresentable {
-        return JSON([
+    func index(request: Request) throws -> ResponseRepresentable {
+        return try JSON([
             "controller": "UserController.index"
             ])
     }
     
-    func store(_ request: Request) throws -> ResponseRepresentable {
-        return JSON([
+    func store(request: Request) throws -> ResponseRepresentable {
+        return try JSON([
             "controller": "UserController.store"
             ])
     }
@@ -23,22 +25,31 @@ class UserController: Controller {
     	Since item is of type User,
     	only instances of user will be received
      */
-    func show(_ request: Request, item user: User) throws -> ResponseRepresentable {
-        //User can be used like JSON with JSONRepresentable
-        return JSON([
+    func show(request: Request, item user: User) throws -> ResponseRepresentable {
+        //User can be used like JSON with JsonRepresentable
+        return try JSON([
             "controller": "UserController.show",
             "user": user
             ])
     }
     
-    func update(_ request: Request, item user: User) throws -> ResponseRepresentable {
-        //User is JSONRepresentable
-        return user.makeJson()
+    func update(request: Request, item user: User) throws -> ResponseRepresentable {
+        //User is JsonRepresentable
+        return user.makeJSON()
     }
     
-    func destroy(_ request: Request, item user: User) throws -> ResponseRepresentable {
-        //User is ResponseRepresentable by proxy of JSONRepresentable
+    func destroy(request: Request, item user: User) throws -> ResponseRepresentable {
+        //User is ResponseRepresentable by proxy of JsonRepresentable
         return user
     }
     
+    func makeResource() -> Resource<User> {
+        return Resource(
+            index: index,
+            store: store,
+            show: show,
+            replace: update,
+            destroy: destroy
+        )
+    }
 }

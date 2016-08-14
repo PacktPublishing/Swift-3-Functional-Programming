@@ -1,4 +1,5 @@
 import Vapor
+import HTTP
 
 class SampleMiddleware: Middleware {
     
@@ -18,7 +19,7 @@ class SampleMiddleware: Middleware {
         
         // Vapor Middleware is based on S4 Middleware.
         // This means you can share it with any other project
-        // that uses S4 Middleware.
+        // that uses S4 Middleware. 
     }
     
 }
