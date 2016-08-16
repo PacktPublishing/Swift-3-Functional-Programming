@@ -6,9 +6,14 @@ import Foundation
 /// Lazy List
 
 /// Operator
-infix operator <|| { associativity right precedence 100 }
 
-func <|| <T>(lhs: T, rhs: @autoclosure(escaping) () -> LazyList<T>) -> LazyList<T> {
+precedencegroup AssociativityRight {
+    associativity: right
+}
+
+infix operator <|| : AssociativityRight
+
+func <|| <T>(lhs: T, rhs: @autoclosure @escaping () -> LazyList<T>) -> LazyList<T> {
     return .node(data: lhs, next: rhs)
 }
 
@@ -61,7 +66,7 @@ enum LazyList<Element: Equatable> {
         }
     }
     
-    func map<T>(_ transform: (Element) -> T) -> LazyList<T> {
+    func map<T>(_ transform: @escaping (Element) -> T) -> LazyList<T> {
         switch self {
         case .end:
             return .end

@@ -39,10 +39,10 @@ struct FunctionalProduct {
     }
     
     init(product: FunctionalProduct,
-            name: String,
-           price: Double,
-        quantity: Int,
-        producer: Producer) {
+            name: String?,
+           price: Double?,
+        quantity: Int?,
+        producer: Producer?) {
         
         self.name = name ?? product.name
         self.price = price ?? product.price

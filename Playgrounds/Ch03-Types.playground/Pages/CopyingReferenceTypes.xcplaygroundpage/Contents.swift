@@ -13,7 +13,7 @@ class Manager: NSObject, NSCopying {
         self.age = age
     }
     
-    func copy(with: NSZone? = nil) -> AnyObject {
+    func copy(with: NSZone? = nil) -> Any {
         let copy = Manager(firstName: firstName, lastName: lastName, age: age)
         return copy
     }

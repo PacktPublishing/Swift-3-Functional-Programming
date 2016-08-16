@@ -4,7 +4,7 @@
         <page name='TableOfContents'/>
         <page name='Map'/>
         <page name='FlatMap'/>
-        <page name='Flatten'/>
+        <page name='Joined'/>
         <page name='Filter'/>
         <page name='Reduce'/>
         <page name='Apply'/>

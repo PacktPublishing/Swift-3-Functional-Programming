@@ -24,7 +24,7 @@ print(memo) // result: [2: 4, 3: 8, 4: 16]
 
 // Advanced memoization
 
-func memoize<T: Hashable, U>(fn: ((T) -> U, T) -> U) -> (T) -> U {
+func memoize<T: Hashable, U>(fn: @escaping ((T) -> U, T) -> U) -> (T) -> U {
     var memo = Dictionary<T, U>()
     var result: ((T) -> U)!
     result = { x in

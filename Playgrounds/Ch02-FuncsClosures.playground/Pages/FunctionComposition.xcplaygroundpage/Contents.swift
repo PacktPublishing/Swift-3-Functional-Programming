@@ -24,8 +24,12 @@ composedFunction(content)
 
 // Composed function with custom operators
 
-infix operator |> { associativity left }
-func |> <T, V>(f: (T) -> V, g: (V) -> V ) -> (T) -> V {
+precedencegroup AssociativityLeft {
+    associativity: left
+}
+
+infix operator |> : AssociativityLeft
+func |> <T, V>(f: @escaping (T) -> V, g: @escaping (V) -> V ) -> (T) -> V {
     return { x in g(f(x)) }
 }
 

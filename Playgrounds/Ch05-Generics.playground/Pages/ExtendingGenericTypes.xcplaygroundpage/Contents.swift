@@ -3,7 +3,7 @@
 import Foundation
 
 struct Queue<Element> {
-    private var elements = [Element]()
+    var elements = [Element]()
     mutating func enQueue(newElement: Element) {
         elements.append(newElement)
     }

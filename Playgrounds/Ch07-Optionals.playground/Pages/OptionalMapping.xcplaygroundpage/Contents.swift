@@ -24,7 +24,11 @@ var nonOptionalUserName: String {
     return someUserName ?? ""
 }
 
-infix operator <^> { associativity left }
+precedencegroup AssociativityLeft {
+    associativity: left
+}
+
+infix operator <^> : AssociativityLeft
 
 func <^><T, V>(transform: (T) -> V, input: T?) -> V? {
     switch input {
@@ -49,7 +53,8 @@ func apply<T, V>(transform: ((T) -> V)?, input: T?) -> V? {
     }
 }
 
-infix operator <*> { associativity left }
+
+infix operator <*> : AssociativityLeft
 
 func <*><T, V>(transform: ((T) -> V)?, input: T?) -> V? {
     switch transform {
@@ -81,6 +86,7 @@ var fullName: String {
     let fullUserName = extractFullUserName <^> user.firstName <*> user.lastName
     return fullUserName ?? ""
 }
+print(fullName)
 
 let optionalString: String? = "A String literal"
 let result = optionalString.map { "\($0) is mapped" }

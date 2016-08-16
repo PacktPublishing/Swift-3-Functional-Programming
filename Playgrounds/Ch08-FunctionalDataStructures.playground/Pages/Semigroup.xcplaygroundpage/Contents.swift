@@ -62,9 +62,11 @@ print(sconcat(initial: [], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
 */
 
 
+precedencegroup AssociativityLeft {
+    associativity: left
+}
 
-
-infix operator <> { associativity left precedence 150 }
+infix operator <> : AssociativityLeft
 
 func <> <S: Semigroup> (x: S, y: S) -> S {
     return x.operation(y)

@@ -4,7 +4,11 @@ import Foundation
 
 // Semigroup from previous section
 
-infix operator <> { associativity left precedence 150 }
+precedencegroup AssociativityLeft {
+    associativity: left
+}
+
+infix operator <> : AssociativityLeft
 
 func <> <S: Semigroup> (x: S, y: S) -> S {
     return x.operation(y)

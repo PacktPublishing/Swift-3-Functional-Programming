@@ -5,7 +5,12 @@ import Foundation
 /// Stack
 
 /// Operators
-infix operator <<| { associativity right precedence 100 }
+
+precedencegroup AssociativityRight {
+    associativity: right
+}
+
+infix operator <<| : AssociativityRight
 
 func <<| <T>(lhs: T, rhs: Stack<T>) -> Stack<T> {
     return .node(data: lhs, next: rhs)

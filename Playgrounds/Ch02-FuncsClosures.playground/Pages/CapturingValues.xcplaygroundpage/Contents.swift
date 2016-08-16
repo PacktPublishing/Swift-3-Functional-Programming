@@ -2,9 +2,9 @@
 
 import Foundation
 
-func sendRequest(responseType: String.Type, completion: (responseData:String, error:NSError?) -> Void) {
+func sendRequest(responseType: String.Type, completion: (_ responseData:String, _ error:NSError?) -> Void) {
     // execute some time consuming operation, if successfull {
-    completion(responseData: "Response", error: nil)
+    completion("Response", nil)
     //}
 }
 

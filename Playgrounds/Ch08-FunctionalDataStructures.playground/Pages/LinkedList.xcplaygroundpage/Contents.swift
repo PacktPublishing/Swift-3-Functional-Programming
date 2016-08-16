@@ -3,7 +3,12 @@
 import Foundation
 
 /// Operator
-infix operator <| { associativity right precedence 100 }
+
+precedencegroup AssociativityRight {
+    associativity: right
+}
+
+infix operator <| : AssociativityRight
 
 func <| <T>(lhs: T, rhs: LinkedList<T>) -> LinkedList<T> {
     return .node(data: lhs, next: rhs)

@@ -26,8 +26,8 @@ import UIKit
 
 
 class User {
-    private let name: String
-    private let age: Int
+    let name: String
+    let age: Int
     
     init(name: String, age: Int) {
         self.name = name

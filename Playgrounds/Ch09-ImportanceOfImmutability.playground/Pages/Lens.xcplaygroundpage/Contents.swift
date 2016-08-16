@@ -20,7 +20,7 @@ struct FunctionalProduct {
         self.producer = producer
     }
     
-    init(product: FunctionalProduct, name: String, price: Double, quantity: Int, producer: Producer) {
+    init(product: FunctionalProduct, name: String?, price: Double?, quantity: Int?, producer: Producer?) {
         self.name = name ?? product.name
         self.price = price ?? product.price
         self.quantity = quantity ?? product.quantity
@@ -88,7 +88,11 @@ print(chineeseBananaProducer)
 
 // Lens composition
 
-infix operator >>> { associativity right precedence 100 }
+precedencegroup AssociativityRight {
+    associativity: right
+}
+
+infix operator >>> : AssociativityRight
 
 func >>><A,B,C>(l: Lens<A,B>, r: Lens<B,C>) -> Lens<A,C> {
     return Lens(get: { r.get(l.get($0)) },

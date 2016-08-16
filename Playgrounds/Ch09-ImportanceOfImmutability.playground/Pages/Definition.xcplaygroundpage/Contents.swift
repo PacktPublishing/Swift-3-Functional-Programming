@@ -82,7 +82,7 @@ func sendRequest() {
                                   delegate: nil,
                              delegateQueue: nil)
     
-    var url: NSURL?
+    var url: URL?
     var request: URLRequest
     
     /* First request block starts: */

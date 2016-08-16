@@ -58,7 +58,7 @@ anArray.sort {
 
 // Simpler syntax if we have only one line of expression in our closures
 
-anArray.sort {  $0 < $1 }
+anArray.sort { $0 < $1 }
 
 
 //: [Next](@next)
