@@ -75,7 +75,7 @@ enum LazyList<Element: Equatable> {
         }
     }
     
-    func filter(_ predicate: ((Element) -> Bool)) -> LazyList<Element> {
+    func filter(_ predicate: @escaping ((Element) -> Bool)) -> LazyList<Element> {
         switch self {
         case .end:
             return .end
