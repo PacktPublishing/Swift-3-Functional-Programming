@@ -39,7 +39,7 @@ struct HockeyAndSoccerTeams {
 
 /*
 enum HockeyAndSoccerTeams {
-    case Value(hockey: NHLTeam, soccer: MLSTeam)
+    case value(hockey: NHLTeam, soccer: MLSTeam)
 }
 */
 
@@ -52,7 +52,7 @@ enum Tree {
 }
 
 let ourTree = Tree.node(Tree.leaf(1), Tree.node(Tree.leaf(2), Tree.leaf(3)))
-print(ourTree)
+print(ourTree) // prints node(Tree.leaf(1), Tree.node(Tree.leaf(2), Tree.leaf(3)))
 
 func searchInTree(_ search: Int, tree: Tree) -> Bool {
     switch tree {
@@ -65,8 +65,8 @@ func searchInTree(_ search: Int, tree: Tree) -> Bool {
     }
 }
 
-let isFound = searchInTree(3, tree: ourTree) // will return true
-print(isFound)
+let isFound = searchInTree(3, tree: ourTree)
+print(isFound) // prints true
 
 
 //: [Next](@next)

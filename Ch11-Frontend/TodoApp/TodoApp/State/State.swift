@@ -6,7 +6,7 @@
 //  Copyright © 2016 Fatih Nayebi. All rights reserved.
 //
 
-import ReactiveCocoa
+import ReactiveSwift
 
 private let initialTodos: [Todo] = []
 

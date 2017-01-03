@@ -23,13 +23,14 @@ class FooterView: UIView {
     }
     
     override func awakeFromNib() {
-        self.clearCompletedButton?.addTarget(self, action: #selector(FooterView.clearCompletedTapped), forControlEvents: .TouchUpInside)
+        self.clearCompletedButton?.addTarget(self, action: #selector(FooterView.clearCompletedTapped), for: .touchUpInside)
         self.subscribeToStoreChanges()
     }
     
     func subscribeToStoreChanges() {
-        store.todoStats.startWithNext { todosCount, incompleteCount in
-            self.clearCompletedButton?.hidden = todosCount == incompleteCount
+        store.todoStats.startWithValues {
+            todosCount, incompleteCount in
+            self.clearCompletedButton?.isHidden = todosCount == incompleteCount
             
             if incompleteCount == 1 {
                 self.itemsLeftLabel?.text = "1 todo left"

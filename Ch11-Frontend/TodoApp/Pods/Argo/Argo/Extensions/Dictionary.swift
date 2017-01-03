@@ -1,3 +1,5 @@
+import Runes
+
 // pure merge for Dictionaries
 func + <T, U>(lhs: [T: U], rhs: [T: U]) -> [T: U] {
   var merged = lhs
@@ -9,7 +11,7 @@ func + <T, U>(lhs: [T: U], rhs: [T: U]) -> [T: U] {
 }
 
 extension Dictionary {
-  func map<T>(@noescape f: Value -> T) -> [Key: T] {
+  func map<T>(_ f: (Value) -> T) -> [Key: T] {
     var accum = Dictionary<Key, T>(minimumCapacity: self.count)
 
     for (key, value) in self {
@@ -20,6 +22,6 @@ extension Dictionary {
   }
 }
 
-func <^> <T, U, V>(@noescape f: T -> U, x: [V: T]) -> [V: U] {
+func <^> <T, U, V>(f: (T) -> U, x: [V: T]) -> [V: U] {
   return x.map(f)
 }

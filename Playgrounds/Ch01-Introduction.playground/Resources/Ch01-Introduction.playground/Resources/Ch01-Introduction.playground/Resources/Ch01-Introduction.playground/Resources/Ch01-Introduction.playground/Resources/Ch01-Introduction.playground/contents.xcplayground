@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<playground version='6.0' target-platform='ios' display-mode='rendered'>
+    <pages>
+        <page name='TableOfContents'/>
+        <page name='DeclarativeImperative'/>
+        <page name='LazyEvaluation'/>
+        <page name='ModernSyntax'/>
+        <page name='Types'/>
+        <page name='Immutability'/>
+        <page name='Tuples'/>
+        <page name='Optionals'/>
+        <page name='Strings'/>
+        <page name='Collections'/>
+        <page name='ControlFlows'/>
+        <page name='Functions'/>
+        <page name='MapFilterReduce'/>
+        <page name='Enumerations'/>
+        <page name='Generics'/>
+        <page name='Methods'/>
+        <page name='Subscripts'/>
+        <page name='Initialization'/>
+        <page name='ARC'/>
+        <page name='ErrorType'/>
+        <page name='ProtocolAsVar'/>
+        <page name='AnyAnyObject'/>
+        <page name='NestedTypes'/>
+        <page name='ExtensionsAndProtocols'/>
+    </pages>
+</playground>

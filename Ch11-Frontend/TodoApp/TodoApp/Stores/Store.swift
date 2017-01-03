@@ -6,14 +6,15 @@
 //  Copyright © 2016 Fatih Nayebi. All rights reserved.
 //
 
+import ReactiveSwift
 import ReactiveCocoa
 import Delta
 
 struct Store: StoreType {
-    var state: MutableProperty<State>
+    var state: ObservableProperty<State>
     
     init(state: State) {
-        self.state = MutableProperty(state)
+        self.state = ObservableProperty(state)
     }
 }
 

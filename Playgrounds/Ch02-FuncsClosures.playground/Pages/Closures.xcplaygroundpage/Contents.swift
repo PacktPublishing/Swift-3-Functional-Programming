@@ -16,37 +16,42 @@ func aFunc(closure: (Int) -> Int) -> Int  {
     return closure(5)
 }
 
-let result = aFunc(closure: { number in
+let result = aFunc(closure: {
+    number in
     // Statements, for example:
     return number * 3
 })
 
-print(result)
+print(result) // prints 15
 
 
 // Closures as function parameters
 
 var anArray = [1, 2, 5, 3, 6, 4]
 
-anArray.sort(by: { (param1: Int, param2: Int) -> Bool in
+anArray.sort(by: {
+    (param1: Int, param2: Int) -> Bool in
     return param1 < param2
 })
 
 // Simpler syntax with implied parameter types
 
-anArray.sort(by: { (param1, param2) -> Bool in
+anArray.sort(by: {
+    (param1, param2) -> Bool in
     return param1 < param2
 })
 
 //// Simpler syntax with implied return type
 
-anArray.sort(by: { (param1, param2) in
+anArray.sort(by: {
+    (param1, param2) in
     return param1 < param2
 })
 
 // Simpler syntax with a trailing closure
 
-anArray.sort { (param1, param2) in
+anArray.sort {
+    (param1, param2) in
     return param1 < param2
 }
 

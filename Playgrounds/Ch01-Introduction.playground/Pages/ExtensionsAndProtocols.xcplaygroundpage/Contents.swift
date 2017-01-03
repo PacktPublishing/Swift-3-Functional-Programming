@@ -2,16 +2,6 @@
 
 import Foundation
 
-// Extensions
-
-// Computed Properties
-extension Double {
-    var mm: Double { return self / 1_000.0 }
-    var ft: Double { return self / 3.2884 }
-}
-
-let threeInch = 76.2.mm
-let fiveFeet = 5.ft
 
 // Protocols
 
@@ -45,6 +35,17 @@ struct SimpleStructure: ExampleProtocol {
 var aSimpleStruct = SimpleStructure()
 aSimpleStruct.adjust()
 let aSimpleStructDescription = aSimpleStruct.simpleDescription
+
+// Extensions
+
+// Computed Properties
+extension Double {
+    var mm: Double { return self / 1_000.0 }
+    var ft: Double { return self / 3.2884 }
+}
+
+let threeInch = 76.2.mm
+let fiveFeet = 5.ft
 
 // Protocol extension
 

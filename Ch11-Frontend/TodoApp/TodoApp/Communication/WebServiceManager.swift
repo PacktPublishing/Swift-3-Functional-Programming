@@ -8,30 +8,35 @@
 
 import Alamofire
 
-func sendRequest(url: Urls,
+func sendRequest(_ url: Urls,
              request: RequestProtocol,
-          completion: (responseData: AnyObject?,
-                              error: NSError?) -> Void) {
+          completion: @escaping (_ responseData: AnyObject?, _ error: Error?) -> Void) {
     // Add headers
     let headers = configureHeaders(request)
     // Get request method and full url
     let (method, url) = url.httpMethodUrl()
+    var urlRequest = URLRequest(url: URL(string: url)!)
+    urlRequest.httpMethod = method
+    urlRequest.allHTTPHeaderFields = headers
     
     // Fetch request
-    Alamofire.request(method, url, headers: headers, encoding: .JSON)
+    let manager = Alamofire.SessionManager.default
+    manager.request(urlRequest as URLRequestConvertible)
+    //manager.request(urlAddress, method: method, parameters: nil, encoding: .json, headers: headers)
         .validate()
-        .responseJSON { response in
+        .responseJSON {
+            response in
             if (response.result.error == nil) {
                 debugPrint("HTTP Response Body: \(response.data)")
-                completion(responseData: response.result.value, error: nil)
+                completion(response.result.value as AnyObject?, nil)
             } else {
                 debugPrint("HTTP Request failed: \(response.result.error)")
-                completion(responseData: nil, error: response.result.error)
+                completion(nil, response.result.error)
             }
     }
 }
 
-func configureHeaders(request: RequestProtocol) -> [String: String] {
+func configureHeaders(_ request: RequestProtocol) -> [String: String] {
     let listOfProperties = request.getPropertyNames()
     var configuredRequestHeaders = Dictionary<String, String>()
     
@@ -41,6 +46,7 @@ func configureHeaders(request: RequestProtocol) -> [String: String] {
             configuredRequestHeaders[propertyName!] = propertyValue
         }
     }
+    configuredRequestHeaders["accepts"] = "JSON"
     
     return configuredRequestHeaders
 }

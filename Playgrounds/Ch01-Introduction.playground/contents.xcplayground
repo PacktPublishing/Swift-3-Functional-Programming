@@ -20,11 +20,10 @@
         <page name='Subscripts'/>
         <page name='Initialization'/>
         <page name='ARC'/>
-        <page name='OptionalChaining'/>
-        <page name='ErrorType'/>
-        <page name='ProtocolAsVar'/>
         <page name='AnyAnyObject'/>
         <page name='NestedTypes'/>
+        <page name='Protocols'/>
         <page name='ExtensionsAndProtocols'/>
+        <page name='ErrorHandling'/>
     </pages>
 </playground>

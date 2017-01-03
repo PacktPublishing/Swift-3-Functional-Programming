@@ -1,3 +1,5 @@
+import Runes
+
 /**
   Conditionally map a function over a `Decoded` value.
 
@@ -11,7 +13,7 @@
 
   - returns: A value of type `Decoded<U>`
 */
-public func <^> <T, U>(@noescape f: T -> U, x: Decoded<T>) -> Decoded<U> {
+public func <^> <T, U>(f: (T) -> U, x: Decoded<T>) -> Decoded<U> {
   return x.map(f)
 }
 
@@ -28,10 +30,10 @@ public extension Decoded {
 
     - returns: A value of type `Decoded<U>`
   */
-  func map<U>(@noescape f: T -> U) -> Decoded<U> {
+  func map<U>(_ f: (T) -> U) -> Decoded<U> {
     switch self {
-    case let .Success(value): return .Success(f(value))
-    case let .Failure(error): return .Failure(error)
+    case let .success(value): return .success(f(value))
+    case let .failure(error): return .failure(error)
     }
   }
 }

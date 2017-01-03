@@ -1,3 +1,5 @@
+import Runes
+
 /**
   Conditionally apply a `Decoded` function to a `Decoded` value.
 
@@ -13,7 +15,7 @@
 
   - returns: A value of type `Decoded<U>`
 */
-public func <*> <T, U>(f: Decoded<T -> U>, x: Decoded<T>) -> Decoded<U> {
+public func <*> <T, U>(f: Decoded<(T) -> U>, x: Decoded<T>) -> Decoded<U> {
   return x.apply(f)
 }
 
@@ -24,8 +26,8 @@ public func <*> <T, U>(f: Decoded<T -> U>, x: Decoded<T>) -> Decoded<U> {
 
   - returns: The provided value wrapped in `.Success`
 */
-public func pure<T>(x: T) -> Decoded<T> {
-  return .Success(x)
+public func pure<T>(_ x: T) -> Decoded<T> {
+  return .success(x)
 }
 
 public extension Decoded {
@@ -44,10 +46,11 @@ public extension Decoded {
 
     - returns: A value of type `Decoded<U>`
   */
-  func apply<U>(f: Decoded<T -> U>) -> Decoded<U> {
-    switch f {
-    case let .Success(function): return self.map(function)
-    case let .Failure(error): return .Failure(error)
+  func apply<U>(_ f: Decoded<(T) -> U>) -> Decoded<U> {
+    switch (f, self) {
+    case let (.success(function), _): return self.map(function)
+    case let (.failure(le), .failure(re)): return .failure(le + re)
+    case let (.failure(f), _): return .failure(f)
     }
   }
 }

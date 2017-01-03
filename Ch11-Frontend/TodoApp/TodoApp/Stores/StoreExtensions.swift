@@ -7,6 +7,7 @@
 //
 
 import ReactiveCocoa
+import ReactiveSwift
 import Result
 
 // MARK: Properties
@@ -28,7 +29,7 @@ extension Store {
 // MARK: SignalProducers
 extension Store {
     var activeTodos: SignalProducer<[Todo], NoError> {
-        return activeFilter.producer.flatMap(.Latest) {
+        return activeFilter.producer.flatMap(.latest) {
             filter -> SignalProducer<[Todo], NoError> in
             switch filter {
             case .all: return self.todos.producer
@@ -63,7 +64,7 @@ extension Store {
     }
     
     var todoStats: SignalProducer<(Int, Int), NoError> {
-        return allTodosCount.zipWith(incompleteTodosCount)
+        return allTodosCount.zip(with: incompleteTodosCount)
     }
     
     var notSyncedWithBackend: SignalProducer<[Todo], NoError> {
@@ -87,11 +88,11 @@ extension Store {
         }
     }
     
-    func producerForTodo(todo: Todo) -> SignalProducer<Todo, NoError> {
+    func producerForTodo(_ todo: Todo) -> SignalProducer<Todo, NoError> {
         return store.todos.producer.map {
             todos in
             return todos.filter { $0 == todo }.first
-        }.ignoreNil()
+        }.skipNil()
     }
 }
 

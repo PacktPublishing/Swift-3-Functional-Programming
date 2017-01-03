@@ -1,4 +1,4 @@
-infix operator <|> { associativity left precedence 140 }
+import Runes
 
 /**
   Return the left `Decoded` value if it is `.Success`, otherwise return the
@@ -14,7 +14,7 @@ infix operator <|> { associativity left precedence 140 }
 
   - returns: A value of type `Decoded<T>`
 */
-public func <|> <T>(lhs: Decoded<T>, @autoclosure rhs: () -> Decoded<T>) -> Decoded<T> {
+public func <|> <T>(lhs: Decoded<T>, rhs: @autoclosure () -> Decoded<T>) -> Decoded<T> {
   return lhs.or(rhs)
 }
 
@@ -30,10 +30,10 @@ public extension Decoded {
 
     - returns: A value of type `Decoded<T>`
   */
-  func or(@autoclosure other: () -> Decoded<T>) -> Decoded<T> {
+  func or(_ other: @autoclosure () -> Decoded<T>) -> Decoded<T> {
     switch self {
-      case .Success: return self
-      case .Failure: return other()
+      case .success: return self
+      case .failure: return other()
     }
   }
 }

@@ -7,6 +7,7 @@
 //
 
 import ReactiveCocoa
+import ReactiveSwift
 import Delta
 
 extension MutableProperty: Delta.ObservablePropertyType {
@@ -24,16 +25,16 @@ struct RAC {
         self.nilValue = nilValue
     }
     
-    func assignSignal(signal : RACSignal) {
-        signal.setKeyPath(self.keyPath, onObject: self.target, nilValue: self.nilValue)
-    }
+//    func assignSignal(_ signal : SignalProducer<AnyObject?, NSError>) {
+//        signal.setKeyPath(self.keyPath, onObject: self.target, nilValue: self.nilValue)
+//    }
 }
 
-infix operator ~> {}
-func ~> (signal: RACSignal, rac: RAC) {
-    rac.assignSignal(signal)
-}
-
-func RACObserve(target: NSObject!, keyPath: String) -> RACSignal  {
-    return target.rac_valuesForKeyPath(keyPath, observer: target)
-}
+//infix operator ~>
+//func ~> (signal: RACSignal, rac: RAC) {
+//    rac.assignSignal(signal)
+//}
+//
+//func RACObserve(_ target: NSObject!, keyPath: String) -> RACSignal  {
+//    return target.rac_valuesForKeyPath(keyPath, observer: target)
+//}

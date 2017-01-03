@@ -30,19 +30,19 @@ class ViewController: UITableViewController {
             }
         }
         
-        filterSegmentedControl.addTarget(self, action: #selector(ViewController.filterValueChanged), forControlEvents: .ValueChanged)
+        filterSegmentedControl.addTarget(self, action: #selector(ViewController.filterValueChanged), for: .valueChanged)
         
-        store.activeFilter.producer.startWithNext {
+        store.activeFilter.producer.startWithValues {
             filter in
             self.filterSegmentedControl.selectedSegmentIndex = filter.rawValue
         }
         
-        store.activeTodos.startWithNext {
+        store.activeTodos.startWithValues {
             todos in
             self.viewModel = TodosViewModel(todos: todos)
         }
         
-        store.notSyncedWithBackend.startWithNext {
+        store.notSyncedWithBackend.startWithValues {
             todos in
             addOrUpdateTodo(todos) { (response, error) in
                 if error == nil {
@@ -57,38 +57,38 @@ class ViewController: UITableViewController {
 
 // MARK: Actions
 extension ViewController {
-    @IBAction func addTapped(sender: UIBarButtonItem) {
+    @IBAction func addTapped(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Create",
                                               message: "Create a new todo item",
-                                       preferredStyle: .Alert)
+                                       preferredStyle: .alert)
         
-        alertController.addTextFieldWithConfigurationHandler() {
+        alertController.addTextField() {
             textField in
             textField.placeholder = "Id"
         }
         
-        alertController.addTextFieldWithConfigurationHandler() {
+        alertController.addTextField() {
             textField in
             textField.placeholder = "Name"
         }
         
-        alertController.addTextFieldWithConfigurationHandler() {
+        alertController.addTextField() {
             textField in
             textField.placeholder = "Description"
         }
         
-        alertController.addTextFieldWithConfigurationHandler() {
+        alertController.addTextField() {
             textField in
             textField.placeholder = "Notes"
         }
         
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .Cancel) { _ in })
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in })
         
-        alertController.addAction(UIAlertAction(title: "Create", style: .Default) { _ in
+        alertController.addAction(UIAlertAction(title: "Create", style: .default) { _ in
             guard let id = alertController.textFields?[0].text,
-                name = alertController.textFields?[1].text,
-                description = alertController.textFields?[2].text,
-                notes = alertController.textFields?[3].text
+                let name = alertController.textFields?[1].text,
+                let description = alertController.textFields?[2].text,
+                let notes = alertController.textFields?[3].text
                 else { return }
             
             store.dispatch(CreateTodoAction(id: Int(id)!,
@@ -96,7 +96,7 @@ extension ViewController {
                                    description: description,
                                          notes: notes))
             })
-        presentViewController(alertController, animated: false, completion: nil)
+        present(alertController, animated: false, completion: nil)
     }
     
     func filterValueChanged() {
@@ -109,12 +109,12 @@ extension ViewController {
 
 // MARK: UITableViewController
 extension ViewController {
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.todos.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("todoCell", forIndexPath: indexPath) as! TodoTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell", for: indexPath) as! TodoTableViewCell
         let todo = viewModel.todoForIndexPath(indexPath)
         
         cell.configure(todo)
@@ -122,35 +122,35 @@ extension ViewController {
         return cell
     }
     
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let todo = viewModel.todoForIndexPath(indexPath)
         store.dispatch(ToggleCompletedAction(todo: todo))
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
 
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let delete = UITableViewRowAction(style: .Normal, title: "Delete") { action, index in
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let delete = UITableViewRowAction(style: .normal, title: "Delete") { action, index in
             let todo = self.viewModel.todoForIndexPath(indexPath)
             store.dispatch(DeleteTodoAction(todo: todo))
         }
-        delete.backgroundColor = UIColor.redColor()
+        delete.backgroundColor = UIColor.red
         
-        let details = UITableViewRowAction(style: .Normal, title: "Details") { action, index in
+        let details = UITableViewRowAction(style: .normal, title: "Details") { action, index in
             let todo = self.viewModel.todoForIndexPath(indexPath)
             store.dispatch(DetailsTodoAction(todo: todo))
             
-            self.performSegueWithIdentifier("segueShowDetails", sender: self)
+            self.performSegue(withIdentifier: "segueShowDetails", sender: self)
         }
-        details.backgroundColor = UIColor.orangeColor()
+        details.backgroundColor = UIColor.orange
         
         return [details, delete]
     }
     
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         // the cells you would like the actions to appear need to be editable
         return true
     }

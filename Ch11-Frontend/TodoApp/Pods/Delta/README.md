@@ -13,7 +13,7 @@ plugged in. We recommend using a reactive framework to get the most value.
 
 ## Source Compatibility ##
 
-The source on `master` assumes Swift 2.1
+The source on `master` assumes Swift 3.0
 
 ## Framework Installation ##
 
@@ -39,7 +39,7 @@ for up to date installation instructions.
 Add the following to your [Podfile](http://guides.cocoapods.org/using/the-podfile.html):
 
 ```ruby
-pod 'Delta', :git => "https://github.com/thoughtbot/Delta.git"
+pod 'Delta', :git => "https://github.com/conqueror/Delta.git"
 ```
 
 You also need to make sure you're opting into using frameworks:

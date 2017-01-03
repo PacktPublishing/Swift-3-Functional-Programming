@@ -1,3 +1,5 @@
+import Runes
+
 /**
   Attempt to decode a value at the specified key into the requested type.
 
@@ -11,7 +13,7 @@
   - returns: A `Decoded` value representing the success or failure of the
              decode operation
 */
-public func <| <A where A: Decodable, A == A.DecodedType>(json: JSON, key: String) -> Decoded<A> {
+public func <| <A: Decodable>(json: JSON, key: String) -> Decoded<A> where A == A.DecodedType {
   return json <| [key]
 }
 
@@ -30,8 +32,8 @@ public func <| <A where A: Decodable, A == A.DecodedType>(json: JSON, key: Strin
   - returns: A `Decoded` optional value representing the success or failure of
              the decode operation
 */
-public func <|? <A where A: Decodable, A == A.DecodedType>(json: JSON, key: String) -> Decoded<A?> {
-  return .optional(json <| [key])
+public func <|? <A: Decodable>(json: JSON, key: String) -> Decoded<A?> where A == A.DecodedType {
+  return json <|? [key]
 }
 
 /**
@@ -48,7 +50,7 @@ public func <|? <A where A: Decodable, A == A.DecodedType>(json: JSON, key: Stri
   - returns: A `Decoded` value representing the success or failure of the
              decode operation
 */
-public func <| <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [String]) -> Decoded<A> {
+public func <| <A: Decodable>(json: JSON, keys: [String]) -> Decoded<A> where A == A.DecodedType {
   return flatReduce(keys, initial: json, combine: decodedJSON) >>- A.decode
 }
 
@@ -68,8 +70,11 @@ public func <| <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [Str
   - returns: A `Decoded` optional value representing the success or failure of
              the decode operation
 */
-public func <|? <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [String]) -> Decoded<A?> {
-  return .optional(json <| keys)
+public func <|? <A: Decodable>(json: JSON, keys: [String]) -> Decoded<A?> where A == A.DecodedType {
+  switch flatReduce(keys, initial: json, combine: decodedJSON) {
+  case .failure: return .success(.none)
+  case .success(let x): return A.decode(x) >>- { .success(.some($0)) }
+  }
 }
 
 /**
@@ -86,7 +91,7 @@ public func <|? <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [St
   - returns: A `Decoded` array of values representing the success or failure of
              the decode operation
 */
-public func <|| <A where A: Decodable, A == A.DecodedType>(json: JSON, key: String) -> Decoded<[A]> {
+public func <|| <A: Decodable>(json: JSON, key: String) -> Decoded<[A]> where A == A.DecodedType {
   return json <|| [key]
 }
 
@@ -105,8 +110,8 @@ public func <|| <A where A: Decodable, A == A.DecodedType>(json: JSON, key: Stri
   - returns: A `Decoded` optional array of values representing the success or
              failure of the decode operation
 */
-public func <||? <A where A: Decodable, A == A.DecodedType>(json: JSON, key: String) -> Decoded<[A]?> {
-  return .optional(json <|| [key])
+public func <||? <A: Decodable>(json: JSON, key: String) -> Decoded<[A]?> where A == A.DecodedType {
+  return json <||? [key]
 }
 
 /**
@@ -124,7 +129,7 @@ public func <||? <A where A: Decodable, A == A.DecodedType>(json: JSON, key: Str
   - returns: A `Decoded` array of values representing the success or failure of
              the decode operation
 */
-public func <|| <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [String]) -> Decoded<[A]> {
+public func <|| <A: Decodable>(json: JSON, keys: [String]) -> Decoded<[A]> where A == A.DecodedType {
   return flatReduce(keys, initial: json, combine: decodedJSON) >>- Array<A>.decode
 }
 
@@ -145,6 +150,9 @@ public func <|| <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [St
   - returns: A `Decoded` optional array of values representing the success or
              failure of the decode operation
 */
-public func <||? <A where A: Decodable, A == A.DecodedType>(json: JSON, keys: [String]) -> Decoded<[A]?> {
-  return .optional(json <|| keys)
+public func <||? <A: Decodable>(json: JSON, keys: [String]) -> Decoded<[A]?> where A == A.DecodedType {
+  switch flatReduce(keys, initial: json, combine: decodedJSON) {
+  case .failure: return .success(.none)
+  case .success(let value): return Array<A>.decode(value) >>- { .success(.some($0)) }
+  }
 }

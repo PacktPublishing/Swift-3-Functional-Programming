@@ -27,7 +27,6 @@
 		3D3641621CD47E0A00AC7609 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36415D1CD47E0A00AC7609 /* LaunchScreen.storyboard */; };
 		3D3641631CD47E0A00AC7609 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3D36415F1CD47E0A00AC7609 /* Main.storyboard */; };
 		3D3641661CD47E2900AC7609 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D3641651CD47E2900AC7609 /* Assets.xcassets */; };
-		3D3641681CD47E5600AC7609 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3D3641671CD47E5600AC7609 /* Info.plist */; };
 		3D3898841CCDADF60046F80D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3898831CCDADF60046F80D /* AppDelegate.swift */; };
 		3D3898991CCDADF70046F80D /* TodoAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3898981CCDADF70046F80D /* TodoAppTests.swift */; };
 		3D3898A91CCDB4300046F80D /* Todo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3898A81CCDB4300046F80D /* Todo.swift */; };
@@ -288,12 +287,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D38989D1CCDADF70046F80D /* Build configuration list for PBXNativeTarget "TodoApp" */;
 			buildPhases = (
-				CAF13E7233D48E0CD37D3A7F /* 📦 Check Pods Manifest.lock */,
+				CAF13E7233D48E0CD37D3A7F /* [CP] Check Pods Manifest.lock */,
 				3D38987C1CCDADF60046F80D /* Sources */,
 				3D38987D1CCDADF60046F80D /* Frameworks */,
 				3D38987E1CCDADF60046F80D /* Resources */,
-				D09F6DB61552902397B1834D /* 📦 Embed Pods Frameworks */,
-				A6D17F69A0C226D5984EEF6C /* 📦 Copy Pods Resources */,
+				D09F6DB61552902397B1834D /* [CP] Embed Pods Frameworks */,
+				A6D17F69A0C226D5984EEF6C /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -308,12 +307,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3D3898A01CCDADF70046F80D /* Build configuration list for PBXNativeTarget "TodoAppTests" */;
 			buildPhases = (
-				E74B0725EA3E53120F77E5BB /* 📦 Check Pods Manifest.lock */,
+				E74B0725EA3E53120F77E5BB /* [CP] Check Pods Manifest.lock */,
 				3D3898901CCDADF70046F80D /* Sources */,
 				3D3898911CCDADF70046F80D /* Frameworks */,
 				3D3898921CCDADF70046F80D /* Resources */,
-				11A1E6E85BBB95722DAF22DA /* 📦 Embed Pods Frameworks */,
-				F3E6FDC81008B15DCA76D9E9 /* 📦 Copy Pods Resources */,
+				11A1E6E85BBB95722DAF22DA /* [CP] Embed Pods Frameworks */,
+				F3E6FDC81008B15DCA76D9E9 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -332,7 +331,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Fatih Nayebi";
 				TargetAttributes = {
 					3D38987F1CCDADF60046F80D = {
@@ -370,7 +369,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D3641681CD47E5600AC7609 /* Info.plist in Resources */,
 				3D3641631CD47E0A00AC7609 /* Main.storyboard in Resources */,
 				3D3641661CD47E2900AC7609 /* Assets.xcassets in Resources */,
 				3D3641621CD47E0A00AC7609 /* LaunchScreen.storyboard in Resources */,
@@ -387,14 +385,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11A1E6E85BBB95722DAF22DA /* 📦 Embed Pods Frameworks */ = {
+		11A1E6E85BBB95722DAF22DA /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -402,14 +400,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodoAppTests/Pods-TodoAppTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A6D17F69A0C226D5984EEF6C /* 📦 Copy Pods Resources */ = {
+		A6D17F69A0C226D5984EEF6C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,29 +415,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodoApp/Pods-TodoApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CAF13E7233D48E0CD37D3A7F /* 📦 Check Pods Manifest.lock */ = {
+		CAF13E7233D48E0CD37D3A7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D09F6DB61552902397B1834D /* 📦 Embed Pods Frameworks */ = {
+		D09F6DB61552902397B1834D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -447,29 +445,29 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TodoApp/Pods-TodoApp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E74B0725EA3E53120F77E5BB /* 📦 Check Pods Manifest.lock */ = {
+		E74B0725EA3E53120F77E5BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		F3E6FDC81008B15DCA76D9E9 /* 📦 Copy Pods Resources */ = {
+		F3E6FDC81008B15DCA76D9E9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,8 +563,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -588,7 +588,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -611,8 +611,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -628,9 +630,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -640,12 +643,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5CDB5630F53B3D1D3B8CB453 /* Pods-TodoApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TodoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fatihnayebi.swift.TodoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -653,12 +657,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = C118BFE79FEEB90957254F87 /* Pods-TodoApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = TodoApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fatihnayebi.swift.TodoApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -671,7 +676,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fatihnayebi.swift.TodoAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoApp.app/TodoApp";
 			};
 			name = Debug;
@@ -685,7 +690,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fatihnayebi.swift.TodoAppTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 2.3;
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TodoApp.app/TodoApp";
 			};
 			name = Release;

@@ -9,7 +9,7 @@
 import Foundation
 
 struct Lens<Whole, Part> {
-    let get: Whole -> Part
+    let get: (Whole) -> Part
     let set: (Part, Whole) -> Whole
 }
 

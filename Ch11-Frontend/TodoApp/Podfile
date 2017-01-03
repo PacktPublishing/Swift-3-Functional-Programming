@@ -1,12 +1,12 @@
-platform :ios, '8.0'
+platform :ios, ‘9.0’
 use_frameworks!
 
 target 'TodoApp' do
-	pod 'Alamofire'
+	pod 'Alamofire', '~> 4.0'
 	pod 'Argo'
-    pod 'Curry'
-	pod 'ReactiveCocoa'
-	pod 'Delta', :git => "https://github.com/thoughtbot/Delta.git"
+        pod 'Curry'
+	pod 'ReactiveCocoa', '5.0.0-rc.1'
+	pod 'Delta', :git => "https://github.com/conqueror/Delta.git"
 end
 
 target 'TodoAppTests' do

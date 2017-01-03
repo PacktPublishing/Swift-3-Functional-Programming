@@ -8,6 +8,7 @@
 
 import UIKit
 import ReactiveCocoa
+import ReactiveSwift
 
 class DetailsViewController: UIViewController {
     
@@ -20,50 +21,46 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        store.selectedTodo.startWithNext { todos in
+        store.selectedTodo.startWithValues { todos in
             let model = todos.first!
             self.txtFieldName.text = model.name
             self.txtFieldDescription.text = model.description
             self.txtFieldNotes.text = model.notes
-            self.switchCompleted.on = model.completed
+            self.switchCompleted.isOn = model.completed
             self.viewModel = TodoViewModel(todo: model)
         }
         setupUpdateSignals()
     }
     
     func setupUpdateSignals()  {
-        txtFieldName.rac_textSignal().subscribeNext {
-            (next: AnyObject!) -> () in
-            if let newName = next as? String {
+        txtFieldName.reactive.continuousTextValues.observeValues {
+            (values: String?) -> () in
+            if let newName = values {
                 let newTodo = todoNameLens.set(newName, self.viewModel.todo!)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
             }
         }
         
-        txtFieldDescription.rac_textSignal().subscribeNext {
-            (next: AnyObject!) -> () in
-            if let newDescription = next as? String {
+        txtFieldDescription.reactive.continuousTextValues.observeValues {
+            (values: String?) -> () in
+            if let newDescription = values {
                 let newTodo = todoDescriptionLens.set(newDescription, self.viewModel.todo!)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
             }
         }
         
-        txtFieldNotes.rac_textSignal().subscribeNext {
-            (next: AnyObject!) -> () in
-            if let newNotes = next as? String {
+        txtFieldNotes.reactive.continuousTextValues.observeValues {
+            (values: String?) -> () in
+            if let newNotes = values {
                 let newTodo = todoNotesLens.set(newNotes, self.viewModel.todo!)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
-
+                
             }
         }
-        
-        switchCompleted.rac_newOnChannel().subscribeNext {
-            (next: AnyObject!) -> () in
-            if let newCompleted = next as? Bool {
-                let newTodo = todoCompletedLens.set(newCompleted, self.viewModel.todo!)
-                store.dispatch(UpdateTodoAction(todo: newTodo))
-
-            }
+        switchCompleted.reactive.isOnValues.observeValues {
+            (value: Bool) -> () in
+            let newTodo = todoCompletedLens.set(value, self.viewModel.todo!)
+            store.dispatch(UpdateTodoAction(todo: newTodo))
         }
     }
 }

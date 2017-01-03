@@ -1,4 +1,12 @@
-infix operator <| { associativity left precedence 150 }
-infix operator <|? { associativity left precedence 150 }
-infix operator <|| { associativity left precedence 150 }
-infix operator <||? { associativity left precedence 150 }
+import Runes
+
+precedencegroup ArgoDecodePrecedence {
+  associativity: left
+  higherThan: RunesApplicativeSequencePrecedence
+  lowerThan: NilCoalescingPrecedence
+}
+
+infix operator <| : ArgoDecodePrecedence
+infix operator <|? : ArgoDecodePrecedence
+infix operator <|| : ArgoDecodePrecedence
+infix operator <||? : ArgoDecodePrecedence

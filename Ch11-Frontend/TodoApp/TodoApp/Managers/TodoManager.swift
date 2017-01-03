@@ -9,7 +9,7 @@
 import Alamofire
 import Argo
 
-func addTodo(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
+func addTodo(_ completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     let newRequest = TodoRequest(id: 1,
                                name: "Saturday Grocery",
                         description: "Bananas, Pineapple, Beer, Orange juice, ...",
@@ -21,30 +21,30 @@ func addTodo(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
         (response, error) in
         if error == nil {
             let todos: [Todo]? = decode(response!)
-            completion(responseData: todos, error: nil)
+            completion(todos, nil)
             print("request was successfull: \(todos)")
         } else {
-            completion(responseData: nil, error: error)
+            completion(nil, error)
             print("Error: \(error?.localizedDescription)")
         }
     }
 }
 
-func listTodos(completion:(responseData:[Todo]?, error: NSError?) -> Void) {
+func listTodos(_ completion:@escaping  (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     sendRequest(Urls.getTodos, request: RequestModel()) {
         (response, error) in
         if error == nil {
             let todos: [Todo]? = decode(response!)
-            completion(responseData: todos, error: nil)
+            completion(todos, nil)
             print("request was successfull: \(todos)")
         } else {
-            completion(responseData: nil, error: error)
+            completion(nil, error)
             print("Error: \(error?.localizedDescription)")
         }
     }
 }
 
-func addOrUpdateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSError?) -> Void) {
+func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
         let newRequest = TodoRequest(id: todoItem.id,
                                    name: todoItem.name,
@@ -59,17 +59,17 @@ func addOrUpdateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSE
                 let todos: [Todo]? = decode(response!)
                 let newTodo = todoSyncedLens.set(true, todoItem)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
-                completion(responseData: todos, error: nil)
+                completion(todos, nil)
                 print("request was successfull: \(todos)")
             } else {
-                completion(responseData: nil, error: error)
+                completion(nil, error)
                 print("Error: \(error?.localizedDescription)")
             }
         }
     }
 }
 
-func updateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSError?) -> Void) {
+func updateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
         let newRequest = TodoRequest(id: todoItem.id,
                                    name: todoItem.name,
@@ -84,10 +84,10 @@ func updateTodo(todo: [Todo]?, completion:(responseData:[Todo]?, error: NSError?
                 let todos: [Todo]? = decode(response!)
                 let newTodo = todoSyncedLens.set(true, todoItem)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
-                completion(responseData: todos, error: nil)
+                completion(todos, nil)
                 print("request was successfull: \(todos)")
             } else {
-                completion(responseData: nil, error: error)
+                completion(nil, error)
                 print("Error: \(error?.localizedDescription)")
             }
         }

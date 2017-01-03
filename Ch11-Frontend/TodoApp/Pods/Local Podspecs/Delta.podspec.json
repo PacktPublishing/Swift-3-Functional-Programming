@@ -2,7 +2,7 @@
   "name": "Delta",
   "version": "1.0.0",
   "summary": "Managing state is hard. Delta aims to make it simple.",
-  "homepage": "https://github.com/thoughtbot/Delta",
+  "homepage": "https://github.com/conqueror/Delta",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
@@ -12,9 +12,8 @@
     "Giles Van Gruisen": "giles@thoughtbot.com",
     "thoughtbot": null
   },
-  "social_media_url": "http://twitter.com/thoughtbot",
   "source": {
-    "git": "https://github.com/thoughtbot/Delta.git",
+    "git": "https://github.com/conqueror/Delta.git",
     "tag": "v1.0.0",
     "submodules": true
   },
