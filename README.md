@@ -9,7 +9,7 @@ Chapter 11 - Frontend App requires `Xcode version 8.2.1` with `Swift 3.0.2`.
 Chapter 11 - Backend App requires Vapor so for configurations please follow the steps shown in:
 [Swift 3 and Vapor toolbox Installation Guide](https://vapor.github.io/documentation/getting-started/install-swift-3.html) 
 
-Backend source code is compatible with `Vapor 0.16` which utilizes `Swift DEVELOPMENT-SNAPSHOT-2016-07-25-a`.
+Backend source code is compatible with `Vapor (Major: 1, Minor: 3)`.
 
 ## Related books
 - [Reactive Programming with Swift](https://www.packtpub.com/application-development/reactive-programming-swift?utm_source=github&utm_medium=repository&utm_campaign=9781785884269)
