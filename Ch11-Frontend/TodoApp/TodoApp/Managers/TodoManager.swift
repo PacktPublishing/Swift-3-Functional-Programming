@@ -9,8 +9,8 @@
 import Alamofire
 import Argo
 
-func addTodo(_ completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
-    let newRequest = TodoRequest(id: 1,
+func addTodo(_ completion:@escaping (_ responseData: [Todo]?, _ error: Error?) -> Void) {
+    let newRequest = TodoRequest(todoId: 1,
                                name: "Saturday Grocery",
                         description: "Bananas, Pineapple, Beer, Orange juice, ...",
                               notes: "Cehck expiry date of orange juice",
@@ -46,7 +46,7 @@ func listTodos(_ completion:@escaping  (_ responseData:[Todo]?, _ error: Error?)
 
 func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
-        let newRequest = TodoRequest(id: todoItem.id,
+        let newRequest = TodoRequest(todoId: todoItem.todoId,
                                    name: todoItem.name,
                             description: todoItem.description,
                                   notes: todoItem.notes!,
@@ -71,7 +71,7 @@ func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo
 
 func updateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
-        let newRequest = TodoRequest(id: todoItem.id,
+        let newRequest = TodoRequest(todoId: todoItem.todoId,
                                    name: todoItem.name,
                             description: todoItem.description,
                                   notes: todoItem.notes!,

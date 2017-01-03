@@ -8,7 +8,7 @@ struct ToggleCompletedAction: ActionType {
             todo in
             guard todo == self.todo else { return todo }
             
-            return Todo(id: todo.id,
+            return Todo(todoId: todo.todoId,
                       name: todo.name,
                description: todo.description,
                      notes: todo.notes,

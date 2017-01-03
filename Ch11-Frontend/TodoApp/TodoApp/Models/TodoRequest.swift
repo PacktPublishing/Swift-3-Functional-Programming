@@ -10,7 +10,7 @@ import Foundation
 
 struct TodoRequest: RequestProtocol {
     
-    let id: Int
+    let todoId: Int
     let name: String
     let description: String
     let notes: String
@@ -20,7 +20,7 @@ struct TodoRequest: RequestProtocol {
     subscript(key: String) -> (String?, String?) {
         get {
             switch key {
-            case "id": return (String(id), "id")
+            case "todoId": return (String(todoId), "todoId")
             case "name": return (name, "name")
             case "description": return (description, "description")
             case "notes": return (notes, "notes")

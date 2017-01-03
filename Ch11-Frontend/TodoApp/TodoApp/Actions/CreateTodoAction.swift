@@ -1,13 +1,13 @@
 import Delta
 
 struct CreateTodoAction: ActionType {
-    let id: Int
+    let todoId: Int
     let name: String
     let description: String
     let notes: String
 
     var todo: Todo {
-        return Todo(id: id,
+        return Todo(todoId: todoId,
                   name: name,
            description: description,
                  notes: notes,

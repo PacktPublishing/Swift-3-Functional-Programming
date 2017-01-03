@@ -1,14 +1,22 @@
+//
+//  TodoStore.swift
+//  VaporApp
+//
+//  Created by Fatih Nayebi on 2017-01-03.
+//
+//
+
 import Vapor
 
 final class TodoStore {
     
     static let sharedInstance = TodoStore()
-    private var list: [Todo] = Array<Todo>()
+    fileprivate var list: [Todo] = Array<Todo>()
     private init() {
     }
     
     func addOrUpdateItem(item: Todo) {
-        if self.find(id: item.id) != nil {
+        if self.find(id: item.todoId) != nil {
             _ = update(item: item)
         } else {
             self.list.append(item)
@@ -21,7 +29,7 @@ final class TodoStore {
     
     func delete(id: Int) -> String {
         if self.find(id: id) != nil {
-            self.list = self.list.filter { $0.id != id }
+            self.list = self.list.filter { $0.todoId != id }
             return "Item is deleted"
         }
         return "Item not found"
@@ -37,7 +45,7 @@ final class TodoStore {
     }
     
     func update(item: Todo) -> String {
-        if let index = (self.list.index { $0.id == item.id }) {
+        if let index = (self.list.index { $0.todoId == item.todoId }) {
             self.list[index] = item
             return "item is up to date"
         }
@@ -45,7 +53,7 @@ final class TodoStore {
     }
     
     func find(id: Int) -> Todo? {
-        return self.list.index { $0.id == id }.map { self.list[$0] }
+        return self.list.index { $0.todoId == id }.map { self.list[$0] }
     }
 }
 
@@ -54,13 +62,13 @@ final class TodoStore {
 	passed into JSON arrays and dictionaries
 	as if it were a native JSON type.
  */
-extension TodoStore: JSONRepresentable {
-    func makeJSON() throws -> JSON {
-        return try JSON([
-            "list": "\(list)"
-            ])
-    }
-}
+//extension TodoStore: JSONRepresentable {
+//    func makeJSON() throws -> JSON {
+//        return try JSON([
+//            "list": "\(list)"
+//            ])
+//    }
+//}
 
 ///**
 //	If a data structure is StringInitializable,

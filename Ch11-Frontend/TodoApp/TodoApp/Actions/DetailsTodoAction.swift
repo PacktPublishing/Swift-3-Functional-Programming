@@ -15,7 +15,7 @@ struct DetailsTodoAction: ActionType {
         state.todos.value = state.todos.value.map { todo in
             guard todo == self.todo else {
                 
-                return Todo(id: todo.id,
+                return Todo(todoId: todo.todoId,
                           name: todo.name,
                    description: todo.description,
                          notes: todo.notes,
@@ -24,7 +24,7 @@ struct DetailsTodoAction: ActionType {
                       selected: false)
             }
             
-            return Todo(id: self.todo.id,
+            return Todo(todoId: self.todo.todoId,
                       name: self.todo.name,
                description: self.todo.description,
                      notes: self.todo.notes,

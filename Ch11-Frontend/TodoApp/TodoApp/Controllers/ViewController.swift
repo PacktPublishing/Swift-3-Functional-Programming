@@ -44,7 +44,8 @@ class ViewController: UITableViewController {
         
         store.notSyncedWithBackend.startWithValues {
             todos in
-            addOrUpdateTodo(todos) { (response, error) in
+            addOrUpdateTodo(todos) {
+                (response, error) in
                 if error == nil {
                     print("Success")
                 } else {
@@ -59,8 +60,8 @@ class ViewController: UITableViewController {
 extension ViewController {
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Create",
-                                              message: "Create a new todo item",
-                                       preferredStyle: .alert)
+                                                message: "Create a new todo item",
+                                                preferredStyle: .alert)
         
         alertController.addTextField() {
             textField in
@@ -91,11 +92,11 @@ extension ViewController {
                 let notes = alertController.textFields?[3].text
                 else { return }
             
-            store.dispatch(CreateTodoAction(id: Int(id)!,
-                                          name: name,
-                                   description: description,
-                                         notes: notes))
-            })
+            store.dispatch(CreateTodoAction(todoId: Int(id)!,
+                                            name: name,
+                                            description: description,
+                                            notes: notes))
+        })
         present(alertController, animated: false, completion: nil)
     }
     
@@ -129,7 +130,7 @@ extension ViewController {
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-
+        
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
