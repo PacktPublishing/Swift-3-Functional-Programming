@@ -2,8 +2,8 @@
 
 import Foundation
 
-func join<Element: Equatable>(elements: [Element],
-                             separator: String) -> String {
+func join<Element: Equatable>(elements: [Element], separator: String) -> String {
+
     return elements.reduce("") {
         initial, element in
         let aSeparator = (element == elements.last) ? "" : separator
@@ -12,8 +12,7 @@ func join<Element: Equatable>(elements: [Element],
 }
 
 let items = ["First", "Second", "Third"]
-let commaSeparatedItems = join(elements: items,
-                              separator: ", ")
+let commaSeparatedItems = join(elements: items, separator: ", ")
 
 
 //: [Next](@next)

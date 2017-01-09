@@ -47,9 +47,9 @@ let result2 = filterIntermsOfReduce(elements: numbers) { $0 % 2 == 0 }
 
 // flatMap in terms of reduce
 
-func flatMapIntermsOfReduce<Element>(elements: [Element],
-                                    transform: (Element) -> Element?) -> [Element] {
-    return reduce(elements: elements, initial: []) {
+func flatMapIntermsOfReduce<Element>(elements: [Element], transform: (Element) -> Element?) -> [Element] {
+
+	return reduce(elements: elements, initial: []) {
         guard let transformationResult = transform($1) else {
             return $0
         }
@@ -59,7 +59,18 @@ func flatMapIntermsOfReduce<Element>(elements: [Element],
 
 let anArrayOfNumbers = [1, 3, 5]
 let oneDimensionalArray = flatMapIntermsOfReduce(elements: anArrayOfNumbers) { $0 + 5 }
-oneDimensionalArray
+
+
+func flatMapIntermsOfReduce<Element>(elements: [[Element]], transform: (Element) -> Element) -> [Element] {
+
+	return elements.reduce([]) { $0 + $1 }
+}
+
+let aTwoDimArrayOfNumbers = [[1, 3, 5],[2, 4, 6]]
+let flatMappedArray = flatMapIntermsOfReduce(elements: aTwoDimArrayOfNumbers) { $0 }
+
+let flattend = aTwoDimArrayOfNumbers.flatMap { $0 }
+flattend
 
 // flatten in terms of reduce
 
@@ -67,7 +78,9 @@ func flattenIntermsOfReduce<Element>(elements: [[Element]]) -> [Element] {
     return elements.reduce([]) { $0 + $1 }
 }
 
-let flattened = flattenIntermsOfReduce(elements: [[1, 3, 5], [2, 4, 6]])
-
+let flattened = flattenIntermsOfReduce(elements: aTwoDimArrayOfNumbers)
+print(flattened)
+let joinedd = aTwoDimArrayOfNumbers.joined().map { $0 }
+print(joinedd)
 
 //: [Next](@next)
