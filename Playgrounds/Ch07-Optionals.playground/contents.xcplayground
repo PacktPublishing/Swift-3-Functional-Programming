@@ -6,8 +6,8 @@
         <page name='Unwrapping'/>
         <page name='Guard'/>
         <page name='ImplicitlyUnwrappedOptionals'/>
-        <page name='ErrorHandlingToAvoidOptionals'/>
         <page name='OptionalChaining'/>
         <page name='OptionalMapping'/>
+        <page name='ErrorHandling'/>
     </pages>
 </playground>
