@@ -3,7 +3,6 @@
 import Foundation
 
 /// Operator
-
 precedencegroup AssociativityRight {
     associativity: right
 }
@@ -15,7 +14,6 @@ func <| <T>(lhs: T, rhs: LinkedList<T>) -> LinkedList<T> {
 }
 
 /// LinkedList
-
 enum LinkedList<Element: Equatable> {
     case end
     indirect case node(data: Element, next: LinkedList<Element>)
@@ -99,22 +97,8 @@ enum LinkedList<Element: Equatable> {
 let functionalLinkedList = LinkedList<Int>.end.cons(1).cons(2).cons(3)
 print(functionalLinkedList)
 
-// map
-
-let mappedFunctionalLL = functionalLinkedList.map { $0 * 2 }
-print(mappedFunctionalLL)
-
 let functionalLLWithCons = 3 <| 2 <| 1 <| .end
 
-// reduce
-
-let reducedFunctionalLL = functionalLinkedList.reduce(0) { $0 + $1}
-print(reducedFunctionalLL)
-
-// filter
-
-let filteredFunctionalLL = functionalLinkedList.filter { $0 % 2 == 0 }
-print(filteredFunctionalLL)
 
 let secondLL = functionalLinkedList.cons(4)
 let thirdLL = functionalLinkedList.cons(5)
@@ -129,5 +113,20 @@ print(functionalLinkedList.isEmpty)
 
 print(LinkedList.contains(1, list: functionalLinkedList))
 
+// map
+
+let mappedFunctionalLL = functionalLinkedList.map { $0 * 2 }
+print(mappedFunctionalLL)
+
+
+// filter
+
+let filteredFunctionalLL = functionalLinkedList.filter { $0 % 2 == 0 }
+print(filteredFunctionalLL)
+
+// reduce
+
+let reducedFunctionalLL = functionalLinkedList.reduce(0) { $0 + $1}
+print(reducedFunctionalLL)
 
 //: [Next](@next)

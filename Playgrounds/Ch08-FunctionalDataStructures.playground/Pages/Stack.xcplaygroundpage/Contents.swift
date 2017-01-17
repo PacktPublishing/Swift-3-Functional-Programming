@@ -57,7 +57,7 @@ enum Stack<Element: Equatable> {
         return .node(data: element, next: self)
     }
     
-    func pop() -> (element: Element, linkedList: Stack)? {
+    func pop() -> (element: Element, list: Stack)? {
         switch self {
         case .node(let data, let next):
             return (data, next)
@@ -111,8 +111,11 @@ let stack = Stack<Int>.end.cons(1).cons(2).cons(3)
 
 if let (elment, stack) = stack.pop() {
     print(elment)
-    let newStack = stack.pop()
-    print(newStack)
+	if let newStack = stack.pop() {
+		print(newStack)
+	} else {
+		print("Stack is empty")
+	}
 }
 
 //: [Next](@next)
