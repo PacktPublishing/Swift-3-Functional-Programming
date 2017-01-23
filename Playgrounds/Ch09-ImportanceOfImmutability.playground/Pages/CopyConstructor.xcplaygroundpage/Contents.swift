@@ -27,10 +27,7 @@ struct FunctionalProduct {
     let quantity: Int
     let producer: Producer
     
-    init(name: String,
-        price: Double,
-     quantity: Int,
-     producer: Producer) {
+    init(name: String, price: Double, quantity: Int, producer: Producer) {
         
         self.name = name
         self.price = price
@@ -38,11 +35,7 @@ struct FunctionalProduct {
         self.producer = producer
     }
     
-    init(product: FunctionalProduct,
-            name: String?,
-           price: Double?,
-        quantity: Int?,
-        producer: Producer?) {
+    init(product: FunctionalProduct, name: String?, price: Double?, quantity: Int?, producer: Producer?) {
         
         self.name = name ?? product.name
         self.price = price ?? product.price
@@ -56,43 +49,34 @@ var bananas = Product(name: "Banana", price: 0.79, quantity: 2, producer: produc
 var oranges = Product(name: "Orange", price: 2.99, quantity: 1, producer: producer)
 var apples = Product(name: "Apple", price: 3.99, quantity: 3, producer: producer)
 
-let mexicanBananas = FunctionalProduct(name: bananas.name,
-                                      price: bananas.price,
-                                   quantity: bananas.quantity,
-                                   producer: Producer(name: "XYZ",
-                                                   address: "New Mexico, Mexico"))
+let mexicanBananas = FunctionalProduct(name: bananas.name, price: bananas.price, quantity: bananas.quantity, producer: Producer(name: "XYZ", address: "New Mexico, Mexico"))
 
 
 struct FunctionalProductTracker {
     let products: [FunctionalProduct]
-    let lastModified: NSDate
+    let lastModified: Date
     
-    init(products: [FunctionalProduct],
-     lastModified: NSDate) {
+    init(products: [FunctionalProduct], lastModified: Date) {
         
         self.products = products
         self.lastModified = lastModified
     }
     
-    init(productTracker: FunctionalProductTracker,
-               products: [FunctionalProduct]? = nil,
-           lastModified: NSDate? = nil) {
+    init(productTracker: FunctionalProductTracker, products: [FunctionalProduct]? = nil, lastModified: Date? = nil) {
         
         self.products = products ?? productTracker.products
         self.lastModified = lastModified ?? productTracker.lastModified
     }
     
-    func addNewProduct(item: FunctionalProduct) -> (date: NSDate,
-                                                products: [FunctionalProduct]) {
+    func addNewProduct(item: FunctionalProduct) -> (date: Date, products: [FunctionalProduct]) {
             
             let newProducts = self.products + [item]
-            return (date: NSDate(), products: newProducts)
+            return (date: Date(), products: newProducts)
     }
     
     func addNewProduct(item: FunctionalProduct) -> FunctionalProductTracker {
         
-        return FunctionalProductTracker(productTracker: self,
-                                              products: self.products + [item])
+        return FunctionalProductTracker(productTracker: self, products: self.products + [item])
     }
 }
 

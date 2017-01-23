@@ -16,13 +16,11 @@ struct FunctionalProduct {
 
 struct FunctionalProductTracker {
     let products: [FunctionalProduct]
-    let lastModified: NSDate
+    let lastModified: Date
     
-    func addNewProduct(item: FunctionalProduct) -> (date: NSDate,
-                                                products: [FunctionalProduct]) {
-                                                    
+    func addNewProduct(item: FunctionalProduct) -> (date: Date, products: [FunctionalProduct]) {
         let newProducts = self.products + [item]
-        return (date: NSDate(), products: newProducts)
+        return (date: Date(), products: newProducts)
     }
 }
 
