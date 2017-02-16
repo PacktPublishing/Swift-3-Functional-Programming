@@ -1,33 +1,37 @@
 import UIKit
-//
-//class User {
-//    let name = "Constant name"
-//    var age: Int = 0
-//
-//    func incrementUserAgeByOne() {
-//        self.age += 1
-//    }
-//}
-//
-//let object1 = User()
-//object1.age = 2
-//let object2 = object1
-//object1.incrementUserAgeByOne()
-//print(object2.age)
-//object2.incrementUserAgeByOne()
-//print(object1.age)
-//
-//let object3 = User()
-//object3.age = 5
-//
-//object3.incrementUserAgeByOne()
-//print(object3.age)
-//print(object1.age)
 
+/*
+class User {
+    let name = "Constant name"
+    var age: Int = 0
+
+    func incrementUserAgeByOne() {
+        self.age += 1
+    }
+}
+
+let object1 = User()
+object1.age = 2
+object1.incrementUserAgeByOne()
+
+let object2 = object1
+
+
+print(object2.age)
+object2.incrementUserAgeByOne()
+print(object1.age)
+
+let object3 = User()
+object3.age = 5
+
+object3.incrementUserAgeByOne()
+print(object3.age)
+print(object1.age)
+*/
 
 class User {
-    let name: String
-    let age: Int
+    fileprivate let name: String
+    fileprivate let age: Int
     
     init(name: String, age: Int) {
         self.name = name
@@ -39,7 +43,7 @@ class User {
     }
 }
 
-let object1 = User(name: "John Doe", age: 34)
+let object1 = User(name: "Grace", age: 1)
 //object1.age = 2
 let object2 = object1
 //object1.incrementUserAgeByOne()
@@ -54,9 +58,8 @@ object3.incrementUserAge(n: 5)
 print(object3.age)
 print(object1.age)
 
-class BaseViewController: UIViewController {
-    
-}
+
+class BaseViewController: UIViewController { }
 
 
 var view: UIView
@@ -71,7 +74,7 @@ view.frame.origin
 
 protocol UserProtocol {
     func greet(name: String) -> String
-    func login(username: String, password:String) -> Bool
+    func login(username: String, password: String) -> Bool
 }
 
 extension UserProtocol {
@@ -122,24 +125,28 @@ enum MobileAppUserType: MobileAppUserProtocol {
         return true
     }
     func listSelectedModules() -> [String] {
-        return ["1", "2"]
+        return ["Accounting", "CRM"]
     }
 }
 
 let mobileUser: MobileAppUserType = MobileAppUserType.Admin
-mobileUser.logout(userName: "cindy")
+mobileUser.logout(userName: "Su Tamina")
 
 mobileUser.listSelectedModules()
 
 
 // FRP
+/*
+@IBOutlet weak var textFieldUserName: UITextField!
 
-//@IBOutlet weak var textFieldUserName: UITextField!
-//
-//let userNameSignalProducer = textFieldUserName.rac_textSignal().toSignalProducer.map { text in text as! String }
-//
-//
-//
-//userNameSignalProducer.startWithNext { results in
-//    print("User name:\(results)")
-//}
+let userNameSignalProducer = textFieldUserName.rac_textSignal().toSignalProducer.map {
+    text in
+    text as! String
+}
+
+
+userNameSignalProducer.startWithNext {
+    results in
+    print("User name:\(results)")
+}
+*/
