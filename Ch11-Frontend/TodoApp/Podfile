@@ -4,8 +4,8 @@ use_frameworks!
 target 'TodoApp' do
 	pod 'Alamofire', '~> 4.0'
 	pod 'Argo'
-        pod 'Curry'
-	pod 'ReactiveCocoa', '5.0.0-rc.1'
+    pod 'Curry'
+	pod 'ReactiveCocoa', '~> 5.0.0'
 	pod 'Delta', :git => "https://github.com/conqueror/Delta.git"
 end
 
