@@ -1,6 +1,7 @@
 /*: Markdown documentation
  
  ### Table of contents
+ * [Higher-Kinded Types](Higher-KindedTypes)
  * [map()](Map)
  * [flatMap()](FlatMap)
  * [flatten()](Flatten)

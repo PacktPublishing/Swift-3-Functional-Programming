@@ -16,13 +16,13 @@ if firstNumber == secondNumber {
     print("Two numbers are equal") // prints "Two numbers are equal\n"
 }
 
-let julie = User(name: "Julie")
-let steve = User(name: "Steve")
+let tarang = User(name: "Tarang")
+let sangeeth = User(name: "Sangeeth")
 
-if julie === steve {
+if tarang === sangeeth {
     print("Identical")
 } else {
-    print("Not identical")
+    print("Not identical") // prints "Not identical"
 }
 
 //: [Next](@next)

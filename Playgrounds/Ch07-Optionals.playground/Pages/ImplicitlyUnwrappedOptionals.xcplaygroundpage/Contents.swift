@@ -2,11 +2,11 @@
 
 import Foundation
 
-let dict = ["One": 1, "Two": 2, "Three": 3]
 
-let one = "One"
-let firstValue = dict["One"]
-let implictlyUnwrappedFirstValue: Int! = dict["One"]
+let optionalDict: Dictionary<String, Int>? = ["One": 1, "Two": 2, "Three": 3]
+let implicitlyUnwrappedDict: Dictionary<String, Int>! = ["One": 1, "Two": 2, "Three": 3]
 
+let firstValue = optionalDict?["One"]
+let implictlyUnwrappedFirstValue = implicitlyUnwrappedDict["One"]
 
 //: [Next](@next)

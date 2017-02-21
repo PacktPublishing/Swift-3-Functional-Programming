@@ -16,7 +16,8 @@ func formatWithCurrency(content: [String]) -> [String] {
 
 let formattedElements = formatWithCurrency(content: elements)
 
-let composedFunction = { data in
+let composedFunction = {
+    data in
     formatWithCurrency(content: extractElements(data))
 }
 
@@ -35,5 +36,5 @@ func |> <T, V>(f: @escaping (T) -> V, g: @escaping (V) -> V ) -> (T) -> V {
 
 let composedWithCustomOperator = extractElements |> formatWithCurrency
 composedWithCustomOperator("10,20,40,30,80,60")
-
+// The result will be: ["10$", "20$", "40$", "30$", "80$", "60$"]
 //: [Next](@next)

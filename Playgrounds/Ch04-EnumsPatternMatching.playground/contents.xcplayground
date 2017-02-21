@@ -3,6 +3,7 @@
     <pages>
         <page name='TableOfContents'/>
         <page name='Definition'/>
+        <page name='NestingContaining'/>
         <page name='AlgebraicDataTypes'/>
         <page name='PatternMatching'/>
         <page name='Patterns'/>

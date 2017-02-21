@@ -2,15 +2,20 @@
 
 import Foundation
 
-let twoDimensionalArray = [[1, 3, 5], [2, 4, 6]]
-let oneDimensionalArray = twoDimensionalArray.flatMap { $0 }
-oneDimensionalArray
+let twoDimArray = [[1, 3, 5], [2, 4, 6]]
+let oneDimArray = twoDimArray.flatMap { $0 }
+oneDimArray
 
-let transofrmedOneDimensionalArray = twoDimensionalArray.flatMap { $0.map { $0 + 2 } }
-transofrmedOneDimensionalArray
+let oneDimArray2 = twoDimArray.joined().map { $0 }
+oneDimArray2
 
-let threeDimensionalArray = [[1, [3, 5]], [2, [4, 6]]]
-let twoDimensionalArray2 = threeDimensionalArray.flatMap { $0 }
-twoDimensionalArray2
+
+let transofrmedOneDimArray = twoDimArray.flatMap { $0.map { $0 + 2 } }
+transofrmedOneDimArray
+
+
+let threeDimArray = [[1, [3, 5]], [2, [4, 6]]]
+let twoDimArray2 = threeDimArray.flatMap { $0 }
+twoDimArray2
 
 //: [Next](@next)

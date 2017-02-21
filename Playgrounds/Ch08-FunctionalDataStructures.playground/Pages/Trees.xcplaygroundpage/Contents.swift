@@ -5,7 +5,6 @@ import Foundation
 /// Tree
 
 //enum Tree<Element: Comparable> {
-//    case empty
 //    case leaf(Element)
 //    indirect case node(lhs: Tree, rhs: Tree)
 //}
@@ -106,7 +105,7 @@ let functionalBST = BinarySearchTree.node(lhs: BinarySearchTree.node(lhs: Binary
 
 let iFound = BinarySearchTree.contains(9, tree: functionalBST) // will return true
 print(isFound)
-print(functionalBST.size) // prints "2"
+print(functionalBST.size) // prints "3"
 print(functionalBST.elements)
 print(functionalBST.isEmpty)
 

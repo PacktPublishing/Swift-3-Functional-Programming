@@ -2,7 +2,7 @@
 
 import Foundation
 
-let name: String = "Your name"
+let name: String = "Grace"
 
 func sayHello(name: String) {
     print("Hello, \(name)")

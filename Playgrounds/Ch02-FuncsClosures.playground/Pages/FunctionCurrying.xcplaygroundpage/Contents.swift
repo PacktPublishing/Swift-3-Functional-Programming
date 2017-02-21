@@ -2,7 +2,7 @@
 
 import Foundation
 
-func extractFullUserName(firstName: String, lastName: String) -> String {
+func extractFullName(firstName: String, lastName: String) -> String {
     return "\(firstName) \(lastName)"
 }
 
@@ -23,7 +23,8 @@ func extractFullUserName(firstName: String, lastName: String) -> String {
 
 // Swift 3.0 syntax:
 func curried(x: Int) -> (String) -> Float {
-    return {(y: String) -> Float in
+    return {
+        (y: String) -> Float in
         return Float(x) + Float(y)!
     }
 }
@@ -31,7 +32,8 @@ func curried(x: Int) -> (String) -> Float {
 // Explicitly return closures
 
 func explicityRetunClosure(firstName: String) -> (String) -> String {
-    return { (lastName: String) -> String in
+    return {
+        (lastName: String) -> String in
         return "\(firstName) \(lastName)"
     }
 }

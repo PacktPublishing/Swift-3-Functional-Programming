@@ -8,6 +8,21 @@ post][tb-curry]
 
 [tb-curry]: https://robots.thoughtbot.com/introduction-to-function-currying-in-swift
 
+## Version Compatibility
+
+Note that we're aggressive about pushing `master` forward along with new
+versions of Swift. Therefore, we highly recommend against pointing at `master`,
+and instead using [one of the releases we've provided][releases].
+
+[releases]: https://github.com/thoughtbot/Curry/releases
+
+Here is the current Swift compatibility breakdown:
+
+| Swift Version | Curry Version |
+| ------------- | ------------- |
+| 3.X           | 3.X           |
+| 2.2, 2.3      | 2.X           |
+
 ## Installation ##
 
 ### [Carthage] ###
@@ -67,9 +82,9 @@ About
 Curry is maintained and funded by thoughtbot, inc. The names and logos for
 thoughtbot are trademarks of thoughtbot, inc.
 
-We love open source software! See [our other projects][community] or look at
-our product [case studies] and [hire us][hire] to help build your iOS app.
+We love open source software! See [our other projects][tools] or look at
+our product [case studies] and [hire us][hire] to help build your iOS app. We also have a collection of resources for [learning iOS development](https://thoughtbot.com/upcase/ios) at Upcase. 
 
-[community]: https://thoughtbot.com/community?utm_source=github
+[tools]: https://thoughtbot.com/tools
 [case studies]: https://thoughtbot.com/ios?utm_source=github
 [hire]: https://thoughtbot.com/hire-us?utm_source=github

@@ -16,7 +16,7 @@ struct UpdateTodoAction: ActionType {
             todo in
             guard todo == self.todo else { return todo }
             
-            return Todo(id: todo.id,
+            return Todo(todoId: todo.todoId,
                       name: self.todo.name,
                description: self.todo.description,
                      notes: self.todo.notes,

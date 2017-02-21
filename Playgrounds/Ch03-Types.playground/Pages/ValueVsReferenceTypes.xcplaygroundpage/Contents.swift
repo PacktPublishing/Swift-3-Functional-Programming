@@ -18,6 +18,7 @@ print("\(valueA.data), \(valueB.data)") // prints "5, 3"
 class ourClass {
     var data: Int = 3
 }
+
 var referenceA = ourClass()
 var referenceB = referenceA // referenceA is copied to referenceB
 referenceA.data = 5 // changes the instance referred to by referenceA and referenceB
@@ -32,18 +33,17 @@ class User {
     }
 }
 
-let julie = User(name: "Julie")
-let steve = User(name: "Steve")
+let grace = User(name: "Grace")
+let tamina = User(name: "Tamina")
 
 struct Student {
     var user: User
 }
 
-let student = Student(user:julie)
-// student.user = steve // compiler error - cannot assign to property: 'student' is a 'let' constant
+let student = Student(user: grace)
+// student.user = tamina // compiler error - cannot assign to property: 'student' is a 'let' constant
 
-steve.name = "Steve Jr."
-steve.name // prints "Steve Jr."
-
+tamina.name = "Su Tamina"
+print(tamina.name) // prints "Su Tamina"
 
 //: [Next](@next)

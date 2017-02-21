@@ -3,8 +3,8 @@
     <pages>
         <page name='TableOfContents'/>
         <page name='Definition'/>
-        <page name='FunctionTypes'/>
         <page name='NestedFunctions'/>
+        <page name='FunctionTypes'/>
         <page name='FirstClassFunctions'/>
         <page name='HigherOrderFunctions'/>
         <page name='FunctionComposition'/>

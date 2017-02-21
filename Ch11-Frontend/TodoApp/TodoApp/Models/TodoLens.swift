@@ -9,14 +9,14 @@
 import Foundation
 
 struct Lens<Whole, Part> {
-    let get: Whole -> Part
+    let get: (Whole) -> Part
     let set: (Part, Whole) -> Whole
 }
 
 let todoNameLens: Lens<Todo, String> = Lens(
     get: { $0.name},
     set: {
-        Todo(id: $1.id,
+        Todo(todoId: $1.todoId,
            name: $0,
     description: $1.description,
           notes: $1.notes,
@@ -28,7 +28,7 @@ let todoNameLens: Lens<Todo, String> = Lens(
 let todoDescriptionLens: Lens<Todo, String> = Lens(
     get: { $0.description},
     set: {
-        Todo(id: $1.id,
+        Todo(todoId: $1.todoId,
            name: $1.name,
     description: $0,
           notes: $1.notes,
@@ -40,7 +40,7 @@ let todoDescriptionLens: Lens<Todo, String> = Lens(
 let todoNotesLens: Lens<Todo, String> = Lens(
     get: { $0.notes!},
     set: {
-        Todo(id: $1.id,
+        Todo(todoId: $1.todoId,
            name: $1.name,
     description: $1.description,
           notes: $0,
@@ -52,7 +52,7 @@ let todoNotesLens: Lens<Todo, String> = Lens(
 let todoCompletedLens: Lens<Todo, Bool> = Lens(
     get: { $0.completed},
     set: {
-        Todo(id: $1.id,
+        Todo(todoId: $1.todoId,
            name: $1.name,
     description: $1.description,
           notes: $1.notes,
@@ -64,7 +64,7 @@ let todoCompletedLens: Lens<Todo, Bool> = Lens(
 let todoSyncedLens: Lens<Todo, Bool> = Lens(
     get: { $0.synced},
     set: {
-        Todo(id: $1.id,
+        Todo(todoId: $1.todoId,
            name: $1.name,
     description: $1.description,
           notes: $1.notes,

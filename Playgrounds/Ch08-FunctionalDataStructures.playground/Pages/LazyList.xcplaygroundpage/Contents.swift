@@ -6,7 +6,6 @@ import Foundation
 /// Lazy List
 
 /// Operator
-
 precedencegroup AssociativityRight {
     associativity: right
 }

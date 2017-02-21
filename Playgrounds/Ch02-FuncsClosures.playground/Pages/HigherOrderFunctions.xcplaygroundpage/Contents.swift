@@ -15,7 +15,7 @@ func square(a: Int) -> Int {
 }
 
 func triple(a: Int) -> Int {
-    return a * a * a // or return squareAValue(a) * a
+    return a * a * a // or return square(a) * a
 }
 
 func subtractTwoSquaredValues(a: Int, b: Int) -> Int {

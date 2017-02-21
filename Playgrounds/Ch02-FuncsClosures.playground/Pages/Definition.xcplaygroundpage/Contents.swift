@@ -2,18 +2,23 @@
 
 import Foundation
 
-class SomeClass {
-    func funcName(firstParam: String, secondParam: String) {
+class AClass {
+    func instanceMethod(param1: String, param2: String) {
+        // function body
+    }
+    
+    class func classMethod(param1: String, param2: String) {
         // function body
     }
 }
 
-//funcName(firstParam: "some String", secondParam: "some String")
+let aClassInstance = AClass()
+aClassInstance.instanceMethod(param1: "first string", param2: "second string")
+AClass.classMethod(param1: "first string", param2: "second string")
 
-let someClassInstance = SomeClass()
-let paramName = "parameter name"
-let secondParamName = "second Parameter"
-someClassInstance.funcName(firstParam: paramName, secondParam: secondParamName)
+
+
+//funcName(firstParam: "some String", secondParam: "some String")
 
 //func functionName(firstParameter: ParameterType, secondParameter:
 //    ParameterType) {
@@ -23,21 +28,21 @@ someClassInstance.funcName(firstParam: paramName, secondParam: secondParamName)
 //// To call:
 //functionName(firstParameter: paramName, secondParameter: secondParamName)
 
-class StaticClass {
-    class func funcName(firstParam: String, secondParam: String) {
-        // function body
-    }
+
+func functionName(externalParamName localParamName: String) {
+    
 }
 
-StaticClass.funcName(firstParam: paramName, secondParam: secondParamName)
+functionName(externalParamName: "")
+
 
 // Parameters with default values
 
-func functionName(parameter: Int = 3) {
-    print("\(parameter) is provided.")
+func functionName(param: Int = 3) {
+    print("\(param) is provided.")
 }
 
-functionName(parameter: 5) // prints “5 is provided.”
+functionName(param: 5) // prints “5 is provided.”
 functionName() // prints “3 is provided”
 
 // Parameters as Tuples - deprecated

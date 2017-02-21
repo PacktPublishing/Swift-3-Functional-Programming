@@ -21,7 +21,7 @@ class TodoTableViewCell: UITableViewCell {
         
         let attributes: [String : AnyObject]
         if todo.completed {
-            attributes = [NSStrikethroughStyleAttributeName: NSUnderlineStyle.StyleSingle.rawValue]
+            attributes = [NSStrikethroughStyleAttributeName: NSUnderlineStyle.styleSingle.rawValue as AnyObject]
         } else {
             attributes = [:]
         }
@@ -33,12 +33,13 @@ class TodoTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    override func setSelected(selected: Bool, animated: Bool) {
+    override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
     
-    func configure(todo: Todo) {
-        store.producerForTodo(todo).startWithNext { nextTodo in
+    func configure(_ todo: Todo) {
+        store.producerForTodo(todo).startWithValues {
+            nextTodo in
             self.todo = nextTodo
         }
     }
@@ -47,7 +48,7 @@ class TodoTableViewCell: UITableViewCell {
         guard let todo = todo else { return }
         
         textLabel?.attributedText = attributedText
-        accessoryType = todo.completed ? .Checkmark : .None
+        accessoryType = todo.completed ? .checkmark : .none
     }
 
 }

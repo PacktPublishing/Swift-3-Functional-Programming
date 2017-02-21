@@ -2,6 +2,8 @@
 
 import Foundation
 
+var anOptional: Optional<String>
+
 var optionalString: String? = "A String literal"
 
 // Unwrapping optionals
@@ -42,7 +44,7 @@ if let firstValue = dict["One"] {
 if let firstValue = dict["One"],
     let secondValue = dict["Two"],
     let thirdValue = dict["Three"] {
-    print("\(firstValue) \(secondValue) \(thirdValue)")
+    print("\(firstValue) \(secondValue) \(thirdValue)") // prints 1 2 3
 }
 
 //: [Next](@next)

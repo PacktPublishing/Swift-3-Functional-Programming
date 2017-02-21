@@ -35,23 +35,26 @@ enum Dimension {
     case metric(Double, Double)
 }
 
-//func convertDimension(dimension: Dimension) -> Dimension {
-//    switch dimension {
-//    case let .us(length, width):
-//        return .metric(length * 0.304, width * 0.304)
-//    case let .metric(length, width):
-//        return .us(length * 3.280, width * 3.280)
-//    }
-//}
-
-func convertDimension(dimension: Dimension) -> Dimension {
+func convert(dimension: Dimension) -> Dimension {
     switch dimension {
     case let .us(length, width):
         return .metric(length * 0.304, width * 0.304)
-    default:
-        return .us(0.0, 0.0)
+    case let .metric(length, width):
+        return .us(length * 3.280, width * 3.280)
     }
 }
 
-let convertedDimension = convertDimension(dimension: Dimension.metric(5.0, 4.0))
+let convertedDimension = convert(dimension: Dimension.metric(5.0, 4.0))
+print(convertedDimension)
+
+//func convert(dimension: Dimension) -> Dimension {
+//    switch dimension {
+//    case let .us(length, width):
+//        return .metric(length * 0.304, width * 0.304)
+//    default:
+//        return .us(0.0, 0.0)
+//    }
+//}
+
+
 //: [Next](@next)

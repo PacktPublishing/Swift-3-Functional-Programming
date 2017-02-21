@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/thoughtbot/Argo/gh-pages/Argo.png" width="250" />
+<img src="https://raw.githubusercontent.com/thoughtbot/Argo/master/web/Logo.png" width="250" />
 
 # Argo [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
@@ -13,8 +13,21 @@ _Argo_ is the Greek word for _swift_ and the name of the ship used by Jason, son
 of Aeson, of the Argonauts. Aeson is the JSON parsing library in Haskell that
 inspired Argo, much like Aeson inspired his son Jason.
 
-NOTE: For Swift 1.2 support, use the versions tagged 1.x.x. For Swift 1.1
-support, use the versions tagged 0.3.x. You can find those in the [releases].
+## Version Compatibility
+
+Note that we're aggressive about pushing `master` forward along with new
+versions of Swift. Therefore, we highly recommend against pointing at `master`,
+and instead using [one of the releases we've provided][releases].
+
+Here is the current Swift compatibility breakdown:
+
+| Swift Version | Argo Version |
+| ------------- | ------------ |
+| 3.X           | 4.X          |
+| 2.2, 2.3      | 3.X          |
+| 2.0, 2.1      | 2.X          |
+| 1.2 - 2.0     | 1.X          |
+| 1.1           | 0.3.X        |
 
 [releases]: https://github.com/thoughtbot/Argo/releases
 
@@ -34,6 +47,9 @@ Then run `carthage update`.
 
 Follow the current instructions in [Carthage's README][carthage-installation]
 for up to date installation instructions.
+
+Note that if you are using newer versions of Argo, you will need to link both
+`Argo.framework` and `Runes.framework` into your app.
 
 [carthage-installation]: https://github.com/Carthage/Carthage#adding-frameworks-to-an-application
 
@@ -62,13 +78,24 @@ I guess you could do it this way if that's your thing.
 Add this repo as a submodule, and add the project file to your workspace. You
 can then link against `Argo.framework` for your application target.
 
+You will need to do the same for [Runes] if you are using newer versions of
+Argo.
+
+[Runes]: https://github.com/thoughtbot/Runes
+
 ## Usage tl;dr:
 
-Please note: the example below requires an additional, external module named [Curry](https://github.com/thoughtbot/Curry) which lets us use the `curry` function to curry `User.init`.
+Please note: the example below requires an additional, external module named
+[Curry](https://github.com/thoughtbot/Curry) which lets us use the `curry`
+function to curry `User.init`.
+
+It also imports [Runes], which is a dependency of Argo in newer versions. If
+you are using an older version of Argo, you might not need that import.
 
 ```swift
 import Argo
 import Curry
+import Runes
 
 struct User {
   let id: Int
@@ -80,22 +107,22 @@ struct User {
 }
 
 extension User: Decodable {
-  static func decode(j: JSON) -> Decoded<User> {
+  static func decode(_ json: JSON) -> Decoded<User> {
     return curry(User.init)
-      <^> j <| "id"
-      <*> j <| "name"
-      <*> j <|? "email" // Use ? for parsing optional values
-      <*> j <| "role" // Custom types that also conform to Decodable just work
-      <*> j <| ["company", "name"] // Parse nested objects
-      <*> j <|| "friends" // parse arrays of objects
+      <^> json <| "id"
+      <*> json <| "name"
+      <*> json <|? "email" // Use ? for parsing optional values
+      <*> json <| "role" // Custom types that also conform to Decodable just work
+      <*> json <| ["company", "name"] // Parse nested objects
+      <*> json <|| "friends" // parse arrays of objects
   }
 }
 
 // Wherever you receive JSON data:
 
-let json: AnyObject? = try? NSJSONSerialization.JSONObjectWithData(data, options: [])
+let json: Any? = try? NSJSONSerialization.JSONObjectWithData(data, options: [])
 
-if let j: AnyObject = json {
+if let j: Any = json {
   let user: User? = decode(j)
 }
 ```

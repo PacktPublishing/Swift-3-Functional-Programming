@@ -43,7 +43,5 @@ enum HttpError: Int {
 }
 
 let possibleError = HttpError(rawValue: 400)
-print(possibleError)
+print(possibleError?.rawValue ?? 404) // prints 400
 
-
-//: [Next](@next)

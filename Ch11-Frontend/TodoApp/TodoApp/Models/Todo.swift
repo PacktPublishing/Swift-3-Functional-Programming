@@ -8,6 +8,7 @@
 
 import Argo
 import Curry
+import Runes
 
 enum TodoFilter: Int {
     case all
@@ -18,7 +19,7 @@ enum TodoFilter: Int {
 }
 
 struct Todo {
-    let id: Int
+    let todoId: Int
     let name: String
     let description: String
     let notes: String?
@@ -28,9 +29,9 @@ struct Todo {
 }
 
 extension Todo: Decodable {
-    static func decode(json: JSON) -> Decoded<Todo> {
+    static func decode(_ json: JSON) -> Decoded<Todo> {
         return curry(Todo.init)
-            <^> json <| "id"
+            <^> json <| "todoId"
             <*> json <| "name"
             <*> json <| "description"
             <*> json <|? "notes"
@@ -43,5 +44,5 @@ extension Todo: Decodable {
 extension Todo: Equatable {}
 
 func == (lhs: Todo, rhs: Todo) -> Bool {
-    return lhs.id == rhs.id
+    return lhs.todoId == rhs.todoId
 }

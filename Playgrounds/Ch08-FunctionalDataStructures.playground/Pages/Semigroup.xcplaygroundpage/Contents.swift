@@ -27,13 +27,17 @@ if numberA.operation(numberB.operation(numberC)) == (numberA.operation(numberB))
     print("Operation is associative")
 }
 
-infix operator <> { associativity left precedence 150 }
+precedencegroup AssociativityLeft {
+	associativity: left
+}
+
+infix operator <> : AssociativityLeft
 
 func <> <S: Semigroup> (x: S, y: S) -> S {
     return x.operation(y)
 }
 
-if numberA <> (numberB <> numberC) == (numberA <> numberB) <> numberC {
+if (numberA <> (numberB <> numberC)) == ((numberA <> numberB) <> numberC) {
     print("Operation is associative")
 }
 
@@ -52,15 +56,13 @@ extension String: Semigroup {
 }
 
 func sconcat <S: Semigroup> (initial: S, elements: [S]) -> S {
-    return elements.reduce(initial, combine: <>)
+    return elements.reduce(initial, <>)
 }
 
 print(sconcat(initial: 0, elements:[1, 2, 3])) // 6
 print(sconcat(initial: "", elements: ["A", "B", "C"])) // ABC
 print(sconcat(initial: [], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
-
 */
-
 
 precedencegroup AssociativityLeft {
     associativity: left
@@ -101,5 +103,6 @@ func sconcat <S: Semigroup> (initial: S, elements: [S]) -> S {
 print(sconcat(initial: 0, elements:[1, 2, 3])) // 6
 print(sconcat(initial: "", elements: ["A", "B", "C"])) // ABC
 print(sconcat(initial: [], elements: [[1, 2], [3, 4, 5]])) // [1, 2, 3, 4, 5]
+
 
 //: [Next](@next)

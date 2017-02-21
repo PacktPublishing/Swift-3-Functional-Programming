@@ -27,7 +27,8 @@ print(memo) // result: [2: 4, 3: 8, 4: 16]
 func memoize<T: Hashable, U>(fn: @escaping ((T) -> U, T) -> U) -> (T) -> U {
     var memo = Dictionary<T, U>()
     var result: ((T) -> U)!
-    result = { x in
+    result = {
+        x in
         if let q = memo[x] { return q }
         let r = fn(result, x)
         memo[x] = r
@@ -36,13 +37,15 @@ func memoize<T: Hashable, U>(fn: @escaping ((T) -> U, T) -> U) -> (T) -> U {
     return result
 }
 
-let factorial = memoize { factorial, x in
+let factorial = memoize {
+    factorial, x in
     x == 0 ? 1 : x * factorial(x - 1)
 }
 
 print(factorial(5))
 
-let powerOf2 = memoize { pow2, x in
+let powerOf2 = memoize {
+    pow2, x in
     x == 0 ? 1 : 2 * pow2(x - 1)
 }
 

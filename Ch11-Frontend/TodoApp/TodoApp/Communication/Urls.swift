@@ -19,21 +19,21 @@ enum Urls {
 }
 
 extension Urls {
-    func httpMethodUrl() -> (Alamofire.Method, String) {
+    func httpMethodUrl() -> (String, String) {
         let baseUrl = "http://localhost:8080/"
         switch self {
         case .postTodo:
-            return (.POST, "\(baseUrl)postTodo")
+            return ("POST", "\(baseUrl)postTodo")
         case .getTodos:
-            return (.GET, "\(baseUrl)todos")
+            return ("GET", "\(baseUrl)todos")
         case .getTodo:
-            return (.GET, "\(baseUrl)todo")
+            return ("GET", "\(baseUrl)todo")
         case .deleteTodo:
-            return (.DELETE, "\(baseUrl)deleteTodo")
+            return ("DELETE", "\(baseUrl)deleteTodo")
         case .deleteAll:
-            return (.DELETE, "\(baseUrl)deleteAll")
+            return ("DELETE", "\(baseUrl)deleteAll")
         case .update:
-            return (.POST, "\(baseUrl)updateTodo")
+            return ("POST", "\(baseUrl)updateTodo")
         }
     }
 }
