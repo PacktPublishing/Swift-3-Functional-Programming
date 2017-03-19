@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MasterViewController.swift
 //  TodoApp
 //
 //  Created by Fatih Nayebi on 2016-04-24.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UITableViewController {
+class MasterViewController: UITableViewController {
     
     @IBOutlet weak var filterSegmentedControl: UISegmentedControl!
     
@@ -30,7 +30,7 @@ class ViewController: UITableViewController {
             }
         }
         
-        filterSegmentedControl.addTarget(self, action: #selector(ViewController.filterValueChanged), for: .valueChanged)
+        filterSegmentedControl.addTarget(self, action: #selector(MasterViewController.filterValueChanged), for: .valueChanged)
         
         store.activeFilter.producer.startWithValues {
             filter in
@@ -57,7 +57,7 @@ class ViewController: UITableViewController {
 }
 
 // MARK: Actions
-extension ViewController {
+extension MasterViewController {
     @IBAction func addTapped(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: "Create",
                                                 message: "Create a new todo item",
@@ -109,7 +109,7 @@ extension ViewController {
 }
 
 // MARK: UITableViewController
-extension ViewController {
+extension MasterViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.todos.count
     }
@@ -156,8 +156,4 @@ extension ViewController {
         return true
     }
 }
-
-
-
-
 

@@ -5,20 +5,20 @@ struct CreateTodoAction: ActionType {
     let name: String
     let description: String
     let notes: String
-
+    
     var todo: Todo {
         return Todo(todoId: todoId,
-                  name: name,
-           description: description,
-                 notes: notes,
-             completed: false,
-                synced: false,
-              selected: false)
+                    name: name,
+                    description: description,
+                    notes: notes,
+                    completed: false,
+                    synced: false,
+                    selected: false)
     }
-
+    
     func reduce(state: State) -> State {
         state.todos.value = state.todos.value + [todo]
-
+        
         return state
     }
 }

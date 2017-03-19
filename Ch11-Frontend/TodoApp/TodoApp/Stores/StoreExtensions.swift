@@ -92,7 +92,7 @@ extension Store {
         return store.todos.producer.map {
             todos in
             return todos.filter { $0 == todo }.first
-        }.skipNil()
+            }.skipNil()
     }
 }
 

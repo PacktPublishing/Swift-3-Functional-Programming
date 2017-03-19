@@ -17,12 +17,12 @@ struct UpdateTodoAction: ActionType {
             guard todo == self.todo else { return todo }
             
             return Todo(todoId: todo.todoId,
-                      name: self.todo.name,
-               description: self.todo.description,
-                     notes: self.todo.notes,
-                 completed: self.todo.completed,
-                    synced: !todo.synced,
-                  selected: todo.selected)
+                        name: self.todo.name,
+                        description: self.todo.description,
+                        notes: self.todo.notes,
+                        completed: self.todo.completed,
+                        synced: !todo.synced,
+                        selected: todo.selected)
         }
         
         return state

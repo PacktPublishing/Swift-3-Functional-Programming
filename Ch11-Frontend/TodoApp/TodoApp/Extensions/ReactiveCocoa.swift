@@ -24,10 +24,6 @@ struct RAC {
         self.keyPath = keyPath
         self.nilValue = nilValue
     }
-    
-//    func assignSignal(_ signal : SignalProducer<AnyObject?, NSError>) {
-//        signal.setKeyPath(self.keyPath, onObject: self.target, nilValue: self.nilValue)
-//    }
 }
 
 //infix operator ~>

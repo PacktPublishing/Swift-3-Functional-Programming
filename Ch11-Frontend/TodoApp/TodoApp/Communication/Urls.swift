@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Alamofire
 
 enum Urls {
     case postTodo

@@ -11,7 +11,7 @@
 		3D3641281CCF039F00AC7609 /* Urls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3641271CCF039F00AC7609 /* Urls.swift */; };
 		3D36412A1CCF1CE000AC7609 /* TodoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3641291CCF1CE000AC7609 /* TodoManager.swift */; };
 		3D36412C1CCF803B00AC7609 /* TodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36412B1CCF803B00AC7609 /* TodoTableViewCell.swift */; };
-		3D36412E1CCF826D00AC7609 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36412D1CCF826D00AC7609 /* ViewController.swift */; };
+		3D36412E1CCF826D00AC7609 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D36412D1CCF826D00AC7609 /* MasterViewController.swift */; };
 		3D3641351CD3A62000AC7609 /* ClearCompletedTodosAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3641301CD3A62000AC7609 /* ClearCompletedTodosAction.swift */; };
 		3D3641361CD3A62000AC7609 /* CreateTodoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3641311CD3A62000AC7609 /* CreateTodoAction.swift */; };
 		3D3641371CD3A62000AC7609 /* DeleteTodoAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3641321CD3A62000AC7609 /* DeleteTodoAction.swift */; };
@@ -57,7 +57,7 @@
 		3D3641271CCF039F00AC7609 /* Urls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Urls.swift; sourceTree = "<group>"; };
 		3D3641291CCF1CE000AC7609 /* TodoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoManager.swift; sourceTree = "<group>"; };
 		3D36412B1CCF803B00AC7609 /* TodoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TodoTableViewCell.swift; sourceTree = "<group>"; };
-		3D36412D1CCF826D00AC7609 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3D36412D1CCF826D00AC7609 /* MasterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		3D3641301CD3A62000AC7609 /* ClearCompletedTodosAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClearCompletedTodosAction.swift; sourceTree = "<group>"; };
 		3D3641311CD3A62000AC7609 /* CreateTodoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateTodoAction.swift; sourceTree = "<group>"; };
 		3D3641321CD3A62000AC7609 /* DeleteTodoAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeleteTodoAction.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 		3D3898A51CCDB3890046F80D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				3D36412D1CCF826D00AC7609 /* ViewController.swift */,
+				3D36412D1CCF826D00AC7609 /* MasterViewController.swift */,
 				3D3641491CD3E49300AC7609 /* DetailsViewController.swift */,
 			);
 			path = Controllers;
@@ -488,7 +488,7 @@
 				3D3641281CCF039F00AC7609 /* Urls.swift in Sources */,
 				3D36414A1CD3E49300AC7609 /* DetailsViewController.swift in Sources */,
 				3D36412A1CCF1CE000AC7609 /* TodoManager.swift in Sources */,
-				3D36412E1CCF826D00AC7609 /* ViewController.swift in Sources */,
+				3D36412E1CCF826D00AC7609 /* MasterViewController.swift in Sources */,
 				3D3641501CD41BE800AC7609 /* UpdateTodoAction.swift in Sources */,
 				3D389BF51CCE9D1300170A57 /* State.swift in Sources */,
 				3D3641391CD3A62000AC7609 /* ToggleCompletedAction.swift in Sources */,

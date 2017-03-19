@@ -40,7 +40,6 @@ final class Todo: Model {
         self.synced = synced
     }
     
-    
     func makeNode(context: Context) throws -> Node {
         return try Node(node: [
             "id": id,

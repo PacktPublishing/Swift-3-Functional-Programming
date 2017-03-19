@@ -9,7 +9,7 @@
 import UIKit
 
 class TodoTableViewCell: UITableViewCell {
-
+    
     var todo: Todo? {
         didSet {
             updateUI()
@@ -32,7 +32,7 @@ class TodoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -50,5 +50,4 @@ class TodoTableViewCell: UITableViewCell {
         textLabel?.attributedText = attributedText
         accessoryType = todo.completed ? .checkmark : .none
     }
-
 }

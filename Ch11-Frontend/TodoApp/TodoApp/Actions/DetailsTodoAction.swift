@@ -16,21 +16,21 @@ struct DetailsTodoAction: ActionType {
             guard todo == self.todo else {
                 
                 return Todo(todoId: todo.todoId,
-                          name: todo.name,
-                   description: todo.description,
-                         notes: todo.notes,
-                     completed: todo.completed,
-                        synced: todo.synced,
-                      selected: false)
+                            name: todo.name,
+                            description: todo.description,
+                            notes: todo.notes,
+                            completed: todo.completed,
+                            synced: todo.synced,
+                            selected: false)
             }
             
             return Todo(todoId: self.todo.todoId,
-                      name: self.todo.name,
-               description: self.todo.description,
-                     notes: self.todo.notes,
-                 completed: self.todo.completed,
-                    synced: self.todo.synced,
-                  selected: true)
+                        name: self.todo.name,
+                        description: self.todo.description,
+                        notes: self.todo.notes,
+                        completed: self.todo.completed,
+                        synced: self.todo.synced,
+                        selected: true)
         }
         
         return state

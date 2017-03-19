@@ -9,8 +9,8 @@
 import Alamofire
 
 func sendRequest(_ url: Urls,
-             request: RequestProtocol,
-          completion: @escaping (_ responseData: AnyObject?, _ error: Error?) -> Void) {
+                 request: RequestProtocol,
+                 completion: @escaping (_ responseData: AnyObject?, _ error: Error?) -> Void) {
     // Add headers
     let headers = configureHeaders(request)
     // Get request method and full url
@@ -22,7 +22,6 @@ func sendRequest(_ url: Urls,
     // Fetch request
     let manager = Alamofire.SessionManager.default
     manager.request(urlRequest as URLRequestConvertible)
-    //manager.request(urlAddress, method: method, parameters: nil, encoding: .json, headers: headers)
         .validate()
         .responseJSON {
             response in

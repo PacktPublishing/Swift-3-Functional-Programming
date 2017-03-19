@@ -11,11 +11,11 @@ import Argo
 
 func addTodo(_ completion:@escaping (_ responseData: [Todo]?, _ error: Error?) -> Void) {
     let newRequest = TodoRequest(todoId: 1,
-                               name: "Saturday Grocery",
-                        description: "Bananas, Pineapple, Beer, Orange juice, ...",
-                              notes: "Cehck expiry date of orange juice",
-                          completed: false,
-                             synced: true)
+                                 name: "Saturday Grocery",
+                                 description: "Bananas, Pineapple, Beer, Orange juice, ...",
+                                 notes: "Cehck expiry date of orange juice",
+                                 completed: false,
+                                 synced: true)
     
     sendRequest(Urls.postTodo, request: newRequest) {
         (response, error) in
@@ -47,11 +47,11 @@ func listTodos(_ completion:@escaping  (_ responseData:[Todo]?, _ error: Error?)
 func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
         let newRequest = TodoRequest(todoId: todoItem.todoId,
-                                   name: todoItem.name,
-                            description: todoItem.description,
-                                  notes: todoItem.notes!,
-                              completed: todoItem.completed,
-                                 synced: true)
+                                     name: todoItem.name,
+                                     description: todoItem.description,
+                                     notes: todoItem.notes!,
+                                     completed: todoItem.completed,
+                                     synced: true)
         
         sendRequest(Urls.postTodo, request: newRequest) {
             (response, error) in
@@ -72,11 +72,11 @@ func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo
 func updateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _ error: Error?) -> Void) {
     if let todoItem = todo?.first {
         let newRequest = TodoRequest(todoId: todoItem.todoId,
-                                   name: todoItem.name,
-                            description: todoItem.description,
-                                  notes: todoItem.notes!,
-                              completed: todoItem.completed,
-                                 synced: true)
+                                     name: todoItem.name,
+                                     description: todoItem.description,
+                                     notes: todoItem.notes!,
+                                     completed: todoItem.completed,
+                                     synced: true)
         
         sendRequest(Urls.update, request: newRequest) {
             (response, error) in
