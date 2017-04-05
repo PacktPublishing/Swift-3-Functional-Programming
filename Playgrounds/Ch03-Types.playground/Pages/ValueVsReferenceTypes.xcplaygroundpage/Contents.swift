@@ -4,22 +4,22 @@ import Foundation
 
 // struct with copying behavior
 
-struct ourStruct {
+struct OurStruct {
     var data: Int = 3
 }
 
-var valueA = ourStruct()
+var valueA = OurStruct()
 var valueB = valueA // valueA is copied to valueB
 valueA.data = 5 // Changes valueA, not valueB
 print("\(valueA.data), \(valueB.data)") // prints "5, 3"
 
 // class with referencing behavior
 
-class ourClass {
+class OurClass {
     var data: Int = 3
 }
 
-var referenceA = ourClass()
+var referenceA = OurClass()
 var referenceB = referenceA // referenceA is copied to referenceB
 referenceA.data = 5 // changes the instance referred to by referenceA and referenceB
 print("\(referenceA.data), \(referenceB.data)") // prints "5, 5"
