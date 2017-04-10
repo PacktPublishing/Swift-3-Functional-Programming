@@ -28,6 +28,11 @@ extension Reactive where Base: UITextField {
 		return makeBindingTarget { $0.attributedText = $1 }
 	}
 	
+	/// Sets the textColor of the text field.
+	public var textColor: BindingTarget<UIColor> {
+		return makeBindingTarget { $0.textColor = $1 }
+	}
+	
 	/// A signal of attributed text values emitted by the text field upon end of editing.
 	///
 	/// - note: To observe attributed text values that change on all editing events,
@@ -41,5 +46,10 @@ extension Reactive where Base: UITextField {
 	/// - note: To observe attributed text values only when editing ends, see `attributedTextValues`.
 	public var continuousAttributedTextValues: Signal<NSAttributedString?, NoError> {
 		return controlEvents(.editingChanged).map { $0.attributedText }
+	}
+
+	/// Sets the secure text entry attribute on the text field.
+	public var isSecureTextEntry: BindingTarget<Bool> {
+		return makeBindingTarget { $0.isSecureTextEntry = $1 }
 	}
 }

@@ -22,10 +22,10 @@ func addTodo(_ completion:@escaping (_ responseData: [Todo]?, _ error: Error?) -
         if error == nil {
             let todos: [Todo]? = decode(response!)
             completion(todos, nil)
-            print("request was successfull: \(todos)")
+            print("request was successfull: \(String(describing: todos))")
         } else {
             completion(nil, error)
-            print("Error: \(error?.localizedDescription)")
+            print("Error: \(String(describing: error?.localizedDescription))")
         }
     }
 }
@@ -36,10 +36,10 @@ func listTodos(_ completion:@escaping  (_ responseData:[Todo]?, _ error: Error?)
         if error == nil {
             let todos: [Todo]? = decode(response!)
             completion(todos, nil)
-            print("request was successfull: \(todos)")
+            print("request was successfull: \(String(describing: todos))")
         } else {
             completion(nil, error)
-            print("Error: \(error?.localizedDescription)")
+            print("Error: \(String(describing: error?.localizedDescription))")
         }
     }
 }
@@ -60,10 +60,10 @@ func addOrUpdateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo
                 let newTodo = todoSyncedLens.set(true, todoItem)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
                 completion(todos, nil)
-                print("request was successfull: \(todos)")
+                print("request was successfull: \(String(describing: todos))")
             } else {
                 completion(nil, error)
-                print("Error: \(error?.localizedDescription)")
+                print("Error: \(String(describing: error?.localizedDescription))")
             }
         }
     }
@@ -85,10 +85,10 @@ func updateTodo(_ todo: [Todo]?, completion:@escaping (_ responseData:[Todo]?, _
                 let newTodo = todoSyncedLens.set(true, todoItem)
                 store.dispatch(UpdateTodoAction(todo: newTodo))
                 completion(todos, nil)
-                print("request was successfull: \(todos)")
+                print("request was successfull: \(String(describing: todos))")
             } else {
                 completion(nil, error)
-                print("Error: \(error?.localizedDescription)")
+                print("Error: \(String(describing: error?.localizedDescription))")
             }
         }
         

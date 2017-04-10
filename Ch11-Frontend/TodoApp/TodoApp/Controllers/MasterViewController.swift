@@ -26,7 +26,7 @@ class MasterViewController: UITableViewController {
             if error == nil {
                 store.dispatch(LoadTodosAction(todos: response!))
             } else {
-                print("Error: \(error?.localizedDescription)")
+                print("Error: \(String(describing: error?.localizedDescription))")
             }
         }
         
@@ -49,7 +49,7 @@ class MasterViewController: UITableViewController {
                 if error == nil {
                     print("Success")
                 } else {
-                    print("Error: \(error?.localizedDescription)")
+                    print("Error: \(String(describing: error?.localizedDescription))")
                 }
             }
         }

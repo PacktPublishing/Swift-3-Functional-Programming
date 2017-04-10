@@ -313,13 +313,24 @@ public final class Signal<Value, Error: Swift.Error> {
 			return ActionDisposable { [weak self] in
 				if let s = self {
 					s.updateLock.lock()
+
 					if case let .alive(snapshot) = s.state {
 						var observers = snapshot.observers
 						observers.remove(using: token)
-						s.state = .alive(AliveState(observers: observers,
-						                            retaining: observers.isEmpty ? nil : self))
+
+						// Ensure the old signal state snapshot does not deinitialize before
+						// `updateLock` is released. Otherwise, it might result in a
+						// deadlock in cases where a `Signal` legitimately receives terminal
+						// events recursively as a result of the deinitialization of the
+						// snapshot.
+						withExtendedLifetime(snapshot) {
+							s.state = .alive(AliveState(observers: observers,
+							                            retaining: observers.isEmpty ? nil : self))
+							s.updateLock.unlock()
+						}
+					} else {
+						s.updateLock.unlock()
 					}
-					s.updateLock.unlock()
 				}
 			}
 		} else {
@@ -549,6 +560,28 @@ extension SignalProtocol {
 		}
 	}
 
+	/// Maps each value in the signal to a new value, lazily evaluating the
+	/// supplied transformation on the specified scheduler.
+	///
+	/// - important: Unlike `map`, there is not a 1-1 mapping between incoming
+	///              values, and values sent on the returned signal. If
+	///              `scheduler` has not yet scheduled `transform` for
+	///              execution, then each new value will replace the last one as
+	///              the parameter to `transform` once it is finally executed.
+	///
+	/// - parameters:
+	///   - transform: The closure used to obtain the returned value from this
+	///                signal's underlying value.
+	///
+	/// - returns: A signal that sends values obtained using `transform` as this 
+	///            signal sends values.
+	public func lazyMap<U>(on scheduler: Scheduler, transform: @escaping (Value) -> U) -> Signal<U, Error> {
+		return flatMap(.latest) { value in
+			return SignalProducer({ transform(value) })
+				.start(on: scheduler)
+		}
+	}
+
 	/// Preserve only the values of the signal that pass the given predicate.
 	///
 	/// - parameters:
@@ -571,6 +604,31 @@ extension SignalProtocol {
 			}
 		}
 	}
+	
+	/// Applies `transform` to values from `signal` and forwards values with non `nil` results unwrapped.
+	/// - parameters:
+	///   - transform: A closure that accepts a value from the `value` event and
+	///                returns a new optional value.
+	///
+	/// - returns: A signal that will send new values, that are non `nil` after the transformation.
+	public func filterMap<U>(_ transform: @escaping (Value) -> U?) -> Signal<U, Error> {
+		return Signal { observer in
+			return self.observe { (event: Event<Value, Error>) -> Void in
+				switch event {
+				case let .value(value):
+					if let mapped = transform(value) {
+						observer.send(value: mapped)
+					}
+				case let .failed(error):
+					observer.send(error: error)
+				case .completed:
+					observer.sendCompleted()
+				case .interrupted:
+					observer.sendInterrupted()
+				}
+			}
+		}
+	}
 }
 
 extension SignalProtocol where Value: OptionalProtocol {
@@ -579,7 +637,7 @@ extension SignalProtocol where Value: OptionalProtocol {
 	///
 	/// - returns: A signal that sends only non-nil values.
 	public func skipNil() -> Signal<Value.Wrapped, Error> {
-		return filter { $0.optional != nil }.map { $0.optional! }
+		return filterMap { $0.optional }
 	}
 }
 
@@ -822,7 +880,7 @@ extension SignalProtocol {
 	///   - scheduler: A scheduler to deliver events on.
 	///
 	/// - returns: A signal that will yield `self` values on provided scheduler.
-	public func observe(on scheduler: SchedulerProtocol) -> Signal<Value, Error> {
+	public func observe(on scheduler: Scheduler) -> Signal<Value, Error> {
 		return Signal { observer in
 			return self.observe { event in
 				scheduler.schedule {
@@ -880,6 +938,9 @@ extension SignalProtocol {
 	/// - note: If either signal is interrupted, the returned signal will also
 	///         be interrupted.
 	///
+	/// - note: The returned signal will not complete until both inputs
+	///         complete.
+	///
 	/// - parameters:
 	///   - otherSignal: A signal to combine `self`'s value with.
 	///
@@ -913,13 +974,15 @@ extension SignalProtocol {
 	/// - note: failed and `interrupted` events are always scheduled
 	///         immediately.
 	///
+	/// - precondition: `interval` must be non-negative number.
+	///
 	/// - parameters:
 	///   - interval: Interval to delay `value` and `completed` events by.
 	///   - scheduler: A scheduler to deliver delayed events on.
 	///
 	/// - returns: A signal that will delay `value` and `completed` events and
 	///            will yield them on given scheduler.
-	public func delay(_ interval: TimeInterval, on scheduler: DateSchedulerProtocol) -> Signal<Value, Error> {
+	public func delay(_ interval: TimeInterval, on scheduler: DateScheduler) -> Signal<Value, Error> {
 		precondition(interval >= 0)
 
 		return Signal { observer in
@@ -941,6 +1004,8 @@ extension SignalProtocol {
 	}
 
 	/// Skip first `count` number of values then act as usual.
+	///
+	/// - precondition: `count` must be non-negative number.
 	///
 	/// - parameters:
 	///   - count: A number of values to skip.
@@ -1261,7 +1326,12 @@ extension SignalProtocol {
 	///
 	/// - returns: A signal that will deliver events until `lifetime` ends.
 	public func take(during lifetime: Lifetime) -> Signal<Value, Error> {
-		return take(until: lifetime.ended)
+		return Signal { observer in
+			let disposable = CompositeDisposable()
+			disposable += self.observe(observer)
+			disposable += lifetime.observeEnded(observer.sendCompleted)
+			return disposable
+		}
 	}
 
 	/// Forward events from `self` until `trigger` sends a `value` or
@@ -1430,8 +1500,7 @@ extension SignalProtocol {
 				}
 			}
 			.filter { !$0.repeated }
-			.map { $0.value }
-			.skipNil()
+			.filterMap { $0.value }
 	}
 
 	/// Do not forward any values from `self` until `predicate` returns false,
@@ -1652,20 +1721,29 @@ extension SignalProtocol {
 			return disposable
 		}
 	}
-
-	/// Throttle values sent by the receiver, so that at least `interval`
-	/// seconds pass between each, then forwards them on the given scheduler.
+	
+	/// Forward the latest value on `scheduler` after at least `interval`
+	/// seconds have passed since *the returned signal* last sent a value.
+	///
+	/// If `self` always sends values more frequently than `interval` seconds,
+	/// then the returned signal will send a value every `interval` seconds.
+	///
+	/// To measure from when `self` last sent a value, see `debounce`.
+	///
+	/// - seealso: `debounce`
 	///
 	/// - note: If multiple values are received before the interval has elapsed,
 	///         the latest value is the one that will be passed on.
 	///
-	/// - note: If the input signal terminates while a value is being throttled,
-	///         that value will be discarded and the returned signal will 
-	///         terminate immediately.
+	/// - note: If `self` terminates while a value is being throttled, that
+	///         value will be discarded and the returned signal will terminate
+	///         immediately.
 	///
-	/// - note: If the device time changed backwords before previous date while
+	/// - note: If the device time changed backwards before previous date while
 	///         a value is being throttled, and if there is a new value sent,
 	///         the new value will be passed anyway.
+	///
+	/// - precondition: `interval` must be non-negative number.
 	///
 	/// - parameters:
 	///   - interval: Number of seconds to wait between sent values.
@@ -1673,7 +1751,7 @@ extension SignalProtocol {
 	///
 	/// - returns: A signal that sends values at least `interval` seconds 
 	///            appart on a given scheduler.
-	public func throttle(_ interval: TimeInterval, on scheduler: DateSchedulerProtocol) -> Signal<Value, Error> {
+	public func throttle(_ interval: TimeInterval, on scheduler: DateScheduler) -> Signal<Value, Error> {
 		precondition(interval >= 0)
 
 		return Signal { observer in
@@ -1755,7 +1833,7 @@ extension SignalProtocol {
 	///   - scheduler: A scheduler to deliver events on.
 	///
 	/// - returns: A signal that sends values only while `shouldThrottle` is false.
-	public func throttle<P: PropertyProtocol>(while shouldThrottle: P, on scheduler: SchedulerProtocol) -> Signal<Value, Error>
+	public func throttle<P: PropertyProtocol>(while shouldThrottle: P, on scheduler: Scheduler) -> Signal<Value, Error>
 		where P.Value == Bool
 	{
 		return Signal { observer in
@@ -1822,17 +1900,26 @@ extension SignalProtocol {
 			return disposable
 		}
 	}
-
-	/// Debounce values sent by the receiver, such that at least `interval`
-	/// seconds pass after the receiver has last sent a value, then forward the
-	/// latest value on the given scheduler.
+	
+	/// Forward the latest value on `scheduler` after at least `interval`
+	/// seconds have passed since `self` last sent a value.
 	///
-	/// - note: If multiple values are received before the interval has elapsed, 
+	/// If `self` always sends values more frequently than `interval` seconds,
+	/// then the returned signal will never send any values.
+	///
+	/// To measure from when the *returned signal* last sent a value, see
+	/// `throttle`.
+	///
+	/// - seealso: `throttle`
+	///
+	/// - note: If multiple values are received before the interval has elapsed,
 	///         the latest value is the one that will be passed on.
 	///
 	/// - note: If the input signal terminates while a value is being debounced, 
 	///         that value will be discarded and the returned signal will 
 	///         terminate immediately.
+	///
+	/// - precondition: `interval` must be non-negative number.
 	///
 	/// - parameters:
 	///   - interval: A number of seconds to wait before sending a value.
@@ -1840,19 +1927,27 @@ extension SignalProtocol {
 	///
 	/// - returns: A signal that sends values that are sent from `self` at least
 	///            `interval` seconds apart.
-	public func debounce(_ interval: TimeInterval, on scheduler: DateSchedulerProtocol) -> Signal<Value, Error> {
+	public func debounce(_ interval: TimeInterval, on scheduler: DateScheduler) -> Signal<Value, Error> {
 		precondition(interval >= 0)
+
+		let d = SerialDisposable()
 		
-		return self
-			.materialize()
-			.flatMap(.latest) { event -> SignalProducer<Event<Value, Error>, NoError> in
-				if event.isTerminating {
-					return SignalProducer(value: event).observe(on: scheduler)
-				} else {
-					return SignalProducer(value: event).delay(interval, on: scheduler)
+		return Signal { observer in
+			return self.observe { event in
+				switch event {
+				case let .value(value):
+					let date = scheduler.currentDate.addingTimeInterval(interval)
+					d.inner = scheduler.schedule(after: date) {
+						observer.send(value: value)
+					}
+
+				case .completed, .failed, .interrupted:
+					d.inner = scheduler.schedule {
+						observer.action(event)
+					}
 				}
 			}
-			.dematerialize()
+		}
 	}
 }
 
@@ -1926,13 +2021,13 @@ private enum ThrottleWhileState<Value> {
 
 extension SignalProtocol {
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>) -> Signal<(Value, B), Error> {
 		return a.combineLatest(with: b)
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>) -> Signal<(Value, B, C), Error> {
 		return combineLatest(a, b)
 			.combineLatest(with: c)
@@ -1940,7 +2035,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>) -> Signal<(Value, B, C, D), Error> {
 		return combineLatest(a, b, c)
 			.combineLatest(with: d)
@@ -1948,7 +2043,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>) -> Signal<(Value, B, C, D, E), Error> {
 		return combineLatest(a, b, c, d)
 			.combineLatest(with: e)
@@ -1956,7 +2051,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E, F>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>, _ f: Signal<F, Error>) -> Signal<(Value, B, C, D, E, F), Error> {
 		return combineLatest(a, b, c, d, e)
 			.combineLatest(with: f)
@@ -1964,7 +2059,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E, F, G>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>, _ f: Signal<F, Error>, _ g: Signal<G, Error>) -> Signal<(Value, B, C, D, E, F, G), Error> {
 		return combineLatest(a, b, c, d, e, f)
 			.combineLatest(with: g)
@@ -1972,7 +2067,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E, F, G, H>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>, _ f: Signal<F, Error>, _ g: Signal<G, Error>, _ h: Signal<H, Error>) -> Signal<(Value, B, C, D, E, F, G, H), Error> {
 		return combineLatest(a, b, c, d, e, f, g)
 			.combineLatest(with: h)
@@ -1980,7 +2075,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E, F, G, H, I>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>, _ f: Signal<F, Error>, _ g: Signal<G, Error>, _ h: Signal<H, Error>, _ i: Signal<I, Error>) -> Signal<(Value, B, C, D, E, F, G, H, I), Error> {
 		return combineLatest(a, b, c, d, e, f, g, h)
 			.combineLatest(with: i)
@@ -1988,7 +2083,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`.
+	/// `combineLatest(with:)`.
 	public static func combineLatest<B, C, D, E, F, G, H, I, J>(_ a: Signal<Value, Error>, _ b: Signal<B, Error>, _ c: Signal<C, Error>, _ d: Signal<D, Error>, _ e: Signal<E, Error>, _ f: Signal<F, Error>, _ g: Signal<G, Error>, _ h: Signal<H, Error>, _ i: Signal<I, Error>, _ j: Signal<J, Error>) -> Signal<(Value, B, C, D, E, F, G, H, I, J), Error> {
 		return combineLatest(a, b, c, d, e, f, g, h, i)
 			.combineLatest(with: j)
@@ -1996,7 +2091,7 @@ extension SignalProtocol {
 	}
 
 	/// Combines the values of all the given signals, in the manner described by
-	/// `combineLatestWith`. No events will be sent if the sequence is empty.
+	/// `combineLatest(with:)`. No events will be sent if the sequence is empty.
 	public static func combineLatest<S: Sequence>(_ signals: S) -> Signal<[Value], Error>
 		where S.Iterator.Element == Signal<Value, Error>
 	{
@@ -2106,6 +2201,8 @@ extension SignalProtocol {
 	///         The signal must complete synchronously (or on a faster
 	///         scheduler) to avoid the timeout.
 	///
+	/// - precondition: `interval` must be non-negative number.
+	///
 	/// - parameters:
 	///   - error: Error to send with failed event if `self` is not completed
 	///            when `interval` passes.
@@ -2115,7 +2212,7 @@ extension SignalProtocol {
 	/// - returns: A signal that sends events for at most `interval` seconds,
 	///            then, if not `completed` - sends `error` with failed event
 	///            on `scheduler`.
-	public func timeout(after interval: TimeInterval, raising error: Error, on scheduler: DateSchedulerProtocol) -> Signal<Value, Error> {
+	public func timeout(after interval: TimeInterval, raising error: Error, on scheduler: DateScheduler) -> Signal<Value, Error> {
 		precondition(interval >= 0)
 
 		return Signal { observer in
@@ -2180,11 +2277,42 @@ extension SignalProtocol where Error == NoError {
 	public func timeout<NewError: Swift.Error>(
 		after interval: TimeInterval,
 		raising error: NewError,
-		on scheduler: DateSchedulerProtocol
+		on scheduler: DateScheduler
 	) -> Signal<Value, NewError> {
 		return self
 			.promoteErrors(NewError.self)
 			.timeout(after: interval, raising: error, on: scheduler)
+	}
+}
+
+extension SignalProtocol where Value == Bool {
+	/// Create a signal that computes a logical NOT in the latest values of `self`.
+	///
+	/// - returns: A signal that emits the logical NOT results.
+	public func negate() -> Signal<Value, Error> {
+		return self.map(!)
+	}
+	
+	/// Create a signal that computes a logical AND between the latest values of `self`
+	/// and `signal`.
+	///
+	/// - parameters:
+	///   - signal: Signal to be combined with `self`.
+	///
+	/// - returns: A signal that emits the logical AND results.
+	public func and(_ signal: Signal<Value, Error>) -> Signal<Value, Error> {
+		return self.combineLatest(with: signal).map { $0 && $1 }
+	}
+	
+	/// Create a signal that computes a logical OR between the latest values of `self`
+	/// and `signal`.
+	///
+	/// - parameters:
+	///   - signal: Signal to be combined with `self`.
+	///
+	/// - returns: A signal that emits the logical OR results.
+	public func or(_ signal: Signal<Value, Error>) -> Signal<Value, Error> {
+		return self.combineLatest(with: signal).map { $0 || $1 }
 	}
 }
 

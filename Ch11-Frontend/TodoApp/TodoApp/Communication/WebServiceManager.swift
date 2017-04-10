@@ -26,10 +26,10 @@ func sendRequest(_ url: Urls,
         .responseJSON {
             response in
             if (response.result.error == nil) {
-                debugPrint("HTTP Response Body: \(response.data)")
+                debugPrint("HTTP Response Body: \(String(describing: response.data))")
                 completion(response.result.value as AnyObject?, nil)
             } else {
-                debugPrint("HTTP Request failed: \(response.result.error)")
+                debugPrint("HTTP Request failed: \(String(describing: response.result.error))")
                 completion(nil, response.result.error)
             }
     }
