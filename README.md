@@ -15,3 +15,7 @@ Backend source code is compatible with `Vapor (Major: 1, Minor: 3)`.
 - [Reactive Programming with Swift](https://www.packtpub.com/application-development/reactive-programming-swift?utm_source=github&utm_medium=repository&utm_campaign=9781785884269)
 - [Swift 2 Cookbook](https://www.packtpub.com/application-development/swift-2-cookbook?utm_source=github&utm_medium=repository&utm_campaign=9781785889219)
 - [Learning Swift - Second Edition](https://www.packtpub.com/application-development/learning-swift-second-edition?utm_source=github&utm_medium=repository&utm_campaign=9781785887512) 
+### Download a free PDF
+
+ <i>If you have already purchased a print or Kindle version of this book, you can get a DRM-free PDF version at no cost.<br>Simply click on the link to download a free PDF copy of this book.</i>
+<p align="center"> <a href="https://packt.link/free-ebook/9781785883880">https://packt.link/free-ebook/9781785883880 </a> </p>
